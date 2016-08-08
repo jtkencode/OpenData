@@ -22,6 +22,12 @@ class Admin extends Main{
 		$this->global_data['title'] = "Dashboard";
 		$this->global_data['description'] = "Dashboard";
 
+		// Breadcumb
+		$this->global_data['breadcumb'][] = array(
+			'judul'	=> '<i class="fa fa-dashboard"></i> Dashboard',
+			'link'	=> ''
+		);
+
 		$this->tampilan('dashboard');
 	}
 

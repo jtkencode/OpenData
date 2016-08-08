@@ -34,8 +34,8 @@
 					<a href="<?php echo site_url('admin');?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
 				</li>
 				
-				<li<?php echo($active_menu=='film')? " class=\"active\"": "";?>>
-					<a href="<?php echo site_url('admin/film');?>"><i class="fa fa-film"></i> <span>Film</span></a>
+				<li<?php echo($active_menu=='jurusan')? " class=\"active\"": "";?>>
+					<a href="<?php echo site_url('admin/jurusan');?>"><i class="fa fa-film"></i> <span>Jurusan</span></a>
 				</li>
 
 				<li class="treeview<?php echo($active_menu=='akun' || $active_menu=='grup')? " active": "";?>">

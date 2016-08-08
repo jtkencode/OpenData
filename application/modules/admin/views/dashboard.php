@@ -6,10 +6,31 @@
 				<?php echo $title;?>
 				<small><?php echo $description;?></small>
 			</h1>
-			<ol class="breadcrumb">
-				<li><a href="<?php echo site_url('admin');?>"><i class="fa fa-dashboard"></i> <?php echo $title;?></a></li>
-				<li class="active">Here</li>
-			</ol>
+			<?php
+                            if(!empty($breadcumb)):
+                        ?>
+                            <ol class="breadcrumb">
+                        <?php
+                                foreach ($breadcumb as $breadcumb):
+                                    if(empty($breadcumb['link'])):
+                        ?>
+                                        <li class="active"><?php echo $breadcumb['judul'];?></li>
+                        <?php
+                                    else:
+                        ?>
+                                        <li>
+                                            <a href="<?php echo $breadcumb['link'];?>">
+                                                <?php echo $breadcumb['judul'];?>
+                                            </a>
+                                        </li>
+                        <?php
+                                    endif;
+                                endforeach;
+                        ?>
+                            </ol>
+                        <?php
+                            endif;
+                        ?>
 		</section>
 
 		<!-- Main content -->

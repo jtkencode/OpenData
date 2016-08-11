@@ -1,5 +1,7 @@
 <!-- Content Wrapper. Contains page content -->
+
 	<div class="content-wrapper">
+
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
@@ -37,6 +39,9 @@
 		<section class="content">
 			<div class="row">
 				<div class="col-xs-12">
+						<a class="btn btn-default btn-md" href="<?php echo base_url();?>admin/jurusan/addJurusan">
+							<i class="fa fa-plus"></i> Tambah
+						</a> <br></br>
 					<div class="box">
 						<div class="box-header with-border">
 							<h3 class="box-title">Daftar <?php echo $title;?></h3>
@@ -66,7 +71,9 @@
 										<a class="btn btn-default btn-xs" href="<?php echo $dataJurusan['href_edit'];?>">
 											<i class="fa fa-pencil"></i> Ubah
 										</a>
-										<button class="btn btn-xs btn-danger"><i class="fa fa-times"></i> Hapus</button>
+										<a class="btn btn-danger btn-xs" href="<?php echo $dataJurusan['href_delete'];?>"title="Hapus">
+											<i class="glyphicon glyphicon-trash"></i> Delete
+										</a>
 									</td>
 								</tr>
 								<?php
@@ -89,3 +96,7 @@
 			</div><!-- /.row -->
 		</section><!-- /.content -->
 	</div><!-- /.content-wrapper -->
+
+
+</body>
+</html>

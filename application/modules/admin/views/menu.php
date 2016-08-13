@@ -33,24 +33,32 @@
 				<li<?php echo($active_menu=='dashboard')? " class=\"active\"": "";?>>
 					<a href="<?php echo site_url('admin');?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
 				</li>
-				
-				<li<?php echo($active_menu=='jurusan')? " class=\"active\"": "";?>>
-					<a href="<?php echo site_url('admin/jurusan');?>"><i class="fa fa-film"></i> <span>Jurusan</span></a>
-				</li>
 
-				<li class="treeview<?php echo($active_menu=='akun' || $active_menu=='grup')? " active": "";?>">
-					<a href="#"><i class="fa fa-user"></i> <span>Akun</span> <i class="fa fa-angle-left pull-right"></i></a>
+				<li class="treeview<?php echo($active_menu=='jurusan' || $active_menu=='prodi')? " active": "";?>">
+					<a href="#"><i class="fa fa-graduation-cap"></i> <span>Jurusan</span> <i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
-						<li<?php echo($active_menu=='akun')? " class=\"active\"": "";?>>
-							<a href="<?php echo site_url('admin/akun');?>">Daftar Akun</a>
+						<li<?php echo($active_menu=='jurusan')? " class=\"active\"": "";?>>
+							<a href="<?php echo site_url('admin/jurusan');?>">Daftar Jurusan</a>
 						</li>
-						<li<?php echo($active_menu=='gruo')? " class=\"active\"": "";?>>
-							<a href="<?php echo site_url('admin/grup');?>">Grup</a>
+						<li<?php echo($active_menu=='prodi')? " class=\"active\"": "";?>>
+							<a href="<?php echo site_url('admin/prodi');?>">Daftar Prodi</a>
 						</li>
 					</ul>
 				</li>
 
-				<li class="treeview">
+				<li<?php echo($active_menu=='alumni')? " class=\"active\"": "";?>>
+					<a href="<?php echo site_url('admin/alumni');?>"><i class="fa fa-user"></i> <span>Alumni</span></a>
+				</li>
+
+				<li<?php echo($active_menu=='perusahaan')? " class=\"active\"": "";?>>
+					<a href="<?php echo site_url('admin/perusahaan');?>"><i class="fa fa-briefcase"></i> <span>Perusahaan</span></a>
+				</li>
+
+				<li<?php echo($active_menu=='user')? " class=\"active\"": "";?>>
+					<a href="<?php echo site_url('admin/user');?>"><i class="fa fa-user"></i> <span>Pengguna</span></a>
+				</li>
+
+				<!-- <li class="treeview">
 					<a href="#"><i class="fa fa-link"></i> <span>Shop</span> <i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li>
@@ -60,9 +68,10 @@
 							<a href="#">Link in level 2</a>
 						</li>
 					</ul>
-				</li>
+				</li> -->
+
 				<li>
-					<a href="<?php echo site_url('admin/pengaturan');?>"><i class="fa fa-gear"></i> <span>Pengaturan</span></a>
+					<a href="<?php echo site_url('admin/keluar');?>"><i class="fa fa-sign-out"></i> <span>Keluar</span></a>
 				</li>
 			</ul><!-- /.sidebar-menu -->
 		</section>

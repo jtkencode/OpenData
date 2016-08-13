@@ -2,12 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Main extends CI_Controller {
-	
+
 	/**
 		* @Author				: Localhost {Ferdhika Yudira}
 		* @Email				: fer@dika.web.id
 		* @Web					: http://dika.web.id
-		* @Date					: 2016-08-06 21:45:43
+		* @Date					: 2016-08-11 19:53:58
 	**/
 
 	function __construct(){
@@ -15,21 +15,22 @@ class Main extends CI_Controller {
 
 		// Cek login pengguna
 		if(!$this->session->userdata('isLogin')){
-			redirect('admin/auth');
+			redirect('alumni/auth');
 		}
 
 		// Cek hak akses
-		if($this->session->userdata('hak')!='admin'){
+		if($this->session->userdata('hak')!='alumni'){
 			$this->session->sess_destroy();
-			redirect('admin/auth');
+			redirect('alumni/auth');
 		}
 
 		// Load library
 		$library = array();
 		$this->load->library($library);
 
+
 		// Load model yng di butuhkan buat semua kontroller
-		$models = array();
+		$models = array('m_alumni');
 		$this->load->model($models);
 
 		// Var global
@@ -39,7 +40,7 @@ class Main extends CI_Controller {
 		$this->global_data['asset'] = base_url('assets').'/';
 
 		// akun info
-		// $this->global_data['akunInfo'] = $this->m_akun->ambilSatuUser(['users.id'=>$this->ion_auth->get_user_id()]);
+		$this->global_data['akunInfo'] = $this->m_alumni->ambilSatu(['ID_ALUMNI'=>$this->session->userdata('id')]);
 	}
 
 	protected function tampilan($view_name){

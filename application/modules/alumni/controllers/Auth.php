@@ -7,17 +7,17 @@ class Auth extends CI_Controller {
 		* @Author				: Localhost {Ferdhika Yudira}
 		* @Email				: fer@dika.web.id
 		* @Web					: http://dika.web.id
-		* @Date					: 2016-08-06 22:36:11
+		* @Date					: 2016-08-11 20:07:49
 	**/
 
 	function __construct(){
 		parent::__construct();
 
 		if($this->session->userdata('isLogin')){
-			redirect('admin');
+			redirect('alumni');
 		}
 
-		$this->load->model('m_user');
+		$this->load->model('m_alumni');
 		$this->load->library('form_validation');
 	}
 
@@ -37,15 +37,16 @@ class Auth extends CI_Controller {
 		if($this->form_validation->run() == true){
 			$dataLogin = $this->input->post('login');
 
-			$login = $this->m_user->auth($dataLogin);
+			$login = $this->m_alumni->auth($dataLogin);
 
 			if($login){
 				$this->session->set_userdata(array(
 					'isLogin'   => TRUE,
-					'hak'		=> 'admin',
-					'uname'  	=> $dataLogin['username'],
+					'hak'		=> 'alumni',
+					'uname'  	=> $login['USERNAME'],
+					'id'  		=> $login['ID_ALUMNI'],
 				));
-				redirect('admin');
+				redirect('alumni');
 			}else{
 				$data['message'] = "Gagal login";
 			}

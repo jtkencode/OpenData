@@ -11,5 +11,5 @@
 		'title' 	=> "OPENDATA POLBAN",
 		'footer' 	=> "2016 &copy; Open Data Politeknik Negeri Bandung.",
 
-		'jumlah_pagination' => 5
+		'jumlah_pagination' => 10
 	);

@@ -317,7 +317,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 'how';
 
 /*
 |--------------------------------------------------------------------------
@@ -445,7 +445,7 @@ $config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'csrf_dika';
 $config['csrf_cookie_name'] = 'csrf_cookie_dika';
 $config['csrf_expire'] = 7200;
-$config['csrf_regenerate'] = TRUE;
+$config['csrf_regenerate'] = FALSE;
 $config['csrf_exclude_uris'] = array();
 
 /*

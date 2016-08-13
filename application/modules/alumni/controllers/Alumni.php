@@ -13,7 +13,8 @@ class Alumni extends Main{
 
 	function __construct(){
 		parent::__construct();
-
+		
+		$this->load->model('m_perusahaan');
 	}
 
 	public function index(){
@@ -27,6 +28,9 @@ class Alumni extends Main{
 			'judul'	=> '<i class="fa fa-dashboard"></i> Dashboard',
 			'link'	=> ''
 		);
+
+		$this->global_data['perusahaan'] = $this->m_perusahaan->ambilSemua();
+		$this->global_data['historiPekerjaan'] = $this->m_alumni->ambilHistoriPekerjaan(array('ID_ALUMNI'=> $this->session->userdata('id')));
 
 		$this->tampilan('dashboard');
 	}

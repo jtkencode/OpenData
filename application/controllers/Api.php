@@ -13,6 +13,8 @@ class Api extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->tb_alumni = 'alumni';
+		$this->tb_prodi = 'program_studi';
+		$this->tb_jurusan = 'jurusan';
 		$this->tb_bekerja = 'bekerja';
 		$this->tb_perusahaan = 'perusahaan';
 	}
@@ -37,4 +39,145 @@ class Api extends CI_Controller {
 		$this->outputJson($query);
 	}
 
+	public function ambilSatuPekerjaan($id=0){
+		$query = $this->db->get_where($this->tb_bekerja,array('ID_BEKERJA'=>$id));
+		$query = $query->result_array();
+
+		if(!empty($query)){
+			$query = $query[0];
+		}
+
+		$this->outputJson($query);
+	}
+
+	public function tambahPekerjaan(){
+		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
+
+		@$user_id=$this->session->userdata('id');
+		@$id_perusahaan = $this->input->post('id_perusahaan');
+		@$jabatan = $this->input->post('jabatan');
+		@$thn_mulai = $this->input->post('thn_mulai');
+		@$thn_berhenti = $this->input->post('thn_berhenti');
+
+		if(!empty($jabatan)){
+			$data = array(
+				'ID_ALUMNI'			=> $user_id,
+				'ID_PERUSAHAAN'		=> $id_perusahaan,
+				'JABATAN_PEKERJAAN'	=> strip_tags($jabatan),
+				'TAHUN_MULAI'		=> $thn_mulai,
+				'TAHUN_BERHENTI'	=> $thn_berhenti,
+			);
+
+			$insert = $this->db->insert($this->tb_bekerja,$data);
+			$last_id = $this->db->insert_id();
+
+			if($insert){
+				$response = array('status'=>true, 'message'=>'Berhasil menambah pekerjaan.', 'id'=> $last_id);
+			}else{
+				$response = array('status'=>false, 'message'=>'Kesalahan database', 'id'=> 0);
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
+	public function ubahPekerjaan(){
+		$response = array('status'=>false, 'message'=>null);
+
+		@$id=$this->input->post('id');
+		@$id_perusahaan = $this->input->post('id_perusahaan');
+		@$jabatan = $this->input->post('jabatan');
+		@$thn_mulai = $this->input->post('thn_mulai');
+		@$thn_berhenti = $this->input->post('thn_berhenti');
+
+		if(!empty($id)){
+			$data = array(
+				'ID_PERUSAHAAN'		=> $id_perusahaan,
+				'JABATAN_PEKERJAAN'	=> strip_tags($jabatan),
+				'TAHUN_MULAI'		=> $thn_mulai,
+				'TAHUN_BERHENTI'	=> $thn_berhenti,
+			);
+
+			$cekKerja = $this->db->get_where($this->tb_bekerja,array(
+				'ID_ALUMNI' => $this->session->userdata('id'),
+				'ID_PERUSAHAAN' => $id_perusahaan, 
+				'TAHUN_MULAI' => $thn_mulai, 
+				'TAHUN_BERHENTI' => $thn_berhenti
+			))->result_array();
+
+			@$idna = $cekKerja[0]['ID_BEKERJA'];
+
+			if(empty($cekKerja) || $idna==$id){
+				$edit = $this->db->where('ID_BEKERJA', $id);
+				$edit = $this->db->update($this->tb_bekerja,$data);
+
+				if($edit){
+					$response = array('status'=>true, 'message'=>'Berhasil membuat perubahan pada pekerjaan.');
+				}else{
+					$response = array('status'=>false, 'message'=>'Kesalahan database');
+				}
+			}else{
+				$response = array('status'=>false, 'message'=>'Data sudah ada pada periode kerja di perusahaan tersebut.');
+			}
+		}
+		
+		$this->outputJson($response);
+	}
+
+	public function hapusPekerjaan(){
+		$response = array('status'=>false, 'message'=>null);
+
+		@$id=$this->input->post('id');
+
+		if(!empty($id)){
+			$cekKerja = $this->db->join($this->tb_perusahaan,$this->tb_perusahaan.'.ID_PERUSAHAAN='.$this->tb_bekerja.'.ID_PERUSAHAAN');
+			$cekKerja = $this->db->get_where($this->tb_bekerja,array('ID_BEKERJA' => $id))->result_array();
+
+			if(!empty($cekKerja)){
+				$hapus = $this->db->delete($this->tb_bekerja,array('ID_BEKERJA' => $id));
+
+				if($hapus){
+					$response = array('status'=>true, 'message'=>'Berhasil menghapus pekerjaan di perusahaan '.$cekKerja[0]['NAMA_PERUSAHAAN'].'.');
+				}else{
+					$response = array('status'=>false, 'message'=>'Kesalahan database');
+				}
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
+	public function getProdi(){
+		@$id = $this->input->get('id');
+
+		if(!empty($id)){
+			$prodi = $this->db->get_where($this->tb_prodi,array('ID_JURUSAN'=>$id));
+			$prodi = $prodi->result_array();
+
+			echo "<select name=\"prodi\" class=\"form-control\">";
+			foreach ($prodi as $p){
+				echo "<option value='".$p['ID_PRODI']."'>".$p['NAMA_PRODI']."</option>";
+			}
+			echo "</select>";
+		}
+	}
+
+	public function searchPerusahaan(){
+		$datana['suggestions']=array();
+		// tangkap variabel keyword dari URL
+		$keyword = $this->uri->segment(3);
+		// cari di database
+		$data = $this->db->like('NAMA_PERUSAHAAN',$keyword)->get($this->tb_perusahaan)->result_array();	
+
+		foreach ($data as $data) {
+			$datana['suggestions'][] = array(
+				'value'	=>$data['NAMA_PERUSAHAAN'],
+				'id'	=>$data['ID_PERUSAHAAN'],
+				'email'	=>$data['EMAIL_PERUSAHAAN']
+			);
+		}
+
+
+		$this->outputJson($datana);
+	}
 }

@@ -24,6 +24,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         -->
         <link rel="stylesheet" href="<?php echo $asset;?>/css/style.css">
 
+        <link rel="stylesheet" href="<?php echo $asset;?>js/jquery.autocomplete.css">
+
+        <!-- jQuery 2.1.4 -->
+        <script src="<?php echo $asset;?>plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        <script src="<?php echo $asset;?>js/jquery.autocomplete.js"></script>
+
         <?php
             if(isset($style)):
                 foreach ($style as $style):

@@ -13,6 +13,8 @@ class M_alumni extends CI_Model{
 	function __construct(){
 		parent::__construct();
 		$this->tb_alumni = 'alumni';
+		$this->tb_prodi = 'program_studi';
+		$this->tb_jurusan = 'jurusan';
 		$this->tb_bekerja = 'bekerja';
 		$this->tb_perusahaan = 'perusahaan';
 	}
@@ -26,8 +28,17 @@ class M_alumni extends CI_Model{
 		}
 	}
 
+	public function ubah($id=null,$ubah=array()){
+		$query = $this->db->update($this->tb_alumni, $ubah, array('ID_ALUMNI'=>$id));
+
+		return $query;
+	}
+
 	public function ambilSatu($info=array()){
-		$query = $this->db->get_where($this->tb_alumni,$info);
+		$query = $this->db->select("*, ".$this->tb_alumni.".ID_PRODI as idProdi, ".$this->tb_prodi.".ID_JURUSAN as idJurusan");
+		$query = $this->db->join($this->tb_jurusan,$this->tb_jurusan.'.ID_JURUSAN='.$this->tb_prodi.'.ID_JURUSAN');
+		$query = $this->db->join($this->tb_alumni,$this->tb_prodi.'.ID_PRODI='.$this->tb_alumni.'.ID_PRODI');
+		$query = $this->db->get_where($this->tb_prodi,$info);
 		$query = $query->result_array();
 
 		if(!empty($query)){
@@ -44,4 +55,17 @@ class M_alumni extends CI_Model{
 		return $query;
 	}
 
+	public function ambilSemuaProdiBy($jurusan_id=0){
+		$query = $this->db->get_where($this->tb_prodi,array('ID_JURUSAN'=>$jurusan_id));
+		$query = $query->result_array();
+
+		return $query;
+	}
+
+	public function ambilSemuaJurusan(){
+		$query = $this->db->get($this->tb_jurusan);
+		$query = $query->result_array();
+
+		return $query;
+	}
 }

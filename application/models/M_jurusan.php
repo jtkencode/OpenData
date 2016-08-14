@@ -1,8 +1,8 @@
-<?php  
+<?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class M_jurusan extends CI_Model{
-	
+
 	/**
 		* @Author				: Localhost {Ferdhika Yudira}
 		* @Email				: fer@dika.web.id
@@ -30,5 +30,32 @@ class M_jurusan extends CI_Model{
 
         return $query;
 	}
+
+
+				/* ibnu ali */
+
+				public function getData($id){
+					$this->db->where('ID_JURUSAN',$id);
+					$hasil = $this->db->get('jurusan');
+
+					return $hasil;
+				}
+			//insert
+				public function get_insert($data){
+			  	$this->db->insert($this->tb_jurusan,$data);
+					redirect('admin/jurusan');
+				}
+
+			//update
+				public function get_update($id,$data){
+						$this->db->where('ID_JURUSAN',$id);
+						$this->db->update('jurusan',$data);
+				}
+
+			//delete
+			public function get_delete($id){
+					$this->db->where('ID_JURUSAN',$id);
+					$this->db->delete('jurusan');
+			}
 
 }

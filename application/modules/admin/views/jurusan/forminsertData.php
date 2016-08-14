@@ -41,12 +41,13 @@
 				<div class="col-xs-12">
               <div class="well">
                   <form class="form-inline" role="form" id="frmadd" action="<?php echo base_url() ?>admin/jurusan/simpan" method="POST">
-                      <div class="form-group">
-                          <input type="text" name="idjurusan" class="form-control" placeholder="id Jurusan" value="<?php echo $idjurusan; ?>">
+											<div class="form-group">
+													<input type="text" name="namajurusan" class="form-control" placeholder="nama jurusan" value="<?php echo $namajurusan;?>">
+											</div>
+											<div class="form-group">
+                          <input type="hidden" name="idjurusan" class="form-control" placeholder="id Jurusan" value="<?php echo $idjurusan; ?>">
                       </div><br></br>
-                      <div class="form-group">
-                          <input type="text" name="namajurusan" class="form-control" placeholder="nama jurusan" value="<?php echo $namajurusan;?>">
-                      </div><br></br>
+
                       <div class="form-group">
                           <input type="submit" class="btn btn-success"  value="Submit">
                       </div>

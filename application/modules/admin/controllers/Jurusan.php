@@ -118,8 +118,8 @@ class Jurusan extends Main{
 
 	public function simpan(){
 		$id = $this->input->post('idjurusan');
-		$data['ID_JURUSAN'] = $this->input->post('idjurusan');
-		$data['NAMA_JURUSAN'] = $this->input->post('namajurusan');
+		$data = array('NAMA_JURUSAN'=>  $this->input->post('namajurusan'),
+								 );
 
 		$query = $this->m_jurusan->getData($id);
 

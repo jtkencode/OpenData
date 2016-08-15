@@ -39,9 +39,11 @@
 		<section class="content">
 			<div class="row">
 				<div class="col-xs-12">
+						<?php if($this->session->userdata('hak')=='admin'): ?>
 						<a class="btn btn-default btn-md" href="<?php echo base_url();?>admin/alumni/addAlumni">
 							<i class="fa fa-plus"></i> Tambah
 						</a> <br></br>
+						<?php endif;?>
 					<div class="box">
 						<div class="box-header with-border">
 							<h3 class="box-title">Daftar <?php echo $title;?></h3>
@@ -58,7 +60,9 @@
 									<th>NO HP</th>
 									<th>Alamat</th>
 									<th>Pekerjaan</th>
+									<?php if($this->session->userdata('hak')=='admin'): ?>
 									<th style="width: 10%">Aksi</th>
+									<?php endif; ?>
 								</tr>
 								<?php
 									if(!empty($dataAlumni)):
@@ -92,6 +96,7 @@
 									<td>
 										<?php echo $dataAlumni['pekerjaan'];?>
 									</td>
+									<?php if($this->session->userdata('hak')=='admin'): ?>
 									<td style="width: 20%">
 										<a class="btn btn-xs btn-primary" href="<?php echo $dataAlumni['href_view'];?>">
 											<i class="fa fa-eye"></i> Lihat
@@ -103,6 +108,7 @@
 											<i class="glyphicon glyphicon-trash"></i> Delete
 										</a>
 									</td>
+									<?php endif;?>
 								</tr>
 								<?php
 										endforeach;

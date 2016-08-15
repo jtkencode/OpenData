@@ -19,7 +19,7 @@ class Main extends CI_Controller {
 		}
 
 		// Cek hak akses
-		if($this->session->userdata('hak')!='admin'){
+		if($this->session->userdata('hak')=='alumni'){
 			$this->session->sess_destroy();
 			redirect('admin/auth');
 		}
@@ -29,7 +29,7 @@ class Main extends CI_Controller {
 		$this->load->library($library);
 
 		// Load model yng di butuhkan buat semua kontroller
-		$models = array();
+		$models = array('m_user');
 		$this->load->model($models);
 
 		// Var global
@@ -39,7 +39,7 @@ class Main extends CI_Controller {
 		$this->global_data['asset'] = base_url('assets').'/';
 
 		// akun info
-		// $this->global_data['akunInfo'] = $this->m_akun->ambilSatuUser(['users.id'=>$this->ion_auth->get_user_id()]);
+		$this->global_data['akunInfo'] = $this->m_user->ambilSatuUser(array('ID_USER'=> $this->session->userdata('id')));
 	}
 
 	protected function tampilan($view_name){

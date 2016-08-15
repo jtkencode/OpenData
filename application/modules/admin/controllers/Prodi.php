@@ -16,6 +16,10 @@ class Prodi extends Main{
 		// Load model
 		$this->load->model(array('m_prodi','m_jurusan'));
 
+		if($this->session->userdata('hak')!='admin'){
+			redirect('admin');
+		}
+
 		// Load libraries
 		$this->load->library('pagination');
 	}

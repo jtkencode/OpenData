@@ -6,11 +6,11 @@
 			<!-- Sidebar user panel (optional) -->
 			<div class="user-panel">
 				<div class="pull-left image">
-					<!-- <img src="<?php echo base_url('assets/upload/user/'.$akunInfo['photo']);?>" class="img-circle" alt="User Image"> -->
+					<img src="<?php echo base_url('assets/img/logo_polban.png');?>" class="img-circle" alt="User Image">
 				</div>
 
 				<div class="pull-left info">
-					<!-- <p><?php echo $akunInfo['first_name'].' '.$akunInfo['last_name'];?></p> -->
+					<p><?php echo $akunInfo['USERNAME'];?></p>
 					<!-- Status -->
 					<a href="<?php echo site_url('admin/profile');?>"><i class="fa fa-circle text-success"></i> Online</a>
 				</div>
@@ -34,6 +34,7 @@
 					<a href="<?php echo site_url('admin');?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
 				</li>
 
+				<?php if($this->session->userdata('hak')=='admin'): ?>
 				<li class="treeview<?php echo($active_menu=='jurusan' || $active_menu=='prodi')? " active": "";?>">
 					<a href="#"><i class="fa fa-graduation-cap"></i> <span>Jurusan</span> <i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
@@ -45,11 +46,13 @@
 						</li>
 					</ul>
 				</li>
+				<?php endif; ?>
 
 				<li<?php echo($active_menu=='alumni')? " class=\"active\"": "";?>>
 					<a href="<?php echo site_url('admin/alumni');?>"><i class="fa fa-user"></i> <span>Alumni</span></a>
 				</li>
 
+				<?php if($this->session->userdata('hak')=='admin'): ?>
 				<li<?php echo($active_menu=='perusahaan')? " class=\"active\"": "";?>>
 					<a href="<?php echo site_url('admin/perusahaan');?>"><i class="fa fa-briefcase"></i> <span>Perusahaan</span></a>
 				</li>
@@ -57,7 +60,7 @@
 				<li<?php echo($active_menu=='user')? " class=\"active\"": "";?>>
 					<a href="<?php echo site_url('admin/user');?>"><i class="fa fa-user"></i> <span>Pengguna</span></a>
 				</li>
-
+				<?php endif; ?>
 				<!-- <li class="treeview">
 					<a href="#"><i class="fa fa-link"></i> <span>Shop</span> <i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">

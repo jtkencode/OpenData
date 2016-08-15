@@ -113,16 +113,16 @@
 						<!-- Menu Toggle Button -->
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<!-- The user image in the navbar-->
-							<!-- <img src="<?php echo base_url('assets/upload/user/'.$akunInfo['photo']);?>" height="160px" width="160px" class="user-image" alt="User Image"> -->
+							<img src="<?php echo base_url('assets/img/logo_polban.png');?>" height="160px" width="160px" class="user-image" alt="User Image">
 							<!-- hidden-xs hides the username on small devices so only the image appears. -->
-							<!-- <span class="hidden-xs"><?php echo $akunInfo['first_name'].' '.$akunInfo['last_name'];?></span> -->
+							<span class="hidden-xs"><?php echo $akunInfo['USERNAME'];?></span>
 						</a>
 						<ul class="dropdown-menu">
 							<!-- The user image in the menu -->
 							<li class="user-header">
-								<!-- <img src="<?php echo base_url('assets/upload/user/'.$akunInfo['photo']);?>" class="img-circle" alt="User Image"> -->
+								<img src="<?php echo base_url('assets/img/logo_polban.png');?>" class="img-circle" alt="User Image">
 								<p>
-								<!-- <?php echo $akunInfo['first_name'].' '.$akunInfo['last_name'];?> -->
+								<?php echo $akunInfo['USERNAME'];?>
 								<!-- <small>Member since <?php echo gmdate("M. Y", $akunInfo['created_on']); ?></small> -->
 								</p>
 							</li>

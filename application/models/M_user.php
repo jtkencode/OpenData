@@ -12,16 +12,25 @@ class M_user extends CI_Model{
 
 	function __construct(){
 		parent::__construct();
+		$this->tb_user = 'user';
 	}
 
 	public function auth($info=array()){
-		$response = false;
+		$query = $this->db->get_where($this->tb_user, array('USERNAME'=> $info['username'], 'PASSWORD_USER'=>$info['password']));
+		$query = $query->result_array();
 
-		if($info['username']=='admin' && $info['password']=='admin'){
-			$response = true;
+		if(!empty($query)){
+			return $query[0];
 		}
+	}
 
-		return $response;
+	public function ambilSatuUser($where){
+		$query = $this->db->get_where($this->tb_user,$where);
+		$query = $query->result_array();
+
+		if(!empty($query)){
+			return $query[0];
+		}
 	}
 
 }

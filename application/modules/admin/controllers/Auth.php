@@ -39,11 +39,19 @@ class Auth extends CI_Controller {
 
 			$login = $this->m_user->auth($dataLogin);
 
-			if($login){
+			if(!empty($login)){
+				
+				if($login['STATUS']=='1'){
+					$stt = "admin";
+				}else{
+					$stt = "mahasiswa";
+				}
+
 				$this->session->set_userdata(array(
 					'isLogin'   => TRUE,
-					'hak'		=> 'admin',
-					'uname'  	=> $dataLogin['username'],
+					'hak'		=> $stt,
+					'uname'  	=> $login['USERNAME'],
+					'id'		=> $login['ID_USER']
 				));
 				redirect('admin');
 			}else{

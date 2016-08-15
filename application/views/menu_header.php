@@ -32,9 +32,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				    <span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu" aria-labelledby="logindown">
-				    <li><a href="#">Mhs Polban</a></li>
+				    <li><a href="<?php echo site_url('mahasiswa');?>">Mhs Polban</a></li>
 						<li role="separator" class="divider"></li>
-				    <li><a href="<?php base_url();?>alumni">Alumni</a></li>
+				    <li><a href="<?php echo site_url('alumni');?>">Alumni</a></li>
 				  </ul>
 				</div>
 		</li>

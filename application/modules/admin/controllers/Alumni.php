@@ -11,6 +11,7 @@ class Alumni extends Main{
 		parent::__construct();
 		$this->load->model('m_alumni');
 		$this->tb_prodi = 'program_studi';
+		$this->tb_alumni = 'alumni';
 		// Load libraries
 		$this->load->library('pagination');
 	}
@@ -24,7 +25,7 @@ class Alumni extends Main{
 		// Breadcumb
 		$this->global_data['breadcumb'][] = array(
 			'judul'	=> '<i class="fa fa-dashboard"></i> Alumni',
-			'link'	=> site_url('admin/jurusan')
+			'link'	=> site_url('admin/alumni')
 		);
 		$this->global_data['breadcumb'][] = array(
 			'judul'	=> 'Daftar Alumni',
@@ -71,7 +72,8 @@ class Alumni extends Main{
 			$this->global_data['dataAlumni'][] = array(
 				'no'			        => $no,
 				'id'			        => $result['ID_ALUMNI'],
-				'prodiAlumni'			=> $result['ID_PRODI'],
+				'namaProdi'			=> $result['NAMA_PRODI'],
+			//	'prodiAlumni'			=> $result['ID_PRODI'],
         'namaAlumni'			=> $result['NAMA_ALUMNI'],
         'tahunMasuk'			=> $result['TAHUN_MASUK'],
         'tahunKeluar'			=> $result['TAHUN_KELUAR'],
@@ -108,13 +110,16 @@ class Alumni extends Main{
 		$this->global_data['Prodi'] = $this->m_alumni->getProdi();
 
 
+		$this->global_data['idalumni'] = '';
 		$this->global_data['namaalumni'] = '';
-		$this->global_data['prodi'] = '';
+		$this->global_data['idprodi'] = '';
+		$this->global_data['namaprodi'] = '';
 		$this->global_data['tahunmasuk'] = '';
 		$this->global_data['tahunkeluar'] = '';
 		$this->global_data['emailalumni'] = '';
-		$this->global_data['nohp'] 				= '';
+		$this->global_data['nohp'] = '';
 		$this->global_data['alamatalumni'] = '';
+		$this->global_data['pekerjaan'] ='';
 
 		$this->global_data['csrf'] = array(
         'name' => $this->security->get_csrf_token_name(),
@@ -126,7 +131,7 @@ class Alumni extends Main{
 
 	public function simpan(){
 		$id = $this->input->post('idalumni');
-		$data = array('ID_PRODI'=>  $this->input->post('prodi'),
+		$data = array('ID_PRODI'=>  $this->input->post('idprodi'),
 									'NAMA_ALUMNI'=>  $this->input->post('namaalumni'),
 									'TAHUN_MASUK'=>  $this->input->post('tahunmasuk'),
 									'TAHUN_KELUAR'=>  $this->input->post('tahunkeluar'),
@@ -147,7 +152,7 @@ class Alumni extends Main{
 			$this->session->set_flashdata('info','data berhasil disimpan');
 		}
 
-		redirect('admin/jurusan');
+		redirect('admin/alumni');
 	}
 
 	public function editAlumni(){
@@ -169,13 +174,15 @@ class Alumni extends Main{
 		$this->global_data['Prodi'] = $this->m_alumni->getProdi();
 		$id = $this->uri->segment(4);
 		$this->db->where('ID_ALUMNI',$id);
-		$query=$this->db->get('alumni');
+		$query = $this->db->join($this->tb_prodi, $this->tb_alumni.'.ID_PRODI='.$this->tb_prodi.'.ID_PRODI');
+		$query = $this->db->get($this->tb_alumni);
 		if($query->num_rows()>0){
 			foreach ($query->result() as $row) {
 
 					$this->global_data['idalumni'] = $row->ID_ALUMNI;
 					$this->global_data['namaalumni'] = $row->NAMA_ALUMNI;
-					$this->global_data['namaprodi'] = $row->ID_PRODI;
+					$this->global_data['idprodi'] = $row->ID_PRODI;
+					$this->global_data['namaprodi'] = $row->NAMA_PRODI;
 					$this->global_data['tahunmasuk'] = $row->TAHUN_MASUK;
 					$this->global_data['tahunkeluar'] = $row->TAHUN_KELUAR;
 					$this->global_data['emailalumni'] = $row->EMAIL_ALUMNI;
@@ -187,15 +194,16 @@ class Alumni extends Main{
 		}
 		else{
 
-				$this->global_data['idalumni'] = '';
-				$this->global_data['namaalumni'] = '';
-				$this->global_data['prodi'] = '';
-				$this->global_data['tahunmasuk'] = '';
-				$this->global_data['tahunkeluar'] = '';
-				$this->global_data['emailalumni'] = '';
-				$this->global_data['nohp'] = '';
-				$this->global_data['alamatalumni'] = '';
-				$this->global_data['pekerjaan'] = '';
+			$this->global_data['idalumni'] = '';
+			$this->global_data['namaalumni'] = '';
+			$this->global_data['idprodi'] = '';
+			$this->global_data['namaprodi'] = '';
+			$this->global_data['tahunmasuk'] = '';
+			$this->global_data['tahunkeluar'] = '';
+			$this->global_data['emailalumni'] = '';
+			$this->global_data['nohp'] = '';
+			$this->global_data['alamatalumni'] = '';
+			$this->global_data['pekerjaan'] ='';
 
 		}
 

@@ -72,7 +72,7 @@
 										<?php echo $dataAlumni['namaAlumni'];?>
 									</td>
 									<td>
-										<?php echo $dataAlumni['prodiAlumni'];?>
+										<?php echo $dataAlumni['namaProdi'];?>
 									</td>
 									<td>
 										<?php echo $dataAlumni['tahunMasuk'];?>

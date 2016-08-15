@@ -23,6 +23,7 @@ class M_alumni extends CI_Model{
 	}
 
 	public function getAlumniPer($awal="",$akhir=""){
+		$query = $this->db->join($this->tb_prodi, $this->tb_alumni.'.ID_PRODI='.$this->tb_prodi.'.ID_PRODI');
 		$query = $this->db->get($this->tb_alumni,$awal,$akhir);
         $query = $query->result_array();
         return $query;

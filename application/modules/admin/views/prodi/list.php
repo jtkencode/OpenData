@@ -41,12 +41,6 @@
 						<div class="box-header with-border">
 							<h3 class="box-title">Daftar <?php echo $title;?></h3>
 							<div class="box-tools">
-								<div class="input-group">
-									<input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search by name">
-									<div class="input-group-btn">
-										<button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-									</div>
-								</div>
 							</div>
 						</div><!-- /.box-header -->
 						<br>
@@ -54,14 +48,14 @@
 							<div class="col-xs-6">
 								<select name="jurusan" class="form-control">
 									<option value="all">Semua</option>
-									<?php 
+									<?php
 									if(!empty($dataJurusan)):
-										foreach($dataJurusan as $dataJurusan): 
+										foreach($dataJurusan as $dataJurusan):
 									?>
 									<option value="<?php echo $dataJurusan['ID_JURUSAN'];?>">
 										<?php echo $dataJurusan['NAMA_JURUSAN'];?>
 									</option>
-									<?php 
+									<?php
 										endforeach;
 									else:
 									?>
@@ -100,6 +94,9 @@
 										</a> -->
 										<a class="btn btn-default btn-xs" href="<?php echo $dataProdi['href_edit'];?>">
 											<i class="fa fa-pencil"></i> Ubah
+										</a>
+										<a class="btn btn-danger btn-xs" href="<?php echo $dataProdi['href_delete'];?>"title="Hapus">
+											<i class="glyphicon glyphicon-trash"></i> Delete
 										</a>
 									</td>
 								</tr>

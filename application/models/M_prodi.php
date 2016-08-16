@@ -1,8 +1,8 @@
-<?php  
+<?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class M_prodi extends CI_Model{
-	
+
 	/**
 		* @Author				: Localhost {Ferdhika Yudira}
 		* @Email				: fer@dika.web.id
@@ -31,5 +31,42 @@ class M_prodi extends CI_Model{
 
         return $query;
 	}
+
+	/* ibnu ali */
+		public function getJurusan(){
+				 $query = $this->db->get($this->tb_jurusan);
+				 if ($query->num_rows() > 0) {
+						 return $query->result();
+				 }
+				 else{
+					 false;
+				 }
+		}
+
+		public function getData($id){
+			$this->db->where('ID_PRODI',$id);
+			$hasil = $this->db->get('program_studi');
+
+			return $hasil;
+		}
+	//insert
+		public function get_insert($data){
+			$this->db->insert($this->tb_prodi,$data);
+			redirect('admin/prodi');
+		}
+
+	//update
+		public function get_update($id,$data){
+				$this->db->where('ID_PRODI',$id);
+				$this->db->update('program_studi',$data);
+		}
+
+	//delete
+	public function get_delete($id){
+			$this->db->where('ID_PRODI',$id);
+			$this->db->delete('program_studi');
+	}
+
+
 
 }

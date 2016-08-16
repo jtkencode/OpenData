@@ -39,9 +39,19 @@
 		<section class="content">
 			<div class="row">
 				<div class="col-xs-12">
-						<a class="btn btn-default btn-md" href="<?php echo base_url();?>admin/jurusan/addJurusan">
-							<i class="fa fa-plus"></i> Tambah
-						</a> <br></br>
+            <div id="tambah">
+              <form class="form-inline" role="form" id="frmadd" action="<?php echo base_url() ?>admin/jurusan/simpan" method="POST">
+  						<a class="btn btn-default btn-md" >
+  							<i class="fa fa-plus"></i> Tambah
+  						</a>
+					 		<input id="namajurusan" type="hidden" name="namajurusan" class="form-control input-md" placeholder="nama jurusan">
+							<input type="hidden" name="idjurusan" class="form-control" placeholder="id Jurusan">
+							<input id="sbmt" type="hidden" class="btn btn-success"  value="add">
+							<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
+							<?php $this->session->set_flashdata('info','data berhasil diupdate'); ?>
+						</form><br>
+          </div>
+
 					<div class="box">
 						<div class="box-header with-border">
 							<h3 class="box-title">Daftar <?php echo $title;?></h3>

@@ -32,6 +32,27 @@
 		<script><?php echo $add_script;?></script>
 		<?php endif;?>
 
+		<script type="text/javascript">
+  	$(document).ready(function(){
+  	    $("#tambah").click(function(){
+  	        $("#namajurusan").attr("type","text");
+            $( "#namajurusan" ).animate({
+                marginLeft: "7.6in",
+            //    marginTop: "0.7in",
+                borderWidth: "1px"
+              }, 1500 );
+							$( "#tambah" ).animate({
+	                marginTop: "0.4in",
+	              }, 1500 );
+
+  	        $("#sbmt").attr("type","submit");
+            $( "#sbmt" ).animate({
+                marginLeft: "0.2in",
+              //  marginTop: "0.7in",
+              }, 1500 );
+  	    });
+  	});
+		</script>
 		<!-- Optionally, you can add Slimscroll and FastClick plugins.
 		Both of these plugins are recommended to enhance the
 		user experience. Slimscroll is required when using the

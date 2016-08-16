@@ -149,24 +149,35 @@ class Profile extends Main{
         		$foto = "upload/alumni/".$this->uploadz($this->session->userdata('uname')."_".date('Ymdhis'));
         	}
 
-        	$data = array(
-        		'ID_PRODI'		=> $prodi,
-        		'NAMA_ALUMNI'	=> $nama,
-        		'EMAIL_ALUMNI'	=> $email,
-        		'NO_HP'			=> $telp,
-        		'TAHUN_MASUK'	=> $thnMasuk,
-        		'TAHUN_KELUAR'	=> $thnKeluar,
-        		'ALAMAT_ALUMNI'	=> $alamat,
-        		'PEKERJAAN'		=> $pekerjaan,
-        		'FOTO'			=> $foto
-        	);
 
-        	$ubah = $this->m_alumni->ubah($this->session->userdata('id'),$data);
+        	if($thnMasuk<=$thnKeluar){
+        		$selisih = $thnKeluar-$thnMasuk;
+        		if($selisih == 4 || $selisih == 5){
+        			$data = array(
+		        		'ID_PRODI'		=> $prodi,
+		        		'NAMA_ALUMNI'	=> $nama,
+		        		'EMAIL_ALUMNI'	=> $email,
+		        		'NO_HP'			=> $telp,
+		        		'TAHUN_MASUK'	=> $thnMasuk,
+		        		'TAHUN_KELUAR'	=> $thnKeluar,
+		        		'ALAMAT_ALUMNI'	=> $alamat,
+		        		'PEKERJAAN'		=> $pekerjaan,
+		        		'FOTO'			=> $foto
+		        	);
 
-        	if($ubah){
-        		$this->session->set_flashdata('message','Berhasil merubah profil.');
-        		redirect('alumni/profile/ubah');
+		        	$ubah = $this->m_alumni->ubah($this->session->userdata('id'),$data);
+
+		        	if($ubah){
+		        		$this->session->set_flashdata('message','Berhasil merubah profil.');
+		        	}
+        		}else{
+        			$this->session->set_flashdata('message','Tidak mungkin anda lulus kurang dari 4 tahun atau lebih dari 5 tahun.');
+        		}
+        	}else{
+        		$this->session->set_flashdata('message','Tahun lulus anda mustahil.');
         	}
+
+        	redirect('alumni/profile/ubah');
         }else{
 			// Pesan validasi
 			$this->global_data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');

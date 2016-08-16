@@ -8,8 +8,9 @@
 	**/
 
 	$config = array(
-		'title' 	=> "OPENDATA POLBAN",
-		'footer' 	=> "2016 &copy; Open Data Politeknik Negeri Bandung.",
+		'title' 	=> "POLBAN OPENDATA 2016",
+		'deskripsi'	=> "Deskripsi",
+		'footer' 	=> "2016 &copy; HIMAKOM Politeknik Negeri Bandung.",
 
 		'jumlah_pagination' => 10
 	);

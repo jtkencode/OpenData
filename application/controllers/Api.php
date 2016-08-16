@@ -17,6 +17,7 @@ class Api extends CI_Controller {
 		$this->tb_jurusan = 'jurusan';
 		$this->tb_bekerja = 'bekerja';
 		$this->tb_perusahaan = 'perusahaan';
+		$this->tb_user = 'user';
 	}
 
 	private function outputJson($response=array(),$status=200){
@@ -26,6 +27,19 @@ class Api extends CI_Controller {
 		->set_output(json_encode($response, JSON_PRETTY_PRINT))
 		->_display();
 		exit();
+	}
+
+	public function ambilSatuUser($id=0){
+		$query = $this->db->join($this->tb_jurusan, $this->tb_prodi.'.ID_JURUSAN='.$this->tb_jurusan.'.ID_JURUSAN');
+		$query = $this->db->join($this->tb_user, $this->tb_prodi.'.ID_PRODI='.$this->tb_user.'.ID_PRODI');
+		$query = $this->db->get_where($this->tb_prodi,array('ID_USER'=>$id));
+		$query = $query->result_array();
+
+		if(!empty($query)){
+			$query = $query[0];
+		}
+
+		$this->outputJson($query);
 	}
 
 	public function ambilSatuPerusahaan($id=0){
@@ -138,6 +152,28 @@ class Api extends CI_Controller {
 
 				if($hapus){
 					$response = array('status'=>true, 'message'=>'Berhasil menghapus pekerjaan di perusahaan '.$cekKerja[0]['NAMA_PERUSAHAAN'].'.');
+				}else{
+					$response = array('status'=>false, 'message'=>'Kesalahan database');
+				}
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
+	public function hapusUser(){
+		$response = array('status'=>false, 'message'=>null);
+
+		@$id=$this->input->post('id');
+
+		if(!empty($id)){
+			$cekUser = $this->db->get_where($this->tb_user,array('ID_USER' => $id))->result_array();
+
+			if(!empty($cekUser)){
+				$hapus = $this->db->delete($this->tb_user,array('ID_USER' => $id));
+
+				if($hapus){
+					$response = array('status'=>true, 'message'=>'Berhasil menghapus pengguna.');
 				}else{
 					$response = array('status'=>false, 'message'=>'Kesalahan database');
 				}

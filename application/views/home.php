@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>POLBAN Open Data</title>
+	<title><?php echo $this->config->item('title');?></title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/css/style.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/css/bootstrap.min.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/css/bootstrap.css'); ?>">
@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div class="container" style="margin-top: 100px; margin-bottom: 100px;">
 		<div class="col-md-12">
 			<img src="<?php echo base_url('/assets/img/logo_polban.png'); ?>" width="300px" align="left" style="margin-right: 50px;">
-			<h1 style="color: #FFFFFF; font-family: 'Britannic'; font-size: 30pt; margin-top: -10px;"> POLBAN OPEN DATA </h1>
+			<h1 style="color: #FFFFFF; font-family: 'Britannic'; font-size: 30pt; margin-top: -10px;"> <?php echo $this->config->item('title');?> </h1>
 			<hr style="margin-top: -3px">
 			<p style="color: #FFFFFF"><strong>Deskripsi singkat..</strong><br><br><br><br><br><br><br><br><br><br><br><br></p>
 			<span class="btn btn-primary btn-anchor pull-right" style="border-radius: 10px; width: 150px; font-weight: bold;">

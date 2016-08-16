@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="container-fluid" style="background-color: #212121">
 	<div class="container">
 		<div class="col-md-12" style="padding: 20px 20px 20px 0px; color: #fff">
-			<span class="pull-right"><i>Copyrights</i> &copy; HIMAKOM | 2016 POLBAN OPEN DATA</span>
+			<span class="pull-right"><?php echo $this->config->item('footer');?> | <?php echo $this->config->item('title');?></span>
 		</div>
 	</div>
 </div>

@@ -57,7 +57,7 @@
 					<a href="<?php echo site_url('admin/perusahaan');?>"><i class="fa fa-briefcase"></i> <span>Perusahaan</span></a>
 				</li>
 
-				<li<?php echo($active_menu=='user')? " class=\"active\"": "";?>>
+				<li<?php echo($active_menu=='user' || $active_menu=='user_ubah' || $active_menu=='user_tambah')? " class=\"active\"": "";?>>
 					<a href="<?php echo site_url('admin/user');?>"><i class="fa fa-user"></i> <span>Pengguna</span></a>
 				</li>
 				<?php endif; ?>

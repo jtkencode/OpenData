@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100109
 File Encoding         : 65001
 
-Date: 2016-08-12 20:29:53
+Date: 2016-08-16 15:38:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ CREATE TABLE `alumni` (
 -- ----------------------------
 -- Records of alumni
 -- ----------------------------
-INSERT INTO `alumni` VALUES ('1', '16', 'Saya Alumni', '2015', '2019', 'rpl4rt08@gmail.com', '083821708285', 'Lembang', 'WIRASWASTA', 'alumni', 'alumni', 'upload/alumni/raisa.gif');
+INSERT INTO `alumni` VALUES ('1', '16', 'Saya Alumni', '2010', '2015', 'rpl4rt08@gmail.com', '083821708285', 'Lembang', 'Software Engineer', 'alumni', 'alumni', 'upload/alumni/alumni_20160815015056.gif');
 
 -- ----------------------------
 -- Table structure for bekerja
@@ -58,11 +58,13 @@ CREATE TABLE `bekerja` (
   KEY `FK_DITEMPATI_KERJA` (`ID_PERUSAHAAN`),
   CONSTRAINT `FK_BEKERJA_DI` FOREIGN KEY (`ID_ALUMNI`) REFERENCES `alumni` (`ID_ALUMNI`),
   CONSTRAINT `FK_DITEMPATI_KERJA` FOREIGN KEY (`ID_PERUSAHAAN`) REFERENCES `perusahaan` (`ID_PERUSAHAAN`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of bekerja
 -- ----------------------------
+INSERT INTO `bekerja` VALUES ('1', '1', '2', 'Programmer', '2013', '0');
+INSERT INTO `bekerja` VALUES ('2', '1', '1', 'Adaw', '1991', '1992');
 
 -- ----------------------------
 -- Table structure for jurusan
@@ -100,12 +102,13 @@ CREATE TABLE `perusahaan` (
   `ALAMAT_PERUSAHAAN` varchar(20) NOT NULL,
   `BIDANG_PEKERJAAN` varchar(20) NOT NULL,
   PRIMARY KEY (`ID_PERUSAHAAN`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of perusahaan
 -- ----------------------------
-INSERT INTO `perusahaan` VALUES ('1', 'Bara Enterprise', 'support@bara.co.id', '83242342', 'Sariwangi', 'IT Consultant');
+INSERT INTO `perusahaan` VALUES ('1', 'Bara Enterprise', 'support@bara.co.id', '083242342', 'Sariwangi', 'IT Developer');
+INSERT INTO `perusahaan` VALUES ('2', 'Javan Cipta Solusi', 'mail@javan.co.id', '83242342', 'Bandung', 'IT Consultant');
 
 -- ----------------------------
 -- Table structure for program_studi
@@ -173,9 +176,11 @@ CREATE TABLE `user` (
   PRIMARY KEY (`ID_USER`),
   KEY `FK_KULIAH_DI_2_` (`ID_PRODI`),
   CONSTRAINT `FK_KULIAH_DI_2_` FOREIGN KEY (`ID_PRODI`) REFERENCES `program_studi` (`ID_PRODI`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2', '151524010', '16', '12345', '1');
+INSERT INTO `user` VALUES ('2', '151524010', '16', '151524010', '1');
+INSERT INTO `user` VALUES ('3', '151524011', '16', '151524011', '2');
+INSERT INTO `user` VALUES ('4', '151524012', '16', '151524012', '2');

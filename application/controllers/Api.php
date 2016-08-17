@@ -231,8 +231,10 @@ class Api extends CI_Controller {
 				$riwayatKerja = $this->db->join($this->tb_perusahaan,$this->tb_perusahaan.'.ID_PERUSAHAAN='.$this->tb_bekerja.'.ID_PERUSAHAAN');
 				$riwayatKerja = $this->db->get_where($this->tb_bekerja,['ID_ALUMNI'=>$id])->result_array();
 
+				$foto = (!empty($dataAlumni[0]['FOTO'])) ? base_url('assets/'.$dataAlumni[0]['FOTO']) : base_url('assets/upload/alumni/default.png');
 				$data = array(
 					'id_alumni'		=> $id,
+					'foto'			=> $foto,
 					'nama_alumni'	=> $dataAlumni[0]['NAMA_ALUMNI'],
 					'email_alumni'	=> $dataAlumni[0]['EMAIL_ALUMNI'],
 					'alamat_alumni'	=> $dataAlumni[0]['ALAMAT_ALUMNI'],

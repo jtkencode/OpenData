@@ -119,6 +119,7 @@
 			type:'get',
 			dataType: 'json',
 			success: function(data) {
+				$("#fotona").attr("src", data.foto);
 				$("#nama").val(data.nama_alumni);
 				$("#email").val(data.email_alumni);
 				$("#jurusan").val(data.jurusan);
@@ -129,9 +130,27 @@
 				$("#pekerjaan").val(data.pekerjaan);
 				$("textarea[name='alamat']").val(data.alamat_alumni);
 
-				var html;
+				var htmlKerja;
+
+				htmlKerja = "<div class=\"row\">";
+				htmlKerja += "	<div class=\"col-md-12\">";
+				htmlKerja += "		Riwayat Bekerja :";
+				htmlKerja += "		<table class=\"table table-bordered\" id=\"gawe\">";
+				htmlKerja += "			<tr>";
+				htmlKerja += "				<th>No</th>";
+				htmlKerja += "				<th>Nama Perusahaan</th>";
+				htmlKerja += "				<th>Jabatan</th>";
+				htmlKerja += "				<th>Tahun Bekerja</th>	";						
+				htmlKerja += "				<th>Tahun Berhenti</th>";
+				htmlKerja += "			</tr>";
+				htmlKerja += "		</table>";
+				htmlKerja += "	</div>";
+				htmlKerja += "</div>";
+
+				$("#riwayatKerja").html(htmlKerja);
+
+				
 				for(var i=0;i<data.riwayatKerja.length;i++){
-					console.log(data.riwayatKerja[i]);
 					var thnBerhenti = (data.riwayatKerja[i].TAHUN_BERHENTI==0) ? 'Sekarang' : data.riwayatKerja[i].TAHUN_BERHENTI;
 					html = "<tr>";
 					html +=	"	<td>"+parseInt(i+1)+"</td>";
@@ -139,6 +158,12 @@
 					html +=	"	<td>"+data.riwayatKerja[i].JABATAN_PEKERJAAN+"</td>";
 					html +=	"	<td>"+data.riwayatKerja[i].TAHUN_MULAI+"</td>";						
 					html +=	"	<td>"+thnBerhenti+"</td>";
+					html +=	"</tr>";
+					$("#gawe").append(html);
+				}
+				if(data.riwayatKerja.length==0){
+					html = "<tr>";
+					html +=	"	<td colspan=\"5\"> Belum pernah bekerja.</td>";
 					html +=	"</tr>";
 					$("#gawe").append(html);
 				}
@@ -159,6 +184,11 @@
 			</div>
 
 			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12" style="text-align:center;">
+						<img src="<?php echo base_url('assets/upload/alumni/default.png'); ?>" id="fotona" width="120px" height="120px">
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-6">
 						Nama Lengkap : 
@@ -205,20 +235,7 @@
 						<textarea id="alamat" name="alamat" disabled readonly="true" class="form-control"></textarea>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						Riwayat Bekerja :
-						<table class="table table-bordered" id="gawe">
-							<tr>
-								<th>No</th>
-								<th>Nama Perusahaan</th>
-								<th>Jabatan</th>
-								<th>Tahun Bekerja</th>							
-								<th>Tahun Berhenti</th>
-							</tr>
-						</table>
-					</div>
-				</div>
+				<div id="riwayatKerja"></div>
 			</div>
 
 			<div class="modal-footer">

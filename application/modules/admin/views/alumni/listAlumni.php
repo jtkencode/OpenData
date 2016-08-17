@@ -54,15 +54,8 @@
 									<th style="width: 20px">#</th>
 									<th>Nama Alumni</th>
 									<th>Prodi</th>
-									<th>Tahun Masuk</th>
-									<th>Tahun Keluar</th>
-									<th>Email Alumni</th>
-									<th>NO HP</th>
-									<th>Alamat</th>
 									<th>Pekerjaan</th>
-									<?php if($this->session->userdata('hak')=='admin'): ?>
 									<th style="width: 10%">Aksi</th>
-									<?php endif; ?>
 								</tr>
 								<?php
 									if(!empty($dataAlumni)):
@@ -79,36 +72,22 @@
 										<?php echo $dataAlumni['namaProdi'];?>
 									</td>
 									<td>
-										<?php echo $dataAlumni['tahunMasuk'];?>
-									</td>
-									<td>
-										<?php echo $dataAlumni['tahunKeluar'];?>
-									</td>
-									<td>
-										<?php echo $dataAlumni['emailAlumni'];?>
-									</td>
-									<td>
-										<?php echo $dataAlumni['noHP'];?>
-									</td>
-									<td>
-										<?php echo $dataAlumni['alamatAlumni'];?>
-									</td>
-									<td>
 										<?php echo $dataAlumni['pekerjaan'];?>
 									</td>
-									<?php if($this->session->userdata('hak')=='admin'): ?>
+									
 									<td style="width: 20%">
-										<a class="btn btn-xs btn-primary" href="<?php echo $dataAlumni['href_view'];?>">
-											<i class="fa fa-eye"></i> Lihat
+										<button class="btn btn-xs btn-primary" title="Lihat" onclick="view(<?php echo $dataAlumni['id'];?>)">
+											<i class="fa fa-eye"></i>
+										</button>
+										<?php if($this->session->userdata('hak')=='admin'): ?>
+										<a class="btn btn-default btn-xs" title="Ubah" href="<?php echo $dataAlumni['href_edit'];?>">
+											<i class="fa fa-pencil"></i>
 										</a>
-										<a class="btn btn-default btn-xs" href="<?php echo $dataAlumni['href_edit'];?>">
-											<i class="fa fa-pencil"></i> Ubah
+										<a class="btn btn-danger btn-xs" title="Delete" href="<?php echo $dataAlumni['href_delete'];?>"title="Hapus">
+											<i class="glyphicon glyphicon-trash"></i>
 										</a>
-										<a class="btn btn-danger btn-xs" href="<?php echo $dataAlumni['href_delete'];?>"title="Hapus">
-											<i class="glyphicon glyphicon-trash"></i> Delete
-										</a>
+										<?php endif;?>
 									</td>
-									<?php endif;?>
 								</tr>
 								<?php
 										endforeach;
@@ -131,6 +110,123 @@
 		</section><!-- /.content -->
 	</div><!-- /.content-wrapper -->
 
+<script type="text/javascript">
+	function view(obj){
+		var id = obj;
 
-</body>
-</html>
+		$.ajax({
+			url:"<?php echo site_url('api/ambilSatuAlumni')?>/"+id,
+			type:'get',
+			dataType: 'json',
+			success: function(data) {
+				$("#nama").val(data.nama_alumni);
+				$("#email").val(data.email_alumni);
+				$("#jurusan").val(data.jurusan);
+				$("#prodi").val(data.prodi);
+				$("#thnMasuk").val(data.thn_masuk);
+				$("#thnKeluar").val(data.thn_keluar);
+				$("#nohp").val(data.no_hp);
+				$("#pekerjaan").val(data.pekerjaan);
+				$("textarea[name='alamat']").val(data.alamat_alumni);
+
+				var html;
+				for(var i=0;i<data.riwayatKerja.length;i++){
+					console.log(data.riwayatKerja[i]);
+					var thnBerhenti = (data.riwayatKerja[i].TAHUN_BERHENTI==0) ? 'Sekarang' : data.riwayatKerja[i].TAHUN_BERHENTI;
+					html = "<tr>";
+					html +=	"	<td>"+parseInt(i+1)+"</td>";
+					html +=	"	<td>"+data.riwayatKerja[i].NAMA_PERUSAHAAN+"</td>";
+					html +=	"	<td>"+data.riwayatKerja[i].JABATAN_PEKERJAAN+"</td>";
+					html +=	"	<td>"+data.riwayatKerja[i].TAHUN_MULAI+"</td>";						
+					html +=	"	<td>"+thnBerhenti+"</td>";
+					html +=	"</tr>";
+					$("#gawe").append(html);
+				}
+			}
+		});
+		$('#modalAlumni').modal('show'); // show bootstrap modal
+	}
+</script>
+
+<div id="modalAlumni" class="modal fade" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<input class="form-control" id="bIDPek" type="hidden" value="0">
+			<input class="form-control" id="bStatus" type="hidden" value="null">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3 class="smaller lighter blue no-margin">Data Alumni</h3>
+			</div>
+
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						Nama Lengkap : 
+						<input type="text" id="nama" disabled readonly="true" class="form-control" value="" />
+					</div>
+					<div class="col-md-6">
+						Email : 
+						<input type="text" id="email" disabled readonly="true" class="form-control" value="" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						Jurusan : 
+						<input type="text" id="jurusan" disabled readonly="true" class="form-control" value="" />
+					</div>
+					<div class="col-md-6">
+						Program Studi : 
+						<input type="text" id="prodi" disabled readonly="true" class="form-control" value="" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						Tahun Masuk : 
+						<input type="text" id="thnMasuk" disabled readonly="true" class="form-control" value="" />
+					</div>
+					<div class="col-md-6">
+						Tahun Keluar : 
+						<input type="text" id="thnKeluar" disabled readonly="true" class="form-control" value="" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						No Hp : 
+						<input type="text" id="nohp" disabled readonly="true" class="form-control" value="" />
+					</div>
+					<div class="col-md-6">
+						Pekerjaan : 
+						<input type="text" id="pekerjaan" disabled readonly="true" class="form-control" value="" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						Alamat : 
+						<textarea id="alamat" name="alamat" disabled readonly="true" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						Riwayat Bekerja :
+						<table class="table table-bordered" id="gawe">
+							<tr>
+								<th>No</th>
+								<th>Nama Perusahaan</th>
+								<th>Jabatan</th>
+								<th>Tahun Bekerja</th>							
+								<th>Tahun Berhenti</th>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
+					<i class="ace-icon fa fa-times"></i>
+					Close
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>

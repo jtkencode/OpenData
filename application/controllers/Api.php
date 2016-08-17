@@ -216,4 +216,36 @@ class Api extends CI_Controller {
 
 		$this->outputJson($datana);
 	}
+
+	public function ambilSatuAlumni($id=0){
+
+		if(!empty($id)){
+			$data = array();
+
+			$dataAlumni = $this->db->join($this->tb_jurusan, $this->tb_prodi.'.ID_JURUSAN='.$this->tb_jurusan.'.ID_JURUSAN');
+			$dataAlumni = $this->db->join($this->tb_alumni, $this->tb_prodi.'.ID_PRODI='.$this->tb_alumni.'.ID_PRODI');
+			$dataAlumni = $this->db->get_where($this->tb_prodi,array('ID_ALUMNI'=>$id))->result_array();
+
+			if(!empty($dataAlumni)){
+				$riwayatKerja = $this->db->order_by('TAHUN_MULAI, TAHUN_BERHENTI','DESC');
+				$riwayatKerja = $this->db->join($this->tb_perusahaan,$this->tb_perusahaan.'.ID_PERUSAHAAN='.$this->tb_bekerja.'.ID_PERUSAHAAN');
+				$riwayatKerja = $this->db->get_where($this->tb_bekerja,['ID_ALUMNI'=>$id])->result_array();
+
+				$data = array(
+					'id_alumni'		=> $id,
+					'nama_alumni'	=> $dataAlumni[0]['NAMA_ALUMNI'],
+					'email_alumni'	=> $dataAlumni[0]['EMAIL_ALUMNI'],
+					'alamat_alumni'	=> $dataAlumni[0]['ALAMAT_ALUMNI'],
+					'no_hp'			=> $dataAlumni[0]['NO_HP'],
+					'jurusan'		=> $dataAlumni[0]['NAMA_JURUSAN'],
+					'prodi'			=> $dataAlumni[0]['NAMA_PRODI'],
+					'thn_masuk'		=> $dataAlumni[0]['TAHUN_MASUK'],
+					'thn_keluar'	=> $dataAlumni[0]['TAHUN_KELUAR'],
+					'pekerjaan'		=> $dataAlumni[0]['PEKERJAAN'],
+					'riwayatKerja'	=> $riwayatKerja
+				);
+			}
+			$this->outputJson($data);
+		}
+	}
 }

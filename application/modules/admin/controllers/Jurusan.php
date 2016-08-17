@@ -15,6 +15,7 @@ class Jurusan extends Main{
 		parent::__construct();
 		$this->load->model('m_jurusan');
 
+		// cek hak akses admin, bukan mahasiswa biasa
 		if($this->session->userdata('hak')!='admin'){
 			redirect('admin');
 		}

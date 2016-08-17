@@ -15,6 +15,11 @@ class Perusahaan extends Main{
 		parent::__construct();
 		$this->load->model('m_perusahaan');
 
+		// cek hak akses admin, bukan mahasiswa biasa
+		if($this->session->userdata('hak')!='admin'){
+			redirect('admin');
+		}
+		
 		// Load libraries
 		$this->load->library('pagination');
 	}

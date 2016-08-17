@@ -15,6 +15,7 @@ class User extends Main{
 		parent::__construct();
 		$this->load->model('m_user');
 
+		// cek hak akses admin, bukan mahasiswa biasa
 		if($this->session->userdata('hak')!='admin'){
 			redirect('admin');
 		}

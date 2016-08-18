@@ -57,7 +57,7 @@
 										<div class="form-group">
 										<label class="col-md-4 control-label" for="PRODI">Prodi</label>
 										<div class="col-md-5">
-											<select name="namaprodi" class="form-control">
+											<select name="PRODI" class="form-control">
 												<option value="<?php echo $idprodi?>" disabled selected><?php echo $namaprodi ?></option>
 												 <?php foreach($Prodi as $rows){?>
 												 <option value="<?=$rows->ID_PRODI?>"><?=$rows->NAMA_PRODI?></option>

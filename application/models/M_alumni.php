@@ -30,6 +30,7 @@ class M_alumni extends CI_Model{
 	}
 
 	public function getProdi(){
+		
 			 $query = $this->db->get($this->tb_prodi);
 			 if ($query->num_rows() > 0) {
 					 return $query->result();
@@ -53,6 +54,7 @@ class M_alumni extends CI_Model{
 
 	//insert
 		public function get_insert($data){
+
 			$this->db->insert($this->tb_alumni,$data);
 			redirect('admin/alumni');
 		}

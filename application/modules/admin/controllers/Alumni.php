@@ -131,7 +131,8 @@ class Alumni extends Main{
 
 	public function simpan(){
 		$id = $this->input->post('idalumni');
-		$data = array('ID_PRODI'=>  $this->input->post('idprodi'),
+		$data = array(
+									'ID_PRODI'=>  $this->input->post('PRODI'),
 									'NAMA_ALUMNI'=>  $this->input->post('namaalumni'),
 									'TAHUN_MASUK'=>  $this->input->post('tahunmasuk'),
 									'TAHUN_KELUAR'=>  $this->input->post('tahunkeluar'),
@@ -180,8 +181,8 @@ class Alumni extends Main{
 			foreach ($query->result() as $row) {
 
 					$this->global_data['idalumni'] = $row->ID_ALUMNI;
-					$this->global_data['namaalumni'] = $row->NAMA_ALUMNI;
 					$this->global_data['idprodi'] = $row->ID_PRODI;
+					$this->global_data['namaalumni'] = $row->NAMA_ALUMNI;
 					$this->global_data['namaprodi'] = $row->NAMA_PRODI;
 					$this->global_data['tahunmasuk'] = $row->TAHUN_MASUK;
 					$this->global_data['tahunkeluar'] = $row->TAHUN_KELUAR;
@@ -190,7 +191,7 @@ class Alumni extends Main{
 					$this->global_data['alamatalumni'] = $row->ALAMAT_ALUMNI;
 					$this->global_data['pekerjaan'] = $row->PEKERJAAN;
 			}
-		//	var_dump($query->result());
+
 		}
 		else{
 

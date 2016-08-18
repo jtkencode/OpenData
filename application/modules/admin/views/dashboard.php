@@ -49,7 +49,7 @@
               <p>Alumni</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="ion ion-university"></i>
             </div>
             <a href="<?php base_url();?>admin/alumni/" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -66,7 +66,7 @@
               <p>Prodi</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="ion ion-ios-list-outline"></i>
             </div>
             <a href="<?php base_url();?>admin/prodi/" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>

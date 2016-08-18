@@ -67,6 +67,10 @@ class M_prodi extends CI_Model{
 			$this->db->delete('program_studi');
 	}
 
+	public function countProdi(){
+		$query = $this->db->get($this->tb_prodi);
+		$rowcount = $query->num_rows();
+	}
 
 
 }

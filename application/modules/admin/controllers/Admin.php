@@ -2,8 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 include_once (dirname(__FILE__) . "/Main.php");
 
-class Admin extends Main{ 
-	
+class Admin extends Main{
+
 	/**
 		* @Author				: Localhost {Ferdhika Yudira}
 		* @Email				: fer@dika.web.id
@@ -13,7 +13,9 @@ class Admin extends Main{
 
 	function __construct(){
 		parent::__construct();
-
+		$this->load->model(array('m_prodi','m_jurusan'));
+		$this->tb_prodi = 'program_studi';
+		$this->tb_jurusan = 'jurusan';
 	}
 
 	public function index(){
@@ -27,7 +29,7 @@ class Admin extends Main{
 			'judul'	=> '<i class="fa fa-dashboard"></i> Dashboard',
 			'link'	=> ''
 		);
-
+	
 		$this->tampilan('dashboard');
 	}
 

@@ -17,7 +17,7 @@ class Prodi extends Main{
 		$this->load->model(array('m_prodi','m_jurusan'));
 		$this->tb_prodi = 'program_studi';
 		$this->tb_jurusan = 'jurusan';
-		
+
 		// cek hak akses admin, bukan mahasiswa biasa
 		if($this->session->userdata('hak')!='admin'){
 			redirect('admin');
@@ -93,6 +93,7 @@ class Prodi extends Main{
 				'href_delete'	=> site_url('admin/prodi/deleteProdi/'.$result['ID_PRODI'])
 			);
 			$no++;
+
 		}
 
 		$this->tampilan('prodi/list');
@@ -128,6 +129,7 @@ class Prodi extends Main{
 
 		$this->tampilan('prodi/forminsertData');
 	}
+
 
 	public function simpan(){
 		$id = $this->input->post('idprodi');

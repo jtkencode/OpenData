@@ -54,7 +54,7 @@ class M_perusahaan extends CI_Model{
 	//insert
 		public function get_insert($data){
 			$this->db->insert($this->tb_perusahaan,$data);
-			redirect('admin/perusahaan');
+			redirect('master/perusahaan');
 		}
 
 	//update

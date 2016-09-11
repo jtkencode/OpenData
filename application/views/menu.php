@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                           <li><a href="<?php echo site_url('alumni');?>">Alumni</a></li>
-                          <li><a href="<?php echo site_url('admin');?>">Mahasiswa</a></li>
+                          <li><a href="<?php echo site_url('master');?>">Mahasiswa</a></li>
                         </ul>
                     </li>
                     <li>

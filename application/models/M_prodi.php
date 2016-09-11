@@ -52,7 +52,7 @@ class M_prodi extends CI_Model{
 	//insert
 		public function get_insert($data){
 			$this->db->insert($this->tb_prodi,$data);
-			redirect('admin/prodi');
+			redirect('master/prodi');
 		}
 
 	//update

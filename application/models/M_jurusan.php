@@ -43,7 +43,7 @@ class M_jurusan extends CI_Model{
 			//insert
 				public function get_insert($data){
 			  	$this->db->insert($this->tb_jurusan,$data);
-					redirect('admin/jurusan');
+					redirect('master/jurusan');
 				}
 
 			//update

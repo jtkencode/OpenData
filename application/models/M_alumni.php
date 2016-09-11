@@ -56,7 +56,7 @@ class M_alumni extends CI_Model{
 		public function get_insert($data){
 
 			$this->db->insert($this->tb_alumni,$data);
-			redirect('admin/alumni');
+			redirect('master/alumni');
 		}
 
 	//update

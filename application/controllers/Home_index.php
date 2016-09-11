@@ -21,19 +21,19 @@ class Home_index extends CI_Controller {
 	}
 
 	public function chart(){
-		$this->load->model('mread');
+		$this->load->model('m_read');
 		$data = array();
 		$data_kategori = array();
 		$data2 = array();
 
-		foreach ($this->mread->getChartData_Angkatan()->result_array() as $row){
+		foreach ($this->m_read->getChartData_Angkatan()->result_array() as $row){
 			$data[] = (int) $row['jumlah'];
 			$data_kategori[] = (int) $row['TAHUN_MASUK'];
 		}
 
-		foreach ($this->mread->getChartData_Jurusan()->result_array() as $rows){
+		foreach ($this->m_read->getChartData_Jurusan()->result_array() as $rows){
 			$data2[] = (int) $rows['jumlah2'];
-			$result = $this->mread->getJurusanAlumni();
+			$result = $this->m_read->getJurusanAlumni();
 		}
 
 		$this->load->view('menu_ot');

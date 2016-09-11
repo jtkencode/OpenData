@@ -51,4 +51,12 @@ class Main extends CI_Controller {
 		$this->load->view('footer',$this->global_data);
 	}
 
+	protected function outputJson($response=array(),$status=200){
+		$this->output
+		->set_status_header($status)
+		->set_content_type('application/json', 'utf-8')
+		->set_output(json_encode($response, JSON_PRETTY_PRINT))
+		->_display();
+		exit();
+	}
 }

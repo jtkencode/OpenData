@@ -27,7 +27,7 @@ class Alumni extends Main{
 		$this->global_data['breadcumb'][] = array(
 			'judul'	=> '<i class="fa fa-dashboard"></i> Dashboard',
 			'link'	=> ''
-		);
+		);		
 
 		$this->global_data['perusahaan'] = $this->m_perusahaan->ambilSemua();
 		$this->global_data['historiPekerjaan'] = $this->m_alumni->ambilHistoriPekerjaan(array('ID_ALUMNI'=> $this->session->userdata('id')));

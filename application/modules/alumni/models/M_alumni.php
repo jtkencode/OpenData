@@ -55,6 +55,15 @@ class M_alumni extends CI_Model{
 		return $query;
 	}
 
+	public function ambilSatuProdi($where=array()){
+		$query = $this->db->get_where($this->tb_prodi,$where);
+		$query = $query->result_array();
+
+		if($query){
+			return $query[0];
+		}
+	}
+
 	public function ambilSemuaProdiBy($jurusan_id=0){
 		$query = $this->db->get_where($this->tb_prodi,array('ID_JURUSAN'=>$jurusan_id));
 		$query = $query->result_array();

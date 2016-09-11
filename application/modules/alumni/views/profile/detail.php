@@ -111,7 +111,7 @@
 
 					<div class="nav-tabs-custom">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#timeline" data-toggle="tab">Histori Pekerjaan</a></li>
+							<li class="active"><a href="#timeline" data-toggle="tab">Riwayat Pekerjaan</a></li>
 						</ul>
 						<a class="btn btn-xs bg-green" style="margin-left:10px;" onclick="tambahPekerjaan()">
 							<i class="fa fa-plus"></i>
@@ -454,7 +454,7 @@
 	function hapusPerusahaan(){
 		var id = $("#delIDPek").val();
 
-		$.post("<?php echo site_url('api/hapusPekerjaan');?>", { 
+		$.post("<?php echo site_url('alumni/pekerjaan/hapusPekerjaan');?>", { 
 			<?php echo $this->security->get_csrf_token_name(); ?> : '<?php echo $this->security->get_csrf_hash(); ?>',
 			id: id
 		}, function(res) {

@@ -65,6 +65,61 @@ class Api extends CI_Controller {
 		$this->outputJson($query);
 	}
 
+	public function tambahPerusahaan(){
+		$this->load->library('form_validation');
+
+		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
+
+		$this->form_validation->set_rules('nama', 'Nama Perusahaan', 'required|min_length[3]|max_length[20]|is_unique[perusahaan.NAMA_PERUSAHAAN]', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
+        $this->form_validation->set_rules('notelp', 'Telp Perusahaan', 'alpha_numeric|required|min_length[5]|max_length[12]|is_unique[perusahaan.NOMOR_TELEPON_PERUSAHAAN]', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
+        $this->form_validation->set_rules('alamat', 'Alamat Perusahaan', 'required|min_length[5]|max_length[255]', array(
+			'required'	=> 'You have not provided %s.'
+        ));
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|min_length[3]|max_length[20]', array(
+			'required'	=> 'You have not provided %s.'
+        ));
+        $this->form_validation->set_rules('bidang', 'Bidang Perusahaan', 'required|min_length[5]|max_length[60]', array(
+			'required'	=> 'You have not provided %s.'
+        ));
+
+		if($this->form_validation->run()){
+			$nama = $this->input->post('nama');
+			$email = $this->input->post('email');
+			$no_telp = $this->input->post('notelp');
+			$alamat = $this->input->post('alamat');
+			$bidang = $this->input->post('bidang');
+
+			$data = array(
+				'NAMA_PERUSAHAAN'		=> strip_tags($nama),
+				'EMAIL_PERUSAHAAN'		=> strip_tags($email),
+				'NOMOR_TELEPON_PERUSAHAAN'	=> strip_tags($no_telp),
+				'ALAMAT_PERUSAHAAN'		=> $alamat,
+				'BIDANG_PEKERJAAN'		=> strip_tags($bidang),
+			);
+
+			$insert = $this->db->insert($this->tb_perusahaan,$data);
+			$last_id = $this->db->insert_id();
+
+			if($insert){
+				$response = array('status'=>true, 'message'=>'Berhasil menambah perusahaan.', 'id'=> $last_id);
+			}else{
+				$response = array('status'=>false, 'message'=>'Kesalahan database', 'id'=> 0);
+			}
+		}else{
+			if(validation_errors()){
+				$response = array('status'=>false, 'message'=>validation_errors(), 'id'=> 0);
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
 	public function tambahPekerjaan(){
 		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
 

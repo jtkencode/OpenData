@@ -25,9 +25,15 @@
 		endif;
 		?>
 
-		<?php if(isset($add_script)):?>
+		<?php
+		if(isset($add_script)):
+			foreach ($add_script as $add_script):
+		?>
 		<script><?php echo $add_script;?></script>
-		<?php endif;?>
+		<?php
+			endforeach;
+		endif;
+		?>
 
 		<!-- Optionally, you can add Slimscroll and FastClick plugins.
 		Both of these plugins are recommended to enhance the

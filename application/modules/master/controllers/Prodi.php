@@ -20,7 +20,7 @@ class Prodi extends Main{
 
 		// cek hak akses admin, bukan mahasiswa biasa
 		if($this->session->userdata('hak')!='admin'){
-			redirect('admin');
+			redirect('master');
 		}
 
 		// Load libraries

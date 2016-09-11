@@ -34,6 +34,23 @@ class Profile extends Main{
 			'link'	=> ''
 		);
 
+		// Add style up
+		$this->global_data['style'] = array(
+			base_url('assets/plugins/select2/select2.min.css')
+		);
+
+		// Add script down
+		$this->global_data['script'] = array(
+			base_url('assets/plugins/select2/select2.full.min.js')
+		);
+
+		$this->global_data['add_script'] = array(
+			'$(function () {
+				//Initialize Select2 Elements
+				$(".select2").select2();
+			});'
+		);
+
 		$this->global_data['perusahaan'] = $this->m_perusahaan->ambilSemua();
 		$this->global_data['historiPekerjaan'] = $this->m_alumni->ambilHistoriPekerjaan(array('ID_ALUMNI'=> $this->session->userdata('id')));
 
@@ -152,7 +169,15 @@ class Profile extends Main{
 
         	if($thnMasuk<=$thnKeluar){
         		$selisih = $thnKeluar-$thnMasuk;
-        		if($selisih == 4 || $selisih == 5){
+        		$ambilProdi = $this->m_alumni->ambilSatuProdi(array('ID_PRODI'=>$prodi));
+        		if (preg_match("/D4/i", $ambilProdi['NAMA_PRODI'])) {
+        			$min = 4;
+        			$max = 5;
+        		}else{
+        			$min = 3;
+        			$max = 4;
+        		}
+        		if($selisih == $min || $selisih == $max){
         			$data = array(
 		        		'ID_PRODI'		=> $prodi,
 		        		'NAMA_ALUMNI'	=> $nama,

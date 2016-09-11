@@ -37,6 +37,34 @@
 				<li<?php echo($active_menu=='profil')? " class=\"active\"": "";?>>
 					<a href="<?php echo site_url('alumni/profile');?>"><i class="fa fa-user"></i> <span>Profil</span></a>
 				</li>
+
+				<li<?php echo($active_menu=='pekerjaan')? " class=\"active\"": "";?>>
+					<a href="<?php echo site_url('alumni/pekerjaan');?>"><i class="fa fa-briefcase"></i> <span>Pekerjaan</span></a>
+				</li>
+
+				<li<?php echo($active_menu=='karya_ilmiah')? " class=\"active\"": "";?>>
+					<a href="<?php echo site_url('alumni/karya');?>"><i class="glyphicon glyphicon-glass"></i> <span>Karya Ilmiah</span></a>
+				</li>
+
+				<li<?php echo($active_menu=='tugas_akhir')? " class=\"active\"": "";?>>
+					<a href="<?php echo site_url('alumni/tugas_akhir');?>"><i class="fa fa-graduation-cap"></i> <span>Tugas Akhir</span></a>
+				</li>
+
+				<li class="treeview<?php echo($active_menu=='jurusan' || $active_menu=='prodi')? " active": "";?>">
+					<a href="#"><i class="fa fa-history"></i> <span>Riwayat</span> <i class="fa fa-angle-left pull-right"></i></a>
+					<ul class="treeview-menu">
+						<li<?php echo($active_menu=='riwayat_organisasi')? " class=\"active\"": "";?>>
+							<a href="<?php echo site_url('alumni/riwayat_organisasi');?>"><i class="fa fa-circle-o"></i> Organisasi</a>
+						</li>
+						<li<?php echo($active_menu=='prodi')? " class=\"active\"": "";?>>
+							<a href="<?php echo site_url('alumni/riwayat_kompetisi');?>"><i class="fa fa-circle-o"></i> Kompetisi</a>
+						</li>
+						<li<?php echo($active_menu=='prodi')? " class=\"active\"": "";?>>
+							<a href="<?php echo site_url('alumni/riwayat_beasiswa');?>"><i class="fa fa-circle-o"></i> Beasiswa</a>
+						</li>
+					</ul>
+				</li>
+
 				<li>
 					<a href="<?php echo site_url('alumni/keluar');?>"><i class="fa fa-sign-out"></i> <span>Keluar</span></a>
 				</li>

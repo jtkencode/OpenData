@@ -14,7 +14,7 @@ class Auth extends CI_Controller {
 		parent::__construct();
 
 		if($this->session->userdata('isLogin')){
-			redirect('admin');
+			redirect('master');
 		}
 
 		$this->load->model('m_user');

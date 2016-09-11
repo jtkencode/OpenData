@@ -74,10 +74,10 @@
 									<td>
 										<?php echo $dataAlumni['pekerjaan'];?>
 									</td>
-									
+
 									<td style="width: 20%">
 										<button class="btn btn-xs btn-primary" title="Lihat" onclick="view(<?php echo $dataAlumni['id'];?>)">
-											<i class="fa fa-eye"></i>
+											<i class="fa fa-eye"> Detail</i>
 										</button>
 										<?php if($this->session->userdata('hak')=='admin'): ?>
 										<a class="btn btn-default btn-xs" title="Ubah" href="<?php echo $dataAlumni['href_edit'];?>">
@@ -128,6 +128,7 @@
 				$("#thnKeluar").val(data.thn_keluar);
 				$("#nohp").val(data.no_hp);
 				$("#pekerjaan").val(data.pekerjaan);
+				$("#tugasakhir").val(data.tugasAkhir);
 				$("textarea[name='alamat']").val(data.alamat_alumni);
 
 				var htmlKerja;
@@ -140,7 +141,7 @@
 				htmlKerja += "				<th>No</th>";
 				htmlKerja += "				<th>Nama Perusahaan</th>";
 				htmlKerja += "				<th>Jabatan</th>";
-				htmlKerja += "				<th>Tahun Bekerja</th>	";						
+				htmlKerja += "				<th>Tahun Bekerja</th>	";
 				htmlKerja += "				<th>Tahun Berhenti</th>";
 				htmlKerja += "			</tr>";
 				htmlKerja += "		</table>";
@@ -149,14 +150,14 @@
 
 				$("#riwayatKerja").html(htmlKerja);
 
-				
+
 				for(var i=0;i<data.riwayatKerja.length;i++){
 					var thnBerhenti = (data.riwayatKerja[i].TAHUN_BERHENTI==0) ? 'Sekarang' : data.riwayatKerja[i].TAHUN_BERHENTI;
 					html = "<tr>";
 					html +=	"	<td>"+parseInt(i+1)+"</td>";
 					html +=	"	<td>"+data.riwayatKerja[i].NAMA_PERUSAHAAN+"</td>";
 					html +=	"	<td>"+data.riwayatKerja[i].JABATAN_PEKERJAAN+"</td>";
-					html +=	"	<td>"+data.riwayatKerja[i].TAHUN_MULAI+"</td>";						
+					html +=	"	<td>"+data.riwayatKerja[i].TAHUN_MULAI+"</td>";
 					html +=	"	<td>"+thnBerhenti+"</td>";
 					html +=	"</tr>";
 					$("#gawe").append(html);
@@ -191,47 +192,53 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						Nama Lengkap : 
+						Nama Lengkap :
 						<input type="text" id="nama" disabled readonly="true" class="form-control" value="" />
 					</div>
 					<div class="col-md-6">
-						Email : 
+						Email :
 						<input type="text" id="email" disabled readonly="true" class="form-control" value="" />
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						Jurusan : 
+						Jurusan :
 						<input type="text" id="jurusan" disabled readonly="true" class="form-control" value="" />
 					</div>
 					<div class="col-md-6">
-						Program Studi : 
+						Program Studi :
 						<input type="text" id="prodi" disabled readonly="true" class="form-control" value="" />
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						Tahun Masuk : 
+						Tahun Masuk :
 						<input type="text" id="thnMasuk" disabled readonly="true" class="form-control" value="" />
 					</div>
 					<div class="col-md-6">
-						Tahun Keluar : 
+						Tahun Keluar :
 						<input type="text" id="thnKeluar" disabled readonly="true" class="form-control" value="" />
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						No Hp : 
+						No Hp :
 						<input type="text" id="nohp" disabled readonly="true" class="form-control" value="" />
 					</div>
 					<div class="col-md-6">
-						Pekerjaan : 
+						Pekerjaan :
 						<input type="text" id="pekerjaan" disabled readonly="true" class="form-control" value="" />
 					</div>
 				</div>
 				<div class="row">
+					<div class="col-md-6">
+						Tugas Akhir :
+						<input type="text" id="tugasakhir" disabled readonly="true" class="form-control" value="" />
+					</div>
+				</div>
+				<div class="row">
 					<div class="col-md-12">
-						Alamat : 
+						Alamat :
 						<textarea id="alamat" name="alamat" disabled readonly="true" class="form-control"></textarea>
 					</div>
 				</div>

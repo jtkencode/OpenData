@@ -81,9 +81,6 @@
 										<?php echo $dataPerusahaan['bidang'];?>
 									</td>
 									<td style="width: 20%">
-										<a class="btn btn-xs btn-primary" href="<?php echo $dataPerusahaan['href_view'];?>">
-											<i class="fa fa-eye"></i> Lihat
-										</a>
 										<a class="btn btn-default btn-xs" href="<?php echo $dataPerusahaan['href_edit'];?>">
 											<i class="fa fa-pencil"></i> Ubah
 										</a>

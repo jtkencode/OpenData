@@ -104,7 +104,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <div class="col-md-4 text-center">
                     <div class="service-box">
-                        <a href="" <i class="fa fa-max fa-user text-primary sr-icons"></i> </a>
+                        <i class="fa fa-max fa-user text-primary sr-icons"></i>
                         <h3>Profile Alumni</h3>
                         <p class="text-muted">Menampilkan profile lengkap alumni</p>
                         <span class="btn btn-primary btn-xl btn-none lk page-scroll" style="margin-top: 74px; color: #fff">

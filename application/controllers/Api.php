@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Api extends CI_Controller {
-	
+
 	/**
 		* @Author				: Localhost {Ferdhika Yudira}
 		* @Email				: fer@dika.web.id
@@ -18,6 +18,7 @@ class Api extends CI_Controller {
 		$this->tb_bekerja = 'bekerja';
 		$this->tb_perusahaan = 'perusahaan';
 		$this->tb_user = 'user';
+		$this->tb_TA = 'tugas_akhir';
 	}
 
 	private function outputJson($response=array(),$status=200){
@@ -114,8 +115,8 @@ class Api extends CI_Controller {
 
 			$cekKerja = $this->db->get_where($this->tb_bekerja,array(
 				'ID_ALUMNI' => $this->session->userdata('id'),
-				'ID_PERUSAHAAN' => $id_perusahaan, 
-				'TAHUN_MULAI' => $thn_mulai, 
+				'ID_PERUSAHAAN' => $id_perusahaan,
+				'TAHUN_MULAI' => $thn_mulai,
 				'TAHUN_BERHENTI' => $thn_berhenti
 			))->result_array();
 
@@ -134,7 +135,7 @@ class Api extends CI_Controller {
 				$response = array('status'=>false, 'message'=>'Data sudah ada pada periode kerja di perusahaan tersebut.');
 			}
 		}
-		
+
 		$this->outputJson($response);
 	}
 
@@ -203,7 +204,7 @@ class Api extends CI_Controller {
 		// tangkap variabel keyword dari URL
 		$keyword = $this->uri->segment(3);
 		// cari di database
-		$data = $this->db->like('NAMA_PERUSAHAAN',$keyword)->get($this->tb_perusahaan)->result_array();	
+		$data = $this->db->like('NAMA_PERUSAHAAN',$keyword)->get($this->tb_perusahaan)->result_array();
 
 		foreach ($data as $data) {
 			$datana['suggestions'][] = array(
@@ -221,6 +222,10 @@ class Api extends CI_Controller {
 
 		if(!empty($id)){
 			$data = array();
+
+			//tugas akhir
+			$dataTA= $this->db->join($this->tb_alumni, $this->tb_TA.'.ID_TUGAS_AKHIR='.$this->tb_alumni.'.ID_TUGAS_AKHIR');
+			$dataTA = $this->db->get_where($this->tb_TA,array('ID_ALUMNI'=>$id))->result_array();
 
 			$dataAlumni = $this->db->join($this->tb_jurusan, $this->tb_prodi.'.ID_JURUSAN='.$this->tb_jurusan.'.ID_JURUSAN');
 			$dataAlumni = $this->db->join($this->tb_alumni, $this->tb_prodi.'.ID_PRODI='.$this->tb_alumni.'.ID_PRODI');
@@ -243,8 +248,9 @@ class Api extends CI_Controller {
 					'prodi'			=> $dataAlumni[0]['NAMA_PRODI'],
 					'thn_masuk'		=> $dataAlumni[0]['TAHUN_MASUK'],
 					'thn_keluar'	=> $dataAlumni[0]['TAHUN_KELUAR'],
+					'tugasAkhir'	=> $dataTA[0]['JUDUL_TUGAS_AKHIR'],
 					'pekerjaan'		=> $dataAlumni[0]['PEKERJAAN'],
-					'riwayatKerja'	=> $riwayatKerja
+					'riwayatKerja'=> $riwayatKerja
 				);
 			}
 			$this->outputJson($data);

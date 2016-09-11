@@ -44,28 +44,6 @@
 							</div>
 						</div><!-- /.box-header -->
 						<br>
-						<div class="row" style="margin-left:5px;">
-							<div class="col-xs-6">
-								<select name="jurusan" class="form-control">
-									<option value="all">Semua</option>
-									<?php
-									if(!empty($dataJurusan)):
-										foreach($dataJurusan as $dataJurusan):
-									?>
-									<option value="<?php echo $dataJurusan['ID_JURUSAN'];?>">
-										<?php echo $dataJurusan['NAMA_JURUSAN'];?>
-									</option>
-									<?php
-										endforeach;
-									else:
-									?>
-									<option>-</option>
-									<?php
-									endif;
-									?>
-								</select>
-							</div>
-						</div>
 						<div class="box-body">
 							<table class="table table-bordered">
 								<tr>

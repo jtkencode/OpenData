@@ -57,10 +57,6 @@
 					<a href="<?php echo site_url('admin/perusahaan');?>"><i class="fa fa-briefcase"></i> <span>Perusahaan</span></a>
 				</li>
 
-				<li<?php echo($active_menu=='perusahaan')? " class=\"active\"": "";?>>
-					<a href="<?php echo site_url('admin/perusahaan');?>"><i class="fa fa-briefcase"></i> <span>Perusahaan</span></a>
-				</li>
-
 				<li<?php echo($active_menu=='user' || $active_menu=='user_ubah' || $active_menu=='user_tambah')? " class=\"active\"": "";?>>
 					<a href="<?php echo site_url('admin/user');?>"><i class="fa fa-user"></i> <span>Pengguna</span></a>
 				</li>
@@ -76,9 +72,9 @@
 						</li>
 					</ul>
 				</li> -->
-				
+
 				<li>
-					<a href="<?php echo site_url('admin/keluar');?>"><i class="fa fa-sign-out"></i> <span>Keluar</span></a>
+					<a href="<?php echo site_url('admin/keluar');?>"><i class="fa fa-sign-out"></i> <span>Sign out</span></a>
 				</li>
 			</ul><!-- /.sidebar-menu -->
 		</section>

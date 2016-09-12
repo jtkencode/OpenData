@@ -63,22 +63,56 @@
 							</a>
 						</div><!-- /.box-body -->
 					</div><!-- /.box -->
+				</div><!-- /.col -->
 
-					<!-- About Me Box -->
-					<div class="box box-primary">
-						<div class="box-header with-border">
-							<h3 class="box-title">Info</h3>
-						</div><!-- /.box-header -->
-						<div class="box-body">
+				<div class="col-md-9">
+					<div id="alert"></div>
+
+					<div class="nav-tabs-custom">
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a href="#info" data-toggle="tab">
+									Info
+								</a>
+							</li>
+							<li>
+								<a href="#timeline" data-toggle="tab">
+									Riwayat Pekerjaan
+								</a>
+							</li>
+							<li>
+								<a href="#karya" data-toggle="tab">
+									Karya Ilmiah
+								</a>
+							</li>
+							<li>
+								<a href="#r_organisasi" data-toggle="tab">
+									Riwayat Organisasi
+								</a>
+							</li>
+							<li>
+								<a href="#r_kompetisi" data-toggle="tab">
+									Riwayat Kompetisi
+								</a>
+							</li>
+
+							<li>
+								<a href="#r_beasiswa" data-toggle="tab">
+									Riwayat Beasiswa
+								</a>
+							</li>
+						</ul>
+						<!-- <a class="btn btn-xs bg-green" style="margin-left:10px;" onclick="tambahPekerjaan()">
+							<i class="fa fa-plus"></i>
+							Tambah
+						</a> -->
+
+						<div class="tab-content">
+							<div class="active tab-pane" id="info">
+								<div class="box-body">
 							<strong><i class="fa fa-graduation-cap margin-r-5"></i>  Jurusan</strong>
 							<p class="text-muted">
-								<?php echo (!empty($akunInfo['NAMA_JURUSAN'])) ? $akunInfo['NAMA_JURUSAN'] : '-';?>
-							</p>
-
-							<hr>
-
-							<strong><i class="fa fa-graduation-cap margin-r-5"></i>  Program Studi</strong>
-							<p class="text-muted">
+								<?php echo (!empty($akunInfo['NAMA_JURUSAN'])) ? $akunInfo['NAMA_JURUSAN'] : '-';?> - 
 								<?php echo (!empty($akunInfo['NAMA_PRODI'])) ? $akunInfo['NAMA_PRODI'] : '-';?>
 							</p>
 
@@ -103,24 +137,9 @@
 								<?php echo (!empty($akunInfo['NO_HP'])) ? strip_tags($akunInfo['NO_HP']) : '-';?>
 							</p>
 						</div><!-- /.box-body -->
-					</div><!-- /.box -->
-				</div><!-- /.col -->
-
-				<div class="col-md-9">
-					<div id="alert"></div>
-
-					<div class="nav-tabs-custom">
-						<ul class="nav nav-tabs">
-							<li class="active"><a href="#timeline" data-toggle="tab">Riwayat Pekerjaan</a></li>
-						</ul>
-						<a class="btn btn-xs bg-green" style="margin-left:10px;" onclick="tambahPekerjaan()">
-							<i class="fa fa-plus"></i>
-							Tambah
-						</a>
-
-						<div class="tab-content">
+							</div>
                   
-							<div class="active tab-pane" id="timeline">
+							<div class="tab-pane" id="timeline">
 								<!-- The timeline -->
 								<ul class="timeline timeline-inverse" id="gawe">
 									<!-- timeline item -->
@@ -133,9 +152,9 @@
 										<i class="fa fa-briefcase bg-blue"></i>
 										<div class="timeline-item">
 											<span class="time">
-												<a onclick="ubahPekerjaan(<?php echo $resultJob['ID_BEKERJA'];?>)" class="btn btn-info btn-xs" title="Ubah">
+												<!-- <a onclick="ubahPekerjaan(<?php echo $resultJob['ID_BEKERJA'];?>)" class="btn btn-info btn-xs" title="Ubah">
 													<i class="ace-icon fa fa-pencil"></i>
-												</a>
+												</a> -->
 												<a onclick="mdlhapusPerusahaan(<?php echo $resultJob['ID_BEKERJA'];?>)" class="btn btn-danger btn-xs" title="Hapus">
 													<i class="ace-icon fa fa-trash"></i>
 												</a>
@@ -144,7 +163,7 @@
 												<div id="jabatan<?php echo $resultJob['ID_BEKERJA'];?>">
 													<?php echo (!empty($resultJob['JABATAN_PEKERJAAN'])) ? strip_tags($resultJob['JABATAN_PEKERJAAN']) : '-';?>
 													di 
-													<a onclick="infoPerusahaan(<?php echo $resultJob['ID_PERUSAHAAN'];?>)">
+													<a onclick="infoPerusahaan(<?php echo $resultJob['ID_PERUSAHAAN'];?>)" style="cursor:pointer">
 														<?php echo (!empty($resultJob['NAMA_PERUSAHAAN'])) ? strip_tags($resultJob['NAMA_PERUSAHAAN']) : '-';?> 
 													</a>
 												</div>

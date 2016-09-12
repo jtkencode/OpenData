@@ -46,21 +46,18 @@
 					<a href="<?php echo site_url('alumni/karya');?>"><i class="glyphicon glyphicon-glass"></i> <span>Karya Ilmiah</span></a>
 				</li>
 
-				<li<?php echo($active_menu=='tugas_akhir')? " class=\"active\"": "";?>>
-					<a href="<?php echo site_url('alumni/tugas_akhir');?>"><i class="fa fa-graduation-cap"></i> <span>Tugas Akhir</span></a>
+				<li<?php echo($active_menu=='beasiswa')? " class=\"active\"": "";?>>
+					<a href="<?php echo site_url('alumni/beasiswa');?>"><i class="fa fa-graduation-cap"></i> <span>Beasiswa</span></a>
 				</li>
 
-				<li class="treeview<?php echo($active_menu=='jurusan' || $active_menu=='prodi')? " active": "";?>">
+				<li class="treeview<?php echo($active_menu=='organisasi' || $active_menu=='kompetisi' || $active_menu=='beasiswa')? " active": "";?>">
 					<a href="#"><i class="fa fa-history"></i> <span>Riwayat</span> <i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
-						<li<?php echo($active_menu=='riwayat_organisasi')? " class=\"active\"": "";?>>
+						<li<?php echo($active_menu=='organisasi')? " class=\"active\"": "";?>>
 							<a href="<?php echo site_url('alumni/riwayat_organisasi');?>"><i class="fa fa-circle-o"></i> Organisasi</a>
 						</li>
-						<li<?php echo($active_menu=='prodi')? " class=\"active\"": "";?>>
+						<li<?php echo($active_menu=='kompetisi')? " class=\"active\"": "";?>>
 							<a href="<?php echo site_url('alumni/riwayat_kompetisi');?>"><i class="fa fa-circle-o"></i> Kompetisi</a>
-						</li>
-						<li<?php echo($active_menu=='prodi')? " class=\"active\"": "";?>>
-							<a href="<?php echo site_url('alumni/riwayat_beasiswa');?>"><i class="fa fa-circle-o"></i> Beasiswa</a>
 						</li>
 					</ul>
 				</li>

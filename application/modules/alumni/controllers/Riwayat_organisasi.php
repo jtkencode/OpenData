@@ -2,31 +2,35 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 include_once (dirname(__FILE__) . "/Main.php");
 
-class Pekerjaan extends Main{ 
-	
+class Riwayat_organisasi extends Main{ 
+
 	/**
 		* @Author				: Localhost {Ferdhika Yudira}
 		* @Email				: fer@dika.web.id
 		* @Web					: http://dika.web.id
-		* @Date					: 2016-09-11 17:48:31
+		* @Date					: 2016-09-12 13:51:49
 	**/
 
 	function __construct(){
 		parent::__construct();
 
 		$this->load->library(['pagination','form_validation']);
-		$this->load->model(['m_pekerjaan','m_perusahaan']);
+		$this->load->model(['m_organisasi']);
 	}
 
 	public function index($id=0){
 		// Identitas halaman
-		$this->global_data['active_menu'] = "pekerjaan";
-		$this->global_data['title'] = "Riwayat Pekerjaan";
-		$this->global_data['description'] = "Riwayat pekerjaan";
+		$this->global_data['active_menu'] = "organisasi";
+		$this->global_data['title'] = "Riwayat Organisasi";
+		$this->global_data['description'] = "Riwayat organisasi";
 
 		// Breadcumb
 		$this->global_data['breadcumb'][] = array(
-			'judul'	=> '<i class="fa fa-briefcase"></i> Pekerjaan',
+			'judul'	=> '<i class="fa fa-history"></i> Riwayat',
+			'link'	=> ''
+		);	
+		$this->global_data['breadcumb'][] = array(
+			'judul'	=> 'Riwayat Organisasi',
 			'link'	=> ''
 		);		
 
@@ -34,8 +38,8 @@ class Pekerjaan extends Main{
 		$this->global_data['message'] = $this->session->flashdata('message');
 
 		// Pengaturan pagination
-		$config['base_url'] = site_url('alumni/pekerjaan/index');
-		$config['total_rows'] = count($this->m_pekerjaan->getAll(array('ID_ALUMNI'=> $this->session->userdata('id'))));
+		$config['base_url'] = site_url('alumni/riwayat_organisasi/index');
+		$config['total_rows'] = count($this->m_organisasi->getAll(array('ID_ALUMNI'=> $this->session->userdata('id'))));
 		$config['per_page'] = $this->config->item('jumlah_pagination');
 		$config['full_tag_open'] = '<div class="box-footer clearfix"><ul class="pagination pagination-sm no-margin pull-right">';
 		$config['full_tag_close'] = '</ul></div>';
@@ -64,42 +68,46 @@ class Pekerjaan extends Main{
 		$this->global_data['halaman'] = $this->pagination->create_links();
 
 		// data
-		$data = $this->m_pekerjaan->getAllPer($config['per_page'], $id, array('ID_ALUMNI'=> $this->session->userdata('id')));
+		$data = $this->m_organisasi->getAllPer($config['per_page'], $id, array('ID_ALUMNI'=> $this->session->userdata('id')));
 
 		$this->global_data['data'] = array();
 
 		$no=1+$id;
 		foreach ($data as $result) {
-			$berhenti=($result['TAHUN_BERHENTI']==0) ? 'Sekarang' : $result['TAHUN_BERHENTI'];
+			$berhenti=($result['TAHUN_SELESAI_JABATAN']==0) ? 'Sekarang' : $result['TAHUN_SELESAI_JABATAN'];
 			$this->global_data['data'][] = array(
 				'no'				=> $no,
-				'id_bekerja'		=> $result['ID_BEKERJA'],
-				'id_perusahaan'		=> $result['ID_PERUSAHAAN'],
-				'nama_perusahaan'	=> $result['NAMA_PERUSAHAAN'],
-				'jabatan'			=> $result['JABATAN_PEKERJAAN'],
-				'periode'			=> $result['TAHUN_MULAI'].' - '.$berhenti,
-				'href_edit'			=> site_url('alumni/pekerjaan/edit/'.$result['ID_BEKERJA']),
-				'href_delete'		=> site_url('alumni/pekerjaan/delete/'.$result['ID_BEKERJA']),
+				'id_riwayat'		=> $result['ID_RIWAYAT_ORGANISASI'],
+				'id_organisasi'		=> $result['ID_ORGANISASI'],
+				'nama_organisasi'	=> $result['NAMA_ORGANISASI'],
+				'jabatan'			=> $result['JABATAN_DI_ORGANISASI'],
+				'periode'			=> $result['TAHUN_MULAI_JABATAN'].' - '.$berhenti,
+				'href_edit'			=> site_url('alumni/riwayat_organisasi/edit/'.$result['ID_RIWAYAT_ORGANISASI']),
+				'href_delete'		=> site_url('alumni/riwayat_organisasi/delete/'.$result['ID_RIWAYAT_ORGANISASI']),
 			);
 			$no++;
 		}
 
-		$this->tampilan('pekerjaan/list');
+		$this->tampilan('organisasi/list');
 	}
 
 	public function add(){
 		// Identitas halaman
-		$this->global_data['active_menu'] = "pekerjaan";
-		$this->global_data['title'] = "Tambah Riwayat Pekerjaan";
-		$this->global_data['description'] = "Tambah riwayat pekerjaan";
+		$this->global_data['active_menu'] = "organisasi";
+		$this->global_data['title'] = "Tambah Riwayat Organisasi";
+		$this->global_data['description'] = "Tambah riwayat organisasi";
 
 		// Breadcumb
 		$this->global_data['breadcumb'][] = array(
-			'judul'	=> '<i class="fa fa-briefcase"></i> Pekerjaan',
-			'link'	=> site_url('alumni/pekerjaan')
+			'judul'	=> '<i class="fa fa-history"></i> Riwayat',
+			'link'	=> ''
 		);
 		$this->global_data['breadcumb'][] = array(
-			'judul'	=> 'Tambah Pekerjaan',
+			'judul'	=> 'Riwayat Organisasi',
+			'link'	=> site_url('alumni/riwayat_organisasi')
+		);
+		$this->global_data['breadcumb'][] = array(
+			'judul'	=> 'Tambah Riwayat Organisasi',
 			'link'	=> ''
 		);
 
@@ -109,44 +117,59 @@ class Pekerjaan extends Main{
 		$this->form_validation->set_rules('jabatan', 'Jabatan', 'required|min_length[2]|max_length[20]', array(
 			'required'	=> 'You have not provided %s.'
         ));
-        $this->form_validation->set_rules('perusahaan', 'Perusahaan', 'required|is_unique[bekerja.ID_PERUSAHAAN]', array(
-			'required'	=> 'You have not provided %s.',
-			'is_unique'	=> 'Anda sudah bekeja di %s tersebut.'
-        ));
         
 		if($this->form_validation->run()){
-			$perusahaan = $this->input->post('perusahaan');
-			$jabatan = strip_tags($this->input->post('jabatan'));
+			$organisasi = $this->input->post('organisasi');
+			$jabatan = $this->input->post('jabatan');
 			$thn_mulai = $this->input->post('thn_mulai');
-			$thn_berhenti = $this->input->post('thn_berhenti');
+			$thn_selesai = $this->input->post('thn_selesai');
 
-			if($thn_mulai <= $thn_berhenti || $thn_berhenti==0){
-				$insert = $this->m_pekerjaan->insert(array(
-					'ID_ALUMNI'			=> $this->session->userdata('id'),
-					'ID_PERUSAHAAN'		=> $perusahaan,
-					'JABATAN_PEKERJAAN'	=> $jabatan,
-					'TAHUN_BERHENTI'	=> $thn_berhenti,
-					'TAHUN_MULAI'		=> $thn_mulai
-				));
-				if($insert){
-					$notif = "<div class=\"alert alert-success alert-dismissable\">";
-					$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-					$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Alert!</h4>";
-					$notif .= "	Berhasil menambah riwayat pekerjaan.";
-					$notif .= "</div>";
-					$this->session->set_flashdata('message',$notif);
+			$cek = $this->m_organisasi->getOne(array(
+				'riwayat_organisasi.ID_ORGANISASI'=>$organisasi, 
+				'ID_ALUMNI'=>$this->session->userdata('id'), 
+				'JABATAN_DI_ORGANISASI'=>$jabatan,
+				'TAHUN_MULAI_JABATAN'=>$thn_mulai,
+				'TAHUN_SELESAI_JABATAN'=>$thn_selesai
+			));
 
-					redirect('alumni/pekerjaan');
-				}
-			}else{
+			if(!empty($cek)){
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
 				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
-				$notif .= "	Periode tahun bekerja tidak sahih.";
+				$notif .= "	Jabatan di organisasi tersebut pada periode ".$thn_mulai." sudah ada.";
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
 
-				redirect('alumni/pekerjaan/add');
+				redirect('alumni/riwayat_organisasi/add');
+			}else{
+				if($thn_mulai <= $thn_selesai || $thn_selesai==0){
+					$insert = $this->m_organisasi->insertRiwayat(array(
+						'ID_ORGANISASI'=>$organisasi, 
+						'ID_ALUMNI'=>$this->session->userdata('id'), 
+						'JABATAN_DI_ORGANISASI'=>$jabatan,
+						'TAHUN_MULAI_JABATAN'=>$thn_mulai,
+						'TAHUN_SELESAI_JABATAN'=>$thn_selesai
+					));
+					if($insert){
+						$notif = "<div class=\"alert alert-success alert-dismissable\">";
+						$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
+						$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Alert!</h4>";
+						$notif .= "	Berhasil menambah riwayat organisasi.";
+						$notif .= "</div>";
+						$this->session->set_flashdata('message',$notif);
+
+						redirect('alumni/riwayat_organisasi');
+					}
+				}else{
+					$notif = "<div class=\"alert alert-warning alert-dismissable\">";
+					$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
+					$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+					$notif .= "	Periode tahun ber-organisasi tidak sahih.";
+					$notif .= "</div>";
+					$this->session->set_flashdata('message',$notif);
+
+					redirect('alumni/riwayat_organisasi/add');
+				}
 			}
 		}else{
 			// Pesan validasi
@@ -158,7 +181,7 @@ class Pekerjaan extends Main{
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
 
-				redirect('alumni/pekerjaan/add');
+				redirect('alumni/riwayat_organisasi/add');
 			}
 		}
 
@@ -167,24 +190,28 @@ class Pekerjaan extends Main{
 
 	public function edit($id=0){
 		// Identitas halaman
-		$this->global_data['active_menu'] = "pekerjaan";
-		$this->global_data['title'] = "Ubah Riwayat Pekerjaan";
-		$this->global_data['description'] = "Ubah riwayat pekerjaan";
+		$this->global_data['active_menu'] = "organisasi";
+		$this->global_data['title'] = "Ubah Riwayat Organisasi";
+		$this->global_data['description'] = "Ubah riwayat organisasi";
 
 		// Breadcumb
 		$this->global_data['breadcumb'][] = array(
-			'judul'	=> '<i class="fa fa-briefcase"></i> Pekerjaan',
-			'link'	=> site_url('alumni/pekerjaan')
+			'judul'	=> '<i class="fa fa-history"></i> Riwayat',
+			'link'	=> ''
 		);
 		$this->global_data['breadcumb'][] = array(
-			'judul'	=> 'Tambah Pekerjaan',
+			'judul'	=> 'Riwayat Organisasi',
+			'link'	=> site_url('alumni/riwayat_organisasi')
+		);
+		$this->global_data['breadcumb'][] = array(
+			'judul'	=> 'Ubah Riwayat Organisasi',
 			'link'	=> ''
 		);
 
-		$data = $this->m_pekerjaan->getOne(array('ID_BEKERJA'=>$id));
+		$data = $this->m_organisasi->getOne(array('ID_RIWAYAT_ORGANISASI'=>$id));
 
 		if(empty($data)){
-			redirect('alumni/pekerjaan');
+			redirect('alumni/riwayat_organisasi');
 		}
 
 		$this->global_data['datana'] = $data;
@@ -197,37 +224,37 @@ class Pekerjaan extends Main{
         ));
 
 		if($this->form_validation->run()){
-			$perusahaan = $this->input->post('perusahaan');
-			$jabatan = strip_tags($this->input->post('jabatan'));
+			$organisasi = $this->input->post('organisasi');
+			$jabatan = $this->input->post('jabatan');
 			$thn_mulai = $this->input->post('thn_mulai');
-			$thn_berhenti = $this->input->post('thn_berhenti');
+			$thn_selesai = $this->input->post('thn_selesai');
 
-			if($thn_mulai <= $thn_berhenti || $thn_berhenti==0){
-				$edit = $this->m_pekerjaan->update($id,array(
-					'ID_PERUSAHAAN'		=> $perusahaan,
-					'JABATAN_PEKERJAAN'	=> $jabatan,
-					'TAHUN_BERHENTI'	=> $thn_berhenti,
-					'TAHUN_MULAI'		=> $thn_mulai
+			if($thn_mulai <= $thn_selesai || $thn_selesai==0){
+				$edit = $this->m_organisasi->updateRiwayat($id,array(
+					'ID_ORGANISASI'=>$organisasi,
+					'JABATAN_DI_ORGANISASI'=>$jabatan,
+					'TAHUN_MULAI_JABATAN'=>$thn_mulai,
+					'TAHUN_SELESAI_JABATAN'=>$thn_selesai
 				));
 				if($edit){
 					$notif = "<div class=\"alert alert-success alert-dismissable\">";
 					$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
 					$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Alert!</h4>";
-					$notif .= "	Berhasil merubah riwayat pekerjaan.";
+					$notif .= "	Berhasil merubah riwayat organisasi.";
 					$notif .= "</div>";
 					$this->session->set_flashdata('message',$notif);
 
-					redirect('alumni/pekerjaan');
+					redirect('alumni/riwayat_organisasi');
 				}
 			}else{
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
 				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
-				$notif .= "	Periode tahun bekerja tidak sahih.";
+				$notif .= "	Periode tahun ber-organisasi tidak sahih.";
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
 
-				redirect('alumni/pekerjaan/edit/'.$id);
+				redirect('alumni/riwayat_organisasi/edit/'.$id);
 			}
 		}else{
 			// Pesan validasi
@@ -239,7 +266,7 @@ class Pekerjaan extends Main{
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
 
-				redirect('alumni/pekerjaan/edit/'.$id);
+				redirect('alumni/riwayat_organisasi/edit/'.$id);
 			}
 		}
 
@@ -264,8 +291,8 @@ class Pekerjaan extends Main{
 			});'
 		);
 
-		$this->global_data['perusahaan'] = $this->m_pekerjaan->getPerusahaan();
+		$this->global_data['organisasi'] = $this->m_organisasi->getOrganisasi();
 
-		$this->tampilan('pekerjaan/form');
+		$this->tampilan('organisasi/form');
 	}
 }

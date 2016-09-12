@@ -19,6 +19,10 @@ class Api extends CI_Controller {
 		$this->tb_perusahaan = 'perusahaan';
 		$this->tb_user = 'user';
 		$this->tb_TA = 'tugas_akhir';
+		$this->tb_organisasi = 'organisasi';
+		$this->tb_riwayat_org = 'riwayat_organisasi';
+		$this->tb_kompetisi = 'kompetisi';
+		$this->tb_riwayat_komp = 'riwayat_kompetisi';
 	}
 
 	private function outputJson($response=array(),$status=200){
@@ -151,6 +155,84 @@ class Api extends CI_Controller {
 		$this->outputJson($response);
 	}
 
+	public function tambahOrganisasi(){
+		$this->load->library('form_validation');
+		
+		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
+
+		$this->form_validation->set_rules('nama', 'Nama Organisasi', 'required|min_length[3]|max_length[20]|is_unique[organisasi.NAMA_ORGANISASI]', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
+
+		if($this->form_validation->run()){
+			$nama = $this->input->post('nama');
+
+			$data = array(
+				'NAMA_ORGANISASI'	=> $nama
+			);
+
+			$insert = $this->db->insert($this->tb_organisasi,$data);
+			$last_id = $this->db->insert_id();
+
+			if($insert){
+				$response = array('status'=>true, 'message'=>'Berhasil menambah organisasi.', 'id'=> $last_id);
+			}else{
+				$response = array('status'=>false, 'message'=>'Kesalahan database', 'id'=> 0);
+			}
+		}else{
+			if(validation_errors()){
+				$response = array('status'=>false, 'message'=>validation_errors(), 'id'=> 0);
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
+	public function tambahKompetisi(){
+		$this->load->library('form_validation');
+		
+		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
+
+		$this->form_validation->set_rules('nama', 'Nama Kompetisi', 'required|min_length[3]|max_length[20]', array(
+			'required'	=> 'You have not provided %s.'
+        ));
+        $this->form_validation->set_rules('penyelenggara', 'Penyelenggara Kompetisi', 'required|min_length[3]|max_length[20]', array(
+			'required'	=> 'You have not provided %s.'
+        ));
+
+		if($this->form_validation->run()){
+			$nama = $this->input->post('nama');
+			$penyelenggara = $this->input->post('penyelenggara');
+
+			$cek = $this->db->get_where($this->tb_kompetisi,array('NAMA_KOMPETISI'=> $nama,'PENYELENGGARA_KOMPETISI'=>$penyelenggara))->result_array();
+
+			if(empty($cek)){
+				$data = array(
+					'NAMA_KOMPETISI'			=> $nama,
+					'PENYELENGGARA_KOMPETISI' 	=> $penyelenggara
+				);
+
+				$insert = $this->db->insert($this->tb_kompetisi,$data);
+				$last_id = $this->db->insert_id();
+
+				if($insert){
+					$response = array('status'=>true, 'message'=>'Berhasil menambah kompetisi.', 'id'=> $last_id);
+				}else{
+					$response = array('status'=>false, 'message'=>'Kesalahan database', 'id'=> 0);
+				}
+			}else{
+				$response = array('status'=>false, 'message'=>'Kompetisi '.$nama.' yang di selanggarakan oleh '.$penyelenggara.' sudah ada.', 'id'=> 0);
+			}
+		}else{
+			if(validation_errors()){
+				$response = array('status'=>false, 'message'=>validation_errors(), 'id'=> 0);
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
 	public function ubahPekerjaan(){
 		$response = array('status'=>false, 'message'=>null);
 
@@ -208,6 +290,52 @@ class Api extends CI_Controller {
 
 				if($hapus){
 					$response = array('status'=>true, 'message'=>'Berhasil menghapus pekerjaan di perusahaan '.$cekKerja[0]['NAMA_PERUSAHAAN'].'.');
+				}else{
+					$response = array('status'=>false, 'message'=>'Kesalahan database');
+				}
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
+	public function hapusRiwayatOrganisasi(){
+		$response = array('status'=>false, 'message'=>null);
+
+		@$id=$this->input->post('id');
+
+		if(!empty($id)){
+			$cek = $this->db->join($this->tb_organisasi,$this->tb_organisasi.'.ID_ORGANISASI='.$this->tb_riwayat_org.'.ID_ORGANISASI');
+			$cek = $this->db->get_where($this->tb_riwayat_org,array('ID_RIWAYAT_ORGANISASI' => $id))->result_array();
+
+			if(!empty($cek)){
+				$hapus = $this->db->delete($this->tb_riwayat_org,array('ID_RIWAYAT_ORGANISASI' => $id));
+
+				if($hapus){
+					$response = array('status'=>true, 'message'=>'Berhasil menghapus riwayat organisasi '.$cek[0]['NAMA_ORGANISASI'].'.');
+				}else{
+					$response = array('status'=>false, 'message'=>'Kesalahan database');
+				}
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
+	public function hapusRiwayatKompetisi(){
+		$response = array('status'=>false, 'message'=>null);
+
+		@$id=$this->input->post('id');
+
+		if(!empty($id)){
+			$cek = $this->db->join($this->tb_kompetisi,$this->tb_kompetisi.'.ID_KOMPETISI='.$this->tb_riwayat_komp.'.ID_KOMPETISI');
+			$cek = $this->db->get_where($this->tb_riwayat_komp,array('ID_RIWAYAT_KOMPETISI' => $id))->result_array();
+
+			if(!empty($cek)){
+				$hapus = $this->db->delete($this->tb_riwayat_komp,array('ID_RIWAYAT_KOMPETISI' => $id));
+
+				if($hapus){
+					$response = array('status'=>true, 'message'=>'Berhasil menghapus riwayat kompetisi '.$cek[0]['NAMA_KOMPETISI'].'.');
 				}else{
 					$response = array('status'=>false, 'message'=>'Kesalahan database');
 				}
@@ -310,5 +438,19 @@ class Api extends CI_Controller {
 			}
 			$this->outputJson($data);
 		}
+	}
+
+	public function ambilSatuKompetisi($id=0){
+		if(!empty($id)){
+			$data = $this->db->get_where($this->tb_kompetisi,array('ID_KOMPETISI'=>$id))->result_array();
+
+			$data = array(
+				'ID_KOMPETISI' => $data[0]['ID_KOMPETISI'],
+				'NAMA_KOMPETISI' => $data[0]['NAMA_KOMPETISI'],
+				'PENYELENGGARA_KOMPETISI' => $data[0]['PENYELENGGARA_KOMPETISI']
+			);
+
+			$this->outputJson($data);
+		}	
 	}
 }

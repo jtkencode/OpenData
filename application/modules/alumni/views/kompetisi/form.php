@@ -52,64 +52,47 @@
 									<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 									
 									<div class="form-group">
-										<label for="perusahaan" class="col-sm-2 control-label">Perusahaan</label>
+										<label for="kompetisi" class="col-sm-2 control-label">Kompetisi</label>
 										<div class="col-sm-10">
-											<select name="perusahaan" id="perusahaan" class="form-control select2" style="width: 100%;">
-												<?php if(empty($perusahaan)): ?>
-												<option value="0">-No Company-</option>
+											<select name="kompetisi" id="kompetisi" class="form-control select2" style="width: 100%;">
+												<?php if(empty($kompetisi)): ?>
+												<option value="0">-Tidak ada kompetisi-</option>
 												<?php endif;?>
-												<?php foreach ($perusahaan as $resP): ?>
-												<option value="<?php echo $resP['ID_PERUSAHAAN'];?>">
-													<?php echo $resP['NAMA_PERUSAHAAN'];?>
+												<?php foreach ($kompetisi as $resP): ?>
+												<option value="<?php echo $resP['ID_KOMPETISI'];?>"<?php echo (!empty($datana['ID_KOMPETISI'])) ? ($resP['ID_KOMPETISI']==$datana['ID_KOMPETISI']) ? ' selected' : '' : '';?>>
+													<?php echo $resP['NAMA_KOMPETISI'];?> - <?php echo $resP['PENYELENGGARA_KOMPETISI'];?>
 												</option>
 												<?php endforeach; ?>
-												<?php if (!empty($datana['ID_PERUSAHAAN'])):?>
-												<option value="<?php echo $datana['ID_PERUSAHAAN'];?>" selected>
-													<?php echo $datana['NAMA_PERUSAHAAN'];?>
-												</option>
-												<?php endif;?>
 											</select>
 										</div>
 									</div>
 
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
-											<a class="btn btn-default btn-md" onclick="addPerusahaan()">
-												<i class="fa fa-plus"></i> Perusahaan
+											<a class="btn btn-default btn-md" onclick="addKompetisi()">
+												<i class="fa fa-plus"></i> Kompetisi
 											</a>
 										</div>
 									</div>
 
 									<div class="form-group">
-										<label for="jabatan" class="col-sm-2 control-label">Jabatan</label>
+										<label for="prestasi" class="col-sm-2 control-label">Prestasi</label>
 										<div class="col-sm-10">
-											<input type="text" name="jabatan" class="form-control" value="<?php echo (!empty($datana['JABATAN_PEKERJAAN'])) ? $datana['JABATAN_PEKERJAAN'] : '';?>" id="jabatan" placeholder="Admin">
+											<input type="text" name="prestasi" class="form-control" value="<?php echo (!empty($datana['PRESTASI'])) ? $datana['PRESTASI'] : '';?>" id="prestasi" placeholder="Juara 1">
 										</div>
 									</div>
 
 									<div class="form-group">
-										<label for="thn_mulai" class="col-sm-2 control-label">Tahun Mulai</label>
+										<label for="thn" class="col-sm-2 control-label">Tahun Kompetisi</label>
 										<div class="col-sm-10">
-											<select name="thn_mulai" id="thn_mulai" class="form-control">
+											<select name="thn" id="thn" class="form-control">
 												<?php for ($a=1991;$a<=date('Y');$a++): ?>
-												<option value="<?php echo $a;?>"<?php echo (!empty($datana['TAHUN_MULAI'])) ? ($a==$datana['TAHUN_MULAI']) ? ' selected' : '' : '';?>><?php echo $a;?></option>
+												<option value="<?php echo $a;?>"<?php echo (!empty($datana['TAHUN_KOMPETISI'])) ? ($a==$datana['TAHUN_KOMPETISI']) ? ' selected' : '' : '';?>><?php echo $a;?></option>
 												<?php endfor; ?>
 											</select>
 										</div>
 									</div>
-
-									<div class="form-group">
-										<label for="thn_berhenti" class="col-sm-2 control-label">Tahun Berhenti</label>
-										<div class="col-sm-10">
-											<select name="thn_berhenti" id="thn_berhenti" class="form-control">
-												<?php $thn_berhenti = (!empty($datana['TAHUN_BERHENTI'])) ? $datana['TAHUN_BERHENTI'] : '';?>
-												<?php for ($a=1991;$a<=date('Y')-1;$a++): ?>
-												<option value="<?php echo $a;?>"<?php echo ($thn_berhenti==$a) ? ' selected' : '';?>><?php echo $a;?></option>
-												<?php endfor; ?>
-												<option value="0"<?php echo ($thn_berhenti==0) ? ' selected' : '';?>>-Sekarang-</option>
-											</select>
-										</div>
-									</div>									
+							
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
 											<input type="submit" class="btn btn-success btn-md" name="simpan" value="Simpan">
@@ -127,41 +110,32 @@
 	</div><!-- /.content-wrapper -->
 
 <script type="text/javascript">
-	function addPerusahaan() {
-		$('#modalPerusahaan').modal('show'); // show bootstrap modal
+	function addKompetisi() {
+		$('#modalkompetisi').modal('show'); // show bootstrap modal
 	}
 
-	function addP(){
+	function add(){
 
-		var nama = $("#namaPerusahaan").val();
-		var email = $("#emailPerusahaan").val();
-		var alamat = $("#alamatPerusahaan").val();
-		var notelp = $("#telpPerusahaan").val();
-		var bidang = $("#bidangPerusahaan").val();
+		var nama = $("#namakompetisi").val();
+		var penyelenggara = $("#penyelenggarakompetisi").val();
 
-		$.post("<?php echo site_url('api/tambahPerusahaan');?>", { 
+		$.post("<?php echo site_url('api/tambahKompetisi');?>", { 
 			<?php echo $this->security->get_csrf_token_name(); ?> : '<?php echo $this->security->get_csrf_hash(); ?>',
 			nama: nama,
-			email: email,
-			alamat: alamat,
-			notelp: notelp,
-			bidang: bidang
+			penyelenggara: penyelenggara
 		}, function(res, status) {
 			if(res.status){
-				$('#perusahaan').append($('<option>', {
+				$('#kompetisi').append($('<option>', {
 				    value: res.id,
 				    text: nama,
 				}));
-				$('#perusahaan').val(res.id).change();
+				$('#kompetisi').val(res.id).change();
 
-				$("#namaPerusahaan").val("");
-				$("#emailPerusahaan").val("");
-				$("#alamatPerusahaan").val("");
-				$("#telpPerusahaan").val("");
-				$("#bidangPerusahaan").val("");
+				$("#namakompetisi").val("");
+				$("#penyelenggarakompetisi").val("");
 				$("#alert").html("");
 
-				$('#modalPerusahaan').modal('hide');
+				$('#modalkompetisi').modal('hide');
 			}else{
 				var textAlert;
 				textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
@@ -181,12 +155,12 @@
 	}
 </script>
 
-<div id="modalPerusahaan" class="modal fade" tabindex="-1">
+<div id="modalkompetisi" class="modal fade" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h3 class="smaller lighter blue no-margin">Data Perusahaan</h3>
+				<h3 class="smaller lighter blue no-margin">Data Kompetisi</h3>
 			</div>
 
 			<div class="modal-body">
@@ -195,70 +169,27 @@
 					<div class="form-group">
 						<div class="col-md-12">
 							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Nama Perusahaan
+								Nama kompetisi
 							</label>
 						</div>
-
 						<div class="col-md-12">
-							<input type="text" id="namaPerusahaan" class="form-control" />
+							<input type="text" id="namakompetisi" class="form-control" />
 						</div>
 					</div>
-				</div>
-				<div class="row">
 					<div class="form-group">
 						<div class="col-md-12">
 							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Email Perusahaan
+								Penyelenggara kompetisi
 							</label>
 						</div>
-
 						<div class="col-md-12">
-							<input type="text" id="emailPerusahaan" class="form-control" />
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-md-12">
-							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								No Telp Perusahaan
-							</label>
-						</div>
-
-						<div class="col-md-12">
-							<input type="text" id="telpPerusahaan" class="form-control" />
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-md-12">
-							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Alamat Perusahaan
-							</label>
-						</div>
-
-						<div class="col-md-12">
-							<textarea id="alamatPerusahaan" class="form-control"></textarea>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-md-12">
-							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Bidang Perusahaan
-							</label>
-						</div>
-
-						<div class="col-md-12">
-							<input type="text" id="bidangPerusahaan" class="form-control" />
+							<input type="text" id="penyelenggarakompetisi" class="form-control" />
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-sm btn-success" onclick="addP()">
+				<button class="btn btn-sm btn-success" onclick="add()">
 					<i class="ace-icon fa fa-check"></i>
 					Save & Set
 				</button>

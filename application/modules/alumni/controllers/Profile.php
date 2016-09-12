@@ -15,7 +15,7 @@ class Profile extends Main{
 		parent::__construct();
 
 		$this->load->library('form_validation');
-		$this->load->model('m_perusahaan');
+		$this->load->model(['m_perusahaan','m_organisasi','m_karya','m_kompetisi','m_beasiswa']);
 	}
 
 	public function index(){
@@ -53,6 +53,10 @@ class Profile extends Main{
 
 		$this->global_data['perusahaan'] = $this->m_perusahaan->ambilSemua();
 		$this->global_data['historiPekerjaan'] = $this->m_alumni->ambilHistoriPekerjaan(array('ID_ALUMNI'=> $this->session->userdata('id')));
+		$this->global_data['karyaIlmiah'] = $this->m_karya->getAll(array('ID_ALUMNI'=> $this->session->userdata('id')));
+		$this->global_data['historiOrganisasi'] = $this->m_organisasi->getAll(array('ID_ALUMNI'=> $this->session->userdata('id')));
+		$this->global_data['historiKompetisi'] = $this->m_kompetisi->getAll(array('ID_ALUMNI'=> $this->session->userdata('id')));
+		$this->global_data['beasiswa'] = $this->m_beasiswa->getAll(array('ID_ALUMNI'=> $this->session->userdata('id')));
 
 		$this->tampilan('profile/detail');
 	}
@@ -115,6 +119,23 @@ class Profile extends Main{
 		$this->global_data['title'] = "Ubah Profil";
 		$this->global_data['description'] = "Ubah profil saya";
 
+		// Add style up
+		$this->global_data['style'] = array(
+			base_url('assets/plugins/select2/select2.min.css')
+		);
+
+		// Add script down
+		$this->global_data['script'] = array(
+			base_url('assets/plugins/select2/select2.full.min.js')
+		);
+
+		$this->global_data['add_script'] = array(
+			'$(function () {
+				//Initialize Select2 Elements
+				$(".select2").select2();
+			});'
+		);
+
 		// Pesan
 		$this->global_data['message'] = $this->session->flashdata('message');
 
@@ -135,6 +156,7 @@ class Profile extends Main{
 		// Data
 		$this->global_data['jurusan'] = $this->m_alumni->ambilSemuaJurusan();
 		$this->global_data['prodi'] = $this->m_alumni->ambilSemuaProdiBy($this->global_data['akunInfo']['idJurusan']);
+		$this->global_data['ta'] = $this->m_alumni->ambilTA();
 
 		// Validasi
 		$this->form_validation->set_rules('nama', 'Nama', 'trim|required|min_length[4]|max_length[20]');
@@ -158,6 +180,7 @@ class Profile extends Main{
         	$thnKeluar = $this->input->post('thnKeluar');
         	$alamat = $this->input->post('alamat');
         	$pekerjaan = $this->input->post('pekerjaan');
+        	$ta = $this->input->post('ta');
 
         	if(empty($_FILES['userfile']['name'])){
         		$foto = $this->global_data['akunInfo']['FOTO'];
@@ -180,6 +203,7 @@ class Profile extends Main{
         		if($selisih == $min || $selisih == $max){
         			$data = array(
 		        		'ID_PRODI'		=> $prodi,
+		        		'ID_TUGAS_AKHIR'=> $ta,
 		        		'NAMA_ALUMNI'	=> $nama,
 		        		'EMAIL_ALUMNI'	=> $email,
 		        		'NO_HP'			=> $telp,

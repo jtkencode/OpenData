@@ -144,6 +144,18 @@
 										</div>
 									</div>
 									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Tugas Akhir</label>
+										<div class="col-sm-10" id="ta">
+											<select name="ta" class="form-control select2">
+												<?php foreach ($ta as $ta): ?>
+												<option<?php echo ($akunInfo['idTA']==$ta['ID_TUGAS_AKHIR'])?' selected':'';?> value="<?php echo $ta['ID_TUGAS_AKHIR'];?>">
+													<?php echo $ta['JUDUL_TUGAS_AKHIR'];?>
+												</option>
+												<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
 										<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 										<div class="col-sm-10">
 											<input type="email" name="email" value="<?php echo (!empty($akunInfo['EMAIL_ALUMNI'])) ? $akunInfo['EMAIL_ALUMNI'] : '';?>" class="form-control" id="inputEmail" placeholder="Email">

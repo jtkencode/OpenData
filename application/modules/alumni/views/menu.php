@@ -12,7 +12,9 @@
 				<div class="pull-left info">
 					<p><?php echo $akunInfo['NAMA_ALUMNI'];?></p>
 					<!-- Status -->
-					<a href="<?php echo site_url('alumni/profile');?>"><i class="fa fa-circle text-success"></i> Online</a>
+					<a href="<?php echo site_url('alumni/profile');?>">
+					<?php echo $akunInfo['TAHUN_MASUK'];?>
+					</a>
 				</div>
 			</div>
 

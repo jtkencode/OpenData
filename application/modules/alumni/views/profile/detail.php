@@ -97,8 +97,8 @@
 							</li>
 
 							<li>
-								<a href="#r_beasiswa" data-toggle="tab">
-									Riwayat Beasiswa
+								<a href="#beasiswa" data-toggle="tab">
+									Beasiswa
 								</a>
 							</li>
 						</ul>
@@ -110,33 +110,81 @@
 						<div class="tab-content">
 							<div class="active tab-pane" id="info">
 								<div class="box-body">
-							<strong><i class="fa fa-graduation-cap margin-r-5"></i>  Jurusan</strong>
-							<p class="text-muted">
-								<?php echo (!empty($akunInfo['NAMA_JURUSAN'])) ? $akunInfo['NAMA_JURUSAN'] : '-';?> - 
-								<?php echo (!empty($akunInfo['NAMA_PRODI'])) ? $akunInfo['NAMA_PRODI'] : '-';?>
-							</p>
+									<strong><i class="fa fa-graduation-cap margin-r-5"></i>  Jurusan</strong>
+									<p class="text-muted">
+										<?php echo (!empty($akunInfo['NAMA_JURUSAN'])) ? $akunInfo['NAMA_JURUSAN'] : '-';?> - 
+										<?php echo (!empty($akunInfo['NAMA_PRODI'])) ? $akunInfo['NAMA_PRODI'] : '-';?>
+									</p>
 
-							<hr>
+									<hr>
 
-							<strong><i class="fa fa-inbox margin-r-5"></i>  Email</strong>
-							<p class="text-muted">
-								<?php echo (!empty($akunInfo['EMAIL_ALUMNI'])) ? $akunInfo['EMAIL_ALUMNI'] : '-';?>
-							</p>
+									<strong><i class="fa fa-book margin-r-5"></i>  Tugas Akhir</strong>
+									<p class="text-muted">
+										<?php echo (!empty($akunInfo['JUDUL_TUGAS_AKHIR'])) ? $akunInfo['JUDUL_TUGAS_AKHIR'] : '';?>
+									</p>
 
-							<hr>
+									<hr>
 
-							<strong><i class="fa fa-map-marker margin-r-5"></i> Alamat</strong>
-							<p class="text-muted">
-								<?php echo (!empty($akunInfo['ALAMAT_ALUMNI'])) ? strip_tags($akunInfo['ALAMAT_ALUMNI']) : '-';?>
-							</p>
+									<strong><i class="fa fa-inbox margin-r-5"></i>  Email</strong>
+									<p class="text-muted">
+										<?php echo (!empty($akunInfo['EMAIL_ALUMNI'])) ? $akunInfo['EMAIL_ALUMNI'] : '-';?>
+									</p>
 
-							<hr>
+									<hr>
 
-							<strong><i class="fa fa-phone margin-r-5"></i> No HP</strong>
-							<p class="text-muted">
-								<?php echo (!empty($akunInfo['NO_HP'])) ? strip_tags($akunInfo['NO_HP']) : '-';?>
-							</p>
-						</div><!-- /.box-body -->
+									<strong><i class="fa fa-map-marker margin-r-5"></i> Alamat</strong>
+									<p class="text-muted">
+										<?php echo (!empty($akunInfo['ALAMAT_ALUMNI'])) ? strip_tags($akunInfo['ALAMAT_ALUMNI']) : '-';?>
+									</p>
+
+									<hr>
+
+									<strong><i class="fa fa-phone margin-r-5"></i> No HP</strong>
+									<p class="text-muted">
+										<?php echo (!empty($akunInfo['NO_HP'])) ? strip_tags($akunInfo['NO_HP']) : '-';?>
+									</p>
+								</div><!-- /.box-body -->
+							</div>
+
+							<div class="tab-pane" id="karya">
+								<table class="table table-bordered">
+									<tr>
+										<th style="width: 20px">#</th>
+										<th>Judul Karya Ilmiah</th>
+										<th>Tahun Pembuatan</th>
+										<th>Tahun Selesai</th>
+									</tr>
+									<?php
+										if(!empty($karyaIlmiah)):
+											$no=1;
+											foreach ($karyaIlmiah as $karyaIlmiah):
+									?>
+									<tr>
+										<td>
+											<?php echo $no;?>
+										</td>
+										<td>
+											<?php echo $karyaIlmiah['JUDUL_KARYA_ILMIAH'];?>
+										</td>
+										<td>
+											<?php echo $karyaIlmiah['TAHUN_PEMBUATAN'];?>
+										</td>
+										<td>
+											<?php echo $karyaIlmiah['TAHUN_SELESAI_KARYA'];?>
+										</td>
+									</tr>
+									<?php
+											$no++;
+											endforeach;
+										else:
+									?>
+									<tr>
+										<td colspan="5">Tidak ada data.</td>
+									</tr>
+									<?php
+										endif;
+									?>
+								</table>
 							</div>
                   
 							<div class="tab-pane" id="timeline">
@@ -221,6 +269,135 @@
 									</li>
 								</ul>
 							</div><!-- /.tab-pane -->
+
+							<div class="tab-pane" id="r_organisasi">
+								<table class="table table-bordered">
+									<tr>
+										<th style="width: 20px">#</th>
+										<th>Nama Organisasi</th>
+										<th>Jabatan</th>
+										<th>Periode</th>
+									</tr>
+									<?php
+										if(!empty($historiOrganisasi)):
+											$no=1;
+											foreach ($historiOrganisasi as $historiOrganisasi):
+												$selesai = ($historiOrganisasi['TAHUN_SELESAI_JABATAN']==0) ? 'Sekarang' : $historiOrganisasi['TAHUN_SELESAI_JABATAN'];
+									?>
+									<tr>
+										<td>
+											<?php echo $no;?>
+										</td>
+										<td>
+											<?php echo $historiOrganisasi['NAMA_ORGANISASI'];?>
+										</td>
+										<td>
+											<?php echo $historiOrganisasi['JABATAN_DI_ORGANISASI'];?>
+										</td>
+										<td>
+											<?php echo $historiOrganisasi['TAHUN_MULAI_JABATAN'].' - '.$selesai;?>
+										</td>
+									</tr>
+									<?php
+											$no++;
+											endforeach;
+										else:
+									?>
+									<tr>
+										<td colspan="5">Tidak ada data.</td>
+									</tr>
+									<?php
+										endif;
+									?>
+								</table>
+							</div>
+
+							<div class="tab-pane" id="r_kompetisi">
+								<table class="table table-bordered">
+									<tr>
+										<th style="width: 20px">#</th>
+										<th>Nama Kompetisi</th>
+										<th>Prestasi</th>
+										<th>Tahun Kompetisi</th>
+									</tr>
+									<?php
+										if(!empty($historiKompetisi)):
+											$no=1;
+											foreach ($historiKompetisi as $historiKompetisi):
+									?>
+									<tr>
+										<td>
+											<?php echo $no;?>
+										</td>
+										<td>
+											<?php echo $historiKompetisi['NAMA_KOMPETISI'];?> (<?php echo $historiKompetisi['PENYELENGGARA_KOMPETISI'];?>)
+										</td>
+										<td>
+											<?php echo $historiKompetisi['PRESTASI'];?>
+										</td>
+										<td>
+											<?php echo $historiKompetisi['TAHUN_KOMPETISI'];?>
+										</td>
+									</tr>
+									<?php
+											$no++;
+											endforeach;
+										else:
+									?>
+									<tr>
+										<td colspan="5">Tidak ada data.</td>
+									</tr>
+									<?php
+										endif;
+									?>
+								</table>
+							</div>
+
+							<div class="tab-pane" id="beasiswa">
+								<table class="table table-bordered">
+									<tr>
+										<th style="width: 20px">#</th>
+										<th>Nama Beasiswa</th>
+										<th>Penyelenggara Beasiswa</th>
+										<th>Tahun Mulai</th>
+										<th>Tahun Selesai</th>
+									</tr>
+									<?php
+										if(!empty($beasiswa)):
+											$no=1;
+											foreach ($beasiswa as $beasiswa):
+									?>
+									<tr>
+										<td>
+											<?php echo $no;?>
+										</td>
+										<td>
+											<?php echo $beasiswa['NAMA_BEASISWA'];?>
+										</td>
+										<td>
+											<?php echo $beasiswa['PENYELENGGARA_BEASISWA'];?>
+										</td>
+										<td>
+											<?php echo $beasiswa['TAHUN_MULAI_BEASISWA'];?>
+										</td>
+										<td>
+											<?php echo $beasiswa['TAHUN_SELESAI_BEASISWA'];?>
+										</td>
+									</tr>
+									<?php
+											$no++;
+											endforeach;
+										else:
+									?>
+									<tr>
+										<td colspan="5">Tidak ada data.</td>
+									</tr>
+									<?php
+										endif;
+									?>
+								</table>
+							</div>
+
 						</div><!-- /.tab-content -->
 					</div><!-- /.nav-tabs-custom -->
 					

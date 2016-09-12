@@ -17,6 +17,7 @@ class M_alumni extends CI_Model{
 		$this->tb_jurusan = 'jurusan';
 		$this->tb_bekerja = 'bekerja';
 		$this->tb_perusahaan = 'perusahaan';
+		$this->tb_ta = 'tugas_akhir';
 	}
 
 	public function auth($info=array()){
@@ -35,9 +36,10 @@ class M_alumni extends CI_Model{
 	}
 
 	public function ambilSatu($info=array()){
-		$query = $this->db->select("*, ".$this->tb_alumni.".ID_PRODI as idProdi, ".$this->tb_prodi.".ID_JURUSAN as idJurusan");
+		$query = $this->db->select("*, ".$this->tb_alumni.".ID_PRODI as idProdi, ".$this->tb_prodi.".ID_JURUSAN as idJurusan, ".$this->tb_alumni.".ID_TUGAS_AKHIR as idTA");
 		$query = $this->db->join($this->tb_jurusan,$this->tb_jurusan.'.ID_JURUSAN='.$this->tb_prodi.'.ID_JURUSAN');
 		$query = $this->db->join($this->tb_alumni,$this->tb_prodi.'.ID_PRODI='.$this->tb_alumni.'.ID_PRODI');
+		$query = $this->db->join($this->tb_ta,$this->tb_ta.'.ID_TUGAS_AKHIR='.$this->tb_alumni.'.ID_TUGAS_AKHIR');
 		$query = $this->db->get_where($this->tb_prodi,$info);
 		$query = $query->result_array();
 
@@ -73,6 +75,13 @@ class M_alumni extends CI_Model{
 
 	public function ambilSemuaJurusan(){
 		$query = $this->db->get($this->tb_jurusan);
+		$query = $query->result_array();
+
+		return $query;
+	}
+
+	public function ambilTA(){
+		$query = $this->db->get($this->tb_ta);
 		$query = $query->result_array();
 
 		return $query;

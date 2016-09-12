@@ -129,6 +129,7 @@
 				$("#nohp").val(data.no_hp);
 				$("#pekerjaan").val(data.pekerjaan);
 				$("#tugasakhir").val(data.tugasAkhir);
+				$("#karyaIlmiah").val(data.karya_ilmiah);
 				$("textarea[name='alamat']").val(data.alamat_alumni);
 
 				var htmlKerja;
@@ -168,6 +169,45 @@
 					html +=	"</tr>";
 					$("#gawe").append(html);
 				}
+
+				var beasiswa;
+
+				htmlbeasiswa = "<div class=\"row\">";
+				htmlbeasiswa += "	<div class=\"col-md-12\">";
+				htmlbeasiswa += "		Riwayat Beasiswa :";
+				htmlbeasiswa += "		<table class=\"table table-bordered\" id=\"beasiswana\">";
+				htmlbeasiswa += "			<tr>";
+				htmlbeasiswa += "				<th>No</th>";
+				htmlbeasiswa += "				<th>Nama Beasiswa</th>";
+				htmlbeasiswa += "				<th>Penyelenggara Beasiswa</th>";
+				htmlbeasiswa += "				<th>Tahun Mulai</th>	";
+				htmlbeasiswa += "				<th>Tahun Selesai</th>";
+				htmlbeasiswa += "			</tr>";
+				htmlbeasiswa += "		</table>";
+				htmlbeasiswa += "	</div>";
+				htmlbeasiswa += "</div>";
+
+				$("#dapetBeasiswa").html(htmlbeasiswa);
+
+
+				for(var i=0;i<data.dapetBeasiswa.length;i++){
+					var thnselesaiBeasiswa = (data.dapetBeasiswa[i].TAHUN_SELESAI_BEASISWA==0) ? 'Sekarang' : data.dapetBeasiswa[i].TAHUN_SELESAI_BEASISWA;
+					html = "<tr>";
+					html +=	"	<td>"+parseInt(i+1)+"</td>";
+					html +=	"	<td>"+data.dapetBeasiswa[i].NAMA_BEASISWA+"</td>";
+					html +=	"	<td>"+data.dapetBeasiswa[i].PENYELENGGARA_BEASISWA+"</td>";
+					html +=	"	<td>"+data.dapetBeasiswa[i].TAHUN_MULAI_BEASISWA+"</td>";
+					html +=	"	<td>"+thnselesaiBeasiswa+"</td>";
+					html +=	"</tr>";
+					$("#beasiswana").append(html);
+				}
+				if(data.dapetBeasiswa.length==0){
+					html = "<tr>";
+					html +=	"	<td colspan=\"5\"> Belum Pernah Dapat Beasiswa.</td>";
+					html +=	"</tr>";
+					$("#beasiswana").append(html);
+				}
+
 			}
 		});
 		$('#modalAlumni').modal('show'); // show bootstrap modal
@@ -235,6 +275,10 @@
 						Tugas Akhir :
 						<input type="text" id="tugasakhir" disabled readonly="true" class="form-control" value="" />
 					</div>
+					<div class="col-md-6">
+						Karya Ilmiah:
+						<input type="text" id="karyaIlmiah" disabled readonly="true" class="form-control" value="" />
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
@@ -243,6 +287,7 @@
 					</div>
 				</div>
 				<div id="riwayatKerja"></div>
+				<div id="dapetBeasiswa"></div>
 			</div>
 
 			<div class="modal-footer">

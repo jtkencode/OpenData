@@ -23,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         apply the skin class to the body tag so the changes take effect.
         -->
         <link rel="stylesheet" href="<?php echo $asset;?>/css/style.css">
-
+        <link rel="stylesheet" href="<?php echo $asset;?>/css/styleF.css">
         <?php
             if(isset($style)):
                 foreach ($style as $style):

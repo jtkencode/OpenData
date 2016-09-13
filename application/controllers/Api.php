@@ -25,6 +25,8 @@ class Api extends CI_Controller {
 		$this->tb_riwayat_komp = 'riwayat_kompetisi';
 		$this->tb_karya = 'karya_ilmiah';
 		$this->tb_membuat_karya = 'membuat_karya_ilmiah';
+		$this->tb_beasiswa = 'beasiswa';
+		$this->tb_mendapat = 'mendapat_beasiswa';
 	}
 
 	private function outputJson($response=array(),$status=200){
@@ -151,6 +153,44 @@ class Api extends CI_Controller {
 				$response = array('status'=>true, 'message'=>'Berhasil menambah pekerjaan.', 'id'=> $last_id);
 			}else{
 				$response = array('status'=>false, 'message'=>'Kesalahan database', 'id'=> 0);
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
+	public function tambahBeasiswa(){
+		$this->load->library('form_validation');
+
+		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
+
+		$this->form_validation->set_rules('nama', 'Nama Beasiswa', 'required|min_length[2]|max_length[50]', array(
+			'required'	=> 'You have not provided %s.'
+        ));
+		$this->form_validation->set_rules('penyelenggara', 'Penyelenggara Beasiswa', 'required|min_length[3]|max_length[50]', array(
+			'required'	=> 'You have not provided %s.'
+        ));
+
+        if($this->form_validation->run()){
+			$nama = $this->input->post('nama');
+			$penyelenggara = $this->input->post('penyelenggara');
+
+			$data = array(
+				'NAMA_BEASISWA'			=> $nama,
+				'PENYELENGGARA_BEASISWA'=> $penyelenggara
+			);
+
+			$insert = $this->db->insert($this->tb_beasiswa,$data);
+			$last_id = $this->db->insert_id();
+
+			if($insert){
+				$response = array('status'=>true, 'message'=>'Berhasil menambah beasiswa.', 'id'=> $last_id);
+			}else{
+				$response = array('status'=>false, 'message'=>'Kesalahan database', 'id'=> 0);
+			}
+		}else{
+			if(validation_errors()){
+				$response = array('status'=>false, 'message'=>validation_errors(), 'id'=> 0);
 			}
 		}
 
@@ -401,6 +441,29 @@ class Api extends CI_Controller {
 
 				if($hapus){
 					$response = array('status'=>true, 'message'=>'Berhasil menghapus pembuatan karya '.$cek[0]['JUDUL_KARYA_ILMIAH'].'.');
+				}else{
+					$response = array('status'=>false, 'message'=>'Kesalahan database');
+				}
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
+	public function hapusPendapatanBeasiswa(){
+		$response = array('status'=>false, 'message'=>null);
+
+		@$id=$this->input->post('id');
+
+		if(!empty($id)){
+			$cek = $this->db->join($this->tb_beasiswa,$this->tb_beasiswa.'.ID_BEASISWA='.$this->tb_mendapat.'.ID_BEASISWA');
+			$cek = $this->db->get_where($this->tb_mendapat,array('ID_MENDAPAT_BEASISWA' => $id))->result_array();
+
+			if(!empty($cek)){
+				$hapus = $this->db->delete($this->tb_mendapat,array('ID_MENDAPAT_BEASISWA' => $id));
+
+				if($hapus){
+					$response = array('status'=>true, 'message'=>'Berhasil menghapus pendapatan beasiswa '.$cek[0]['NAMA_BEASISWA'].'.');
 				}else{
 					$response = array('status'=>false, 'message'=>'Kesalahan database');
 				}

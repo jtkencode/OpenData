@@ -136,7 +136,7 @@
 	function hapus(){
 		var id = $("#delIDPek").val();
 		console.log(id);
-		$.post("<?php echo site_url('api/hapusPembuatanKarya');?>", { 
+		$.post("<?php echo site_url('api/hapusPendapatanBeasiswa');?>", { 
 			<?php echo $this->security->get_csrf_token_name(); ?> : '<?php echo $this->security->get_csrf_hash(); ?>',
 			id: id
 		}, function(res, status) {

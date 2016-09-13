@@ -76,7 +76,7 @@
 										<label for="thn_mulai" class="col-sm-2 control-label">Tahun Mulai</label>
 										<div class="col-sm-10">
 											<select name="thn_mulai" id="thn_mulai" class="form-control">
-												<?php $thn_mulai = (!empty($datana['TAHUN_PEMBUATAN'])) ? $datana['TAHUN_PEMBUATAN'] : '';?>
+												<?php $thn_mulai = (!empty($datana['TAHUN_MULAI_BEASISWA'])) ? $datana['TAHUN_MULAI_BEASISWA'] : '';?>
 												<?php for ($a=1991;$a<=date('Y');$a++): ?>
 												<option value="<?php echo $a;?>"<?php echo ($thn_mulai==$a) ? ' selected' : '';?>><?php echo $a;?></option>
 												<?php endfor; ?>
@@ -88,7 +88,7 @@
 										<label for="thn_selesai" class="col-sm-2 control-label">Tahun Selesai</label>
 										<div class="col-sm-10">
 											<select name="thn_selesai" id="thn_selesai" class="form-control">
-												<?php $thn_selesai = (!empty($datana['TAHUN_PEMBUATAN'])) ? $datana['TAHUN_PEMBUATAN'] : '';?>
+												<?php $thn_selesai = (!empty($datana['TAHUN_SELESAI_BEASISWA'])) ? $datana['TAHUN_SELESAI_BEASISWA'] : '';?>
 												<?php for ($a=1991;$a<=date('Y');$a++): ?>
 												<option value="<?php echo $a;?>"<?php echo ($thn_selesai==$a) ? ' selected' : '';?>><?php echo $a;?></option>
 												<?php endfor; ?>
@@ -113,33 +113,31 @@
 
 <script type="text/javascript">
 	function addBeasiswa() {
-		$('#modalbeasiswa').modal('show'); // show bootstrap modal
+		$('#modelForm').modal('show'); // show bootstrap modal
 	}
 
 	function add(){
 
-		var judul = $("#judul").val();
-		var tujuan = $("#tujuan").val();
-		var thn_selesai = $("div#thn_selesai select").val();
+		var nama = $("#nama").val();
+		var penyelenggara = $("#penyelenggara").val();
 
-		$.post("<?php echo site_url('api/tambahbeasiswa');?>", { 
+		$.post("<?php echo site_url('api/tambahBeasiswa');?>", { 
 			<?php echo $this->security->get_csrf_token_name(); ?> : '<?php echo $this->security->get_csrf_hash(); ?>',
-			judul: judul,
-			tujuan: tujuan,
-			thn_selesai: thn_selesai
+			nama: nama,
+			penyelenggara: penyelenggara
 		}, function(res, status) {
 			if(res.status){
 				$('#beasiswa').append($('<option>', {
 				    value: res.id,
-				    text: judul,
+				    text: nama,
 				}));
 				$('#beasiswa').val(res.id).change();
 
-				$("#judul").val("");
-				$("#tujuan").val("");
+				$("#nama").val("");
+				$("#penyelenggara").val("");
 				$("#alert").html("");
 
-				$('#modalbeasiswa').modal('hide');
+				$('#modelForm').modal('hide');
 			}else{
 				var textAlert;
 				textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
@@ -159,12 +157,12 @@
 	}
 </script>
 
-<div id="modalbeasiswa" class="modal fade" tabindex="-1">
+<div id="modelForm" class="modal fade" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h3 class="smaller lighter blue no-margin">Data beasiswa Ilmiah</h3>
+				<h3 class="smaller lighter blue no-margin">Data Beasiswa</h3>
 			</div>
 
 			<div class="modal-body">
@@ -173,12 +171,12 @@
 					<div class="form-group">
 						<div class="col-md-12">
 							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Judul beasiswa Ilmiah
+								Nama Beasiswa
 							</label>
 						</div>
 
 						<div class="col-md-12">
-							<input type="text" id="judul" class="form-control" />
+							<input type="text" id="nama" class="form-control" />
 						</div>
 					</div>
 				</div>
@@ -186,30 +184,14 @@
 					<div class="form-group">
 						<div class="col-md-12">
 							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Tujuan Pembuatan beasiswa
+								Penyelenggara Beasiswa
 							</label>
 						</div>
 
 						<div class="col-md-12">
-							<textarea id="tujuan" class="form-control"></textarea>
+							<input type="text" id="penyelenggara" class="form-control" />
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-md-12">
-							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Tahun Selesai
-							</label>
-						</div>
-						<div class="col-sm-12" id="thn_selesai">
-							<select class="form-control">
-								<?php for ($a=1991;$a<=date('Y');$a++): ?>
-								<option value="<?php echo $a;?>"><?php echo $a;?></option>
-								<?php endfor; ?>
-							</select>
-						</div>
-					</div>	
 				</div>
 			</div>
 			<div class="modal-footer">

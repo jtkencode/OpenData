@@ -106,11 +106,139 @@ class Beasiswa extends Main{
 		// Pesan
 		$this->global_data['message'] = $this->session->flashdata('message');
 
-		$this->form_validation->set_rules('jabatan', 'Jabatan', 'required|min_length[2]|max_length[20]', array(
+		$this->form_validation->set_rules('beasiswa', 'Beasiswa', 'required', array(
 			'required'	=> 'You have not provided %s.'
         ));
         
 		if($this->form_validation->run()){
+			$beasiswa = $this->input->post('beasiswa');
+			$tahun_mulai = $this->input->post('thn_mulai');
+			$tahun_selesai = $this->input->post('thn_selesai');
+
+			$cek = $this->m_beasiswa->getOne(array(
+				'mendapat_beasiswa.ID_BEASISWA'=>$beasiswa, 
+				'ID_ALUMNI'=>$this->session->userdata('id'),
+				'TAHUN_MULAI_BEASISWA'=>$tahun_mulai,
+				'TAHUN_SELESAI_BEASISWA'=>$tahun_selesai
+			));
+
+			if(!empty($cek)){
+				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
+				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	Beasiswa tersebut sudah ada.";
+				$notif .= "</div>";
+				$this->session->set_flashdata('message',$notif);
+
+				redirect('alumni/beasiswa/add');
+			}else{
+				if($tahun_mulai <= $tahun_selesai || $tahun_selesai==0){
+					$insert = $this->m_beasiswa->insertRiwayat(array(
+						'ID_BEASISWA'=>$beasiswa, 
+						'ID_ALUMNI'=>$this->session->userdata('id'),
+						'TAHUN_MULAI_BEASISWA'=>$tahun_mulai,
+						'TAHUN_SELESAI_BEASISWA'=>$tahun_selesai
+					));
+					if($insert){
+						$notif = "<div class=\"alert alert-success alert-dismissable\">";
+						$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
+						$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Alert!</h4>";
+						$notif .= "	Berhasil menambahkan beasiswa ke akun anda.";
+						$notif .= "</div>";
+						$this->session->set_flashdata('message',$notif);
+
+						redirect('alumni/beasiswa');
+					}
+				}else{
+					$notif = "<div class=\"alert alert-warning alert-dismissable\">";
+					$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
+					$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+					$notif .= "	Periode pendapatan beasiswa tidak sahih.";
+					$notif .= "</div>";
+					$this->session->set_flashdata('message',$notif);
+
+					redirect('alumni/beasiswa/add');
+				}
+			}
+		}else{
+			// Pesan validasi
+			if(validation_errors()){
+				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
+				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	".validation_errors();
+				$notif .= "</div>";
+				$this->session->set_flashdata('message',$notif);
+
+				redirect('alumni/beasiswa/add');
+			}
+		}
+
+		$this->form();
+	}
+
+	public function edit($id=0){
+		// Identitas halaman
+		$this->global_data['active_menu'] = "beasiswa";
+		$this->global_data['title'] = "Ubah Beasiswa";
+		$this->global_data['description'] = "Ubah beasiswa";
+
+		// Breadcumb
+		$this->global_data['breadcumb'][] = array(
+			'judul'	=> '<i class="glyphicon glyphicon-glass"></i> Beasiswa',
+			'link'	=> site_url('alumni/beasiswa')
+		);	
+		$this->global_data['breadcumb'][] = array(
+			'judul'	=> 'Ubah Beasiswa',
+			'link'	=> ''
+		);
+
+		$data = $this->m_beasiswa->getOne(array('ID_MENDAPAT_BEASISWA'=>$id));
+
+		if(empty($data)){
+			redirect('alumni/pekerjaan');
+		}
+
+		$this->global_data['datana'] = $data;
+
+		// Pesan
+		$this->global_data['message'] = $this->session->flashdata('message');
+
+		$this->form_validation->set_rules('beasiswa', 'Beasiswa', 'required', array(
+			'required'	=> 'You have not provided %s.'
+        ));
+
+		if($this->form_validation->run()){
+			$beasiswa = $this->input->post('beasiswa');
+			$tahun_mulai = $this->input->post('thn_mulai');
+			$tahun_selesai = $this->input->post('thn_selesai');
+
+			if($tahun_mulai <= $tahun_selesai || $tahun_selesai==0){
+				$edit = $this->m_beasiswa->updateRiwayat($id,array(
+					'ID_BEASISWA'=>$beasiswa,
+					'TAHUN_MULAI_BEASISWA'=>$tahun_mulai,
+					'TAHUN_SELESAI_BEASISWA'=>$tahun_selesai
+				));
+				if($edit){
+					$notif = "<div class=\"alert alert-success alert-dismissable\">";
+					$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
+					$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Alert!</h4>";
+					$notif .= "	Berhasil merubah mendapat beasiswa.";
+					$notif .= "</div>";
+					$this->session->set_flashdata('message',$notif);
+
+					redirect('alumni/beasiswa');
+				}
+			}else{
+				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
+				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	Periode pendapatan beasiswa tidak sahih.";
+				$notif .= "</div>";
+				$this->session->set_flashdata('message',$notif);
+
+				redirect('alumni/beasiswa/edit/'.$id);
+			}
 		}else{
 			// Pesan validasi
 			if(validation_errors()){

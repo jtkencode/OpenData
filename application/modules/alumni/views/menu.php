@@ -52,7 +52,7 @@
 					<a href="<?php echo site_url('alumni/beasiswa');?>"><i class="fa fa-graduation-cap"></i> <span>Beasiswa</span></a>
 				</li>
 
-				<li class="treeview<?php echo($active_menu=='organisasi' || $active_menu=='kompetisi' || $active_menu=='beasiswa')? " active": "";?>">
+				<li class="treeview<?php echo($active_menu=='organisasi' || $active_menu=='kompetisi')? " active": "";?>">
 					<a href="#"><i class="fa fa-history"></i> <span>Riwayat</span> <i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li<?php echo($active_menu=='organisasi')? " class=\"active\"": "";?>>

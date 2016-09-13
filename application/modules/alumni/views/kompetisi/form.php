@@ -53,7 +53,7 @@
 									
 									<div class="form-group">
 										<label for="kompetisi" class="col-sm-2 control-label">Kompetisi</label>
-										<div class="col-sm-10">
+										<div class="col-sm-9">
 											<select name="kompetisi" id="kompetisi" class="form-control select2" style="width: 100%;">
 												<?php if(empty($kompetisi)): ?>
 												<option value="0">-Tidak ada kompetisi-</option>
@@ -65,12 +65,9 @@
 												<?php endforeach; ?>
 											</select>
 										</div>
-									</div>
-
-									<div class="form-group">
-										<div class="col-sm-offset-2 col-sm-10">
+										<div class="col-sm-1">
 											<a class="btn btn-default btn-md" onclick="addKompetisi()">
-												<i class="fa fa-plus"></i> Kompetisi
+												<i class="fa fa-plus"></i> 
 											</a>
 										</div>
 									</div>

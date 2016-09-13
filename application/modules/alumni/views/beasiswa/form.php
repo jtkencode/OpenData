@@ -52,30 +52,23 @@
 									<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 									
 									<div class="form-group">
-										<label for="organisasi" class="col-sm-2 control-label">Organisasi</label>
+										<label for="beasiswa" class="col-sm-2 control-label">Beasiswa</label>
 										<div class="col-sm-9">
-											<select name="organisasi" id="organisasi" class="form-control select2" style="width: 100%;">
-												<?php if(empty($organisasi)): ?>
-												<option value="0">-Tidak ada organisasi-</option>
+											<select name="beasiswa" id="beasiswa" class="form-control select2" style="width: 100%;">
+												<?php if(empty($beasiswa)): ?>
+												<option value="0">-Tidak ada beasiswa ilmiah-</option>
 												<?php endif;?>
-												<?php foreach ($organisasi as $resP): ?>
-												<option value="<?php echo $resP['ID_ORGANISASI'];?>"<?php echo (!empty($datana['ID_ORGANISASI'])) ? ($resP['ID_ORGANISASI']==$datana['ID_ORGANISASI']) ? ' selected' : '' : '';?>>
-													<?php echo $resP['NAMA_ORGANISASI'];?>
+												<?php foreach ($beasiswa as $resP): ?>
+												<option value="<?php echo $resP['ID_BEASISWA'];?>"<?php echo (!empty($datana['ID_BEASISWA'])) ? ($resP['ID_BEASISWA']==$datana['ID_BEASISWA']) ? ' selected' : '' : '';?>>
+													<?php echo $resP['NAMA_BEASISWA'];?>
 												</option>
 												<?php endforeach; ?>
 											</select>
 										</div>
 										<div class="col-sm-1">
-											<a class="btn btn-default btn-md" onclick="addOrganisasi()">
+											<a class="btn btn-default btn-md" onclick="addBeasiswa()">
 												<i class="fa fa-plus"></i>
 											</a>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label for="jabatan" class="col-sm-2 control-label">Jabatan</label>
-										<div class="col-sm-10">
-											<input type="text" name="jabatan" class="form-control" value="<?php echo (!empty($datana['JABATAN_DI_ORGANISASI'])) ? $datana['JABATAN_DI_ORGANISASI'] : '';?>" id="jabatan" placeholder="Admin">
 										</div>
 									</div>
 
@@ -83,22 +76,22 @@
 										<label for="thn_mulai" class="col-sm-2 control-label">Tahun Mulai</label>
 										<div class="col-sm-10">
 											<select name="thn_mulai" id="thn_mulai" class="form-control">
+												<?php $thn_mulai = (!empty($datana['TAHUN_PEMBUATAN'])) ? $datana['TAHUN_PEMBUATAN'] : '';?>
 												<?php for ($a=1991;$a<=date('Y');$a++): ?>
-												<option value="<?php echo $a;?>"<?php echo (!empty($datana['TAHUN_MULAI_JABATAN'])) ? ($a==$datana['TAHUN_MULAI_JABATAN']) ? ' selected' : '' : '';?>><?php echo $a;?></option>
+												<option value="<?php echo $a;?>"<?php echo ($thn_mulai==$a) ? ' selected' : '';?>><?php echo $a;?></option>
 												<?php endfor; ?>
 											</select>
 										</div>
-									</div>
+									</div>	
 
 									<div class="form-group">
 										<label for="thn_selesai" class="col-sm-2 control-label">Tahun Selesai</label>
 										<div class="col-sm-10">
 											<select name="thn_selesai" id="thn_selesai" class="form-control">
-												<?php $thn_selesai = (!empty($datana['TAHUN_SELESAI_JABATAN'])) ? $datana['TAHUN_SELESAI_JABATAN'] : '';?>
-												<?php for ($a=1991;$a<=date('Y')-1;$a++): ?>
+												<?php $thn_selesai = (!empty($datana['TAHUN_PEMBUATAN'])) ? $datana['TAHUN_PEMBUATAN'] : '';?>
+												<?php for ($a=1991;$a<=date('Y');$a++): ?>
 												<option value="<?php echo $a;?>"<?php echo ($thn_selesai==$a) ? ' selected' : '';?>><?php echo $a;?></option>
 												<?php endfor; ?>
-												<option value="0"<?php echo ($thn_selesai==0) ? ' selected' : '';?>>-Sekarang-</option>
 											</select>
 										</div>
 									</div>									
@@ -119,29 +112,34 @@
 	</div><!-- /.content-wrapper -->
 
 <script type="text/javascript">
-	function addOrganisasi() {
-		$('#modalorganisasi').modal('show'); // show bootstrap modal
+	function addBeasiswa() {
+		$('#modalbeasiswa').modal('show'); // show bootstrap modal
 	}
 
 	function add(){
 
-		var nama = $("#namaorganisasi").val();
+		var judul = $("#judul").val();
+		var tujuan = $("#tujuan").val();
+		var thn_selesai = $("div#thn_selesai select").val();
 
-		$.post("<?php echo site_url('api/tambahOrganisasi');?>", { 
+		$.post("<?php echo site_url('api/tambahbeasiswa');?>", { 
 			<?php echo $this->security->get_csrf_token_name(); ?> : '<?php echo $this->security->get_csrf_hash(); ?>',
-			nama: nama
+			judul: judul,
+			tujuan: tujuan,
+			thn_selesai: thn_selesai
 		}, function(res, status) {
 			if(res.status){
-				$('#organisasi').append($('<option>', {
+				$('#beasiswa').append($('<option>', {
 				    value: res.id,
-				    text: nama,
+				    text: judul,
 				}));
-				$('#organisasi').val(res.id).change();
+				$('#beasiswa').val(res.id).change();
 
-				$("#namaorganisasi").val("");
+				$("#judul").val("");
+				$("#tujuan").val("");
 				$("#alert").html("");
 
-				$('#modalorganisasi').modal('hide');
+				$('#modalbeasiswa').modal('hide');
 			}else{
 				var textAlert;
 				textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
@@ -161,12 +159,12 @@
 	}
 </script>
 
-<div id="modalorganisasi" class="modal fade" tabindex="-1">
+<div id="modalbeasiswa" class="modal fade" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h3 class="smaller lighter blue no-margin">Data Organisasi</h3>
+				<h3 class="smaller lighter blue no-margin">Data beasiswa Ilmiah</h3>
 			</div>
 
 			<div class="modal-body">
@@ -175,14 +173,43 @@
 					<div class="form-group">
 						<div class="col-md-12">
 							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Nama organisasi
+								Judul beasiswa Ilmiah
 							</label>
 						</div>
 
 						<div class="col-md-12">
-							<input type="text" id="namaorganisasi" class="form-control" />
+							<input type="text" id="judul" class="form-control" />
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="form-group">
+						<div class="col-md-12">
+							<label class="control-label no-padding-left" for="form-field-1-1"> 
+								Tujuan Pembuatan beasiswa
+							</label>
+						</div>
+
+						<div class="col-md-12">
+							<textarea id="tujuan" class="form-control"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group">
+						<div class="col-md-12">
+							<label class="control-label no-padding-left" for="form-field-1-1"> 
+								Tahun Selesai
+							</label>
+						</div>
+						<div class="col-sm-12" id="thn_selesai">
+							<select class="form-control">
+								<?php for ($a=1991;$a<=date('Y');$a++): ?>
+								<option value="<?php echo $a;?>"><?php echo $a;?></option>
+								<?php endfor; ?>
+							</select>
+						</div>
+					</div>	
 				</div>
 			</div>
 			<div class="modal-footer">

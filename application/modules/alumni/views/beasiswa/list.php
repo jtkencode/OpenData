@@ -39,12 +39,15 @@
 		<section class="content">
 			<div class="row">
 				<div class="col-xs-12">
-						<a class="btn btn-primary btn-md" href="<?php echo site_url('admin/user/add');?>">
-							<i class="fa fa-plus"></i> Tambah
-						</a> <br></br>
-						<div id="alert"></div>
+					<div id="alert"></div>
+					<?php if(!empty($message)): ?>
+						<?php echo $message;?>
+					<?php endif;?>
+
+					<a class="btn btn-default btn-md" href="<?php echo site_url('alumni/beasiswa/add');?>">
+						<i class="fa fa-plus"></i> Tambah
+					</a> <br></br>
 					<div class="box">
-						
 						<div class="box-header with-border">
 							<h3 class="box-title">Daftar <?php echo $title;?></h3>
 						</div><!-- /.box-header -->
@@ -52,44 +55,39 @@
 							<table class="table table-bordered">
 								<tr>
 									<th style="width: 20px">#</th>
-									<th>Username</th>
-									<th>Jurusan</th>
-									<th>Program Studi</th>
-									<th>Status</th>
+									<th>Nama Beasiswa</th>
+									<th>Penyelenggara Beasiswa</th>
+									<th>Tahun Mulai</th>
+									<th>Tahun Selesai</th>
 									<th style="width: 10%">Aksi</th>
 								</tr>
 								<?php
-									if(!empty($dataUser)):
-										foreach ($dataUser as $dataUser):
+									if(!empty($data)):
+										foreach ($data as $data):
 								?>
-								<tr id="userna<?php echo $dataUser['id'];?>">
+								<tr id="histori<?php echo $data['id_mendapat'];?>">
 									<td>
-										<?php echo $dataUser['no'];?>
+										<?php echo $data['no'];?>
 									</td>
 									<td>
-										<?php echo $dataUser['username'];?>
+										<?php echo $data['nama'];?>
 									</td>
 									<td>
-										<?php echo $dataUser['jurusan'];?>
+										<?php echo $data['penyelenggara'];?>
 									</td>
 									<td>
-										<?php echo $dataUser['prodi'];?>
-									</td>
+										<?php echo $data['tahun_mulai'];?>
+									</td> 
 									<td>
-										<span class="label label-success">
-										<?php echo $dataUser['status'];?>
-										</span>
-									</td>
+										<?php echo $data['tahun_selesai'];?>
+									</td> 
 									<td style="width: 20%">
-										<button class="btn btn-xs btn-primary" title="Lihat" onclick="view(<?php echo $dataUser['id'];?>)">
-											<i class="fa fa-eye"></i>
-										</button>
-										<a class="btn btn-default btn-xs" title="Ubah" href="<?php echo $dataUser['href_edit'];?>">
-											<i class="fa fa-pencil"></i>
+										<a class="btn btn-default btn-xs" href="<?php echo $data['href_edit'];?>">
+											<i class="fa fa-pencil"></i> Ubah
 										</a>
-										<button class="btn btn-danger btn-xs" title="Hapus" onclick="deleteUser(<?php echo $dataUser['id'];?>)">
-											<i class="glyphicon glyphicon-trash"></i> 
-										</button>
+										<a class="btn btn-danger btn-xs" onclick="mdlhapus(<?php echo $data['id_mendapat'];?>)" title="Hapus">
+											<i class="glyphicon glyphicon-trash"></i> Delete
+										</a>
 									</td>
 								</tr>
 								<?php
@@ -97,7 +95,7 @@
 									else:
 								?>
 								<tr>
-									<td colspan="3">Tidak ada data.</td>
+									<td colspan="5">Tidak ada data.</td>
 								</tr>
 								<?php
 									endif;
@@ -105,7 +103,7 @@
 							</table>
 						</div><!-- /.box-body -->
 						<div class="box-footer clearfix">
-							<?php echo $halaman;?>
+							<?php echo (!empty($halaman)) ? $halaman : '';?>
 						</div>
 					</div>
 				</div><!-- /.col -->
@@ -113,40 +111,38 @@
 		</section><!-- /.content -->
 	</div><!-- /.content-wrapper -->
 
-
 <script type="text/javascript">
 	function view(obj){
 		var id = obj;
 
 		$.ajax({
-			url:"<?php echo site_url('api/ambilSatuUser')?>/"+id,
+			url:"<?php echo site_url('api/ambilSatuKarya')?>/"+id,
 			type:'get',
 			dataType: 'json',
 			success: function(data) {
-				var stt = (data.STATUS==1)?'Admin':'Mahasiswa';
-				$("#username").val(data.USERNAME);
-				$("#status").val(stt);
-				$("#jurusan").val(data.NAMA_JURUSAN);
-				$("#prodi").val(data.NAMA_PRODI);
+				$("#judul").val(data.JUDUL_KARYA_ILMIAH);
+				$("#tujuan").val(data.TUJUAN_PEMBUATAN_KARYA);
+				$("#thn_selesai").val(data.TAHUN_SELESAI_KARYA);
 			}
 		});
-		$('#modalUser').modal('show'); // show bootstrap modal
+		$('#modalDetail').modal('show'); // show bootstrap modal
 	}
 
-	function deleteUser(id){
-		$('#delID').val(id);
+	function mdlhapus(id){
+		$("#delIDPek").val(id);
 		$('#mdlHapus').modal('show'); // show bootstrap modal
 	}
 
-	function hapusUser(){
-		var id = $("#delID").val();
-
-		$.post("<?php echo site_url('api/hapusUser');?>", { 
+	function hapus(){
+		var id = $("#delIDPek").val();
+		console.log(id);
+		$.post("<?php echo site_url('api/hapusPembuatanKarya');?>", { 
 			<?php echo $this->security->get_csrf_token_name(); ?> : '<?php echo $this->security->get_csrf_hash(); ?>',
 			id: id
-		}, function(res) {
+		}, function(res, status) {
+			console.log(res);
 			if(res.status){
-				$("#userna"+id).remove();
+				$("#histori"+id).remove();
 
 				var textAlert;
 				textAlert = "<div class=\"alert alert-success alert-dismissable\">";
@@ -166,14 +162,16 @@
 
 				$("#alert").append(textAlert);
 			}
+			console.log(status);
 		}, "json");
 	}
 </script>
 
+
 <div id="mdlHapus" class="modal fade" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<input class="form-control" id="delID" type="hidden" value="0">
+			<input class="form-control" id="delIDPek" type="hidden" value="0">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h3 class="smaller lighter blue no-margin">Konfirmasi</h3>
@@ -189,7 +187,7 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-				<button class="btn btn-sm btn-danger pull-right" onclick="hapusUser()" data-dismiss="modal">
+				<button class="btn btn-sm btn-danger pull-right" onclick="hapus()" data-dismiss="modal">
 					<i class="ace-icon fa fa-trash"></i>
 					Delete
 				</button>
@@ -198,39 +196,55 @@
 	</div><!-- /.modal-dialog -->
 </div>
 
-<div id="modalUser" class="modal fade" tabindex="-1">
+<div id="modalDetail" class="modal fade" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<input class="form-control" id="bIDPek" type="hidden" value="0">
-			<input class="form-control" id="bStatus" type="hidden" value="null">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h3 class="smaller lighter blue no-margin">Data Pengguna</h3>
+				<h3 class="smaller lighter blue no-margin">Data Karya Ilmiah</h3>
 			</div>
 
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-md-6">
-						Username : 
-						<input type="text" id="username" disabled readonly="true" class="form-control" value="" />
-					</div>
-					<div class="col-md-6">
-						Status : 
-						<input type="text" id="status" disabled readonly="true" class="form-control" value="" />
+					<div class="form-group">
+						<div class="col-md-12">
+							<label class="control-label no-padding-left" for="form-field-1-1"> 
+								Judul Karya Ilmiah
+							</label>
+						</div>
+
+						<div class="col-md-12">
+							<input type="text" readonly id="judul" class="form-control" />
+						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6" id="pilihThnmulai">
-						Jurusan : 
-						<input type="text" id="jurusan" disabled readonly="true" class="form-control" value="" />
+					<div class="form-group">
+						<div class="col-md-12">
+							<label class="control-label no-padding-left" for="form-field-1-1"> 
+								Tujuan Pembuatan Karya
+							</label>
+						</div>
+
+						<div class="col-md-12">
+							<textarea readonly id="tujuan" class="form-control"></textarea>
+						</div>
 					</div>
-					<div class="col-md-6" id="pilihThnkeluar">
-						Program Studi : 
-						<input type="text" id="prodi" disabled readonly="true" class="form-control" value="" />
+				</div>
+				<div class="row">
+					<div class="form-group">
+						<div class="col-md-12">
+							<label class="control-label no-padding-left" for="form-field-1-1"> 
+								Tahun Selesai Karya Ilmiah
+							</label>
+						</div>
+
+						<div class="col-md-12">
+							<input type="text" readonly id="thn_selesai" class="form-control" />
+						</div>
 					</div>
 				</div>
 			</div>
-
 			<div class="modal-footer">
 				<button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
 					<i class="ace-icon fa fa-times"></i>

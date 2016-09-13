@@ -44,7 +44,7 @@
 						<?php echo $message;?>
 					<?php endif;?>
 
-					<a class="btn btn-default btn-md" href="<?php echo site_url('alumni/pekerjaan/add');?>">
+					<a class="btn btn-default btn-md" href="<?php echo site_url('alumni/karya/add');?>">
 						<i class="fa fa-plus"></i> Tambah
 					</a> <br></br>
 					<div class="box">
@@ -55,35 +55,35 @@
 							<table class="table table-bordered">
 								<tr>
 									<th style="width: 20px">#</th>
-									<th>Perusahaan</th>
-									<th>Jabatan</th>
-									<th>Periode</th>
+									<th>Judul Karya Ilmiah</th>
+									<th>Tahun Pembuatan</th>
+									<!-- <th>Tahun Selesai</th> -->
 									<th style="width: 10%">Aksi</th>
 								</tr>
 								<?php
 									if(!empty($data)):
 										foreach ($data as $data):
 								?>
-								<tr id="pagawean<?php echo $data['id_bekerja'];?>">
+								<tr id="histori<?php echo $data['id_riwayat'];?>">
 									<td>
 										<?php echo $data['no'];?>
 									</td>
 									<td>
-										<a onclick="view(<?php echo $data['id_perusahaan'];?>)"  style="cursor:pointer">
-											<?php echo $data['nama_perusahaan'];?>
+										<a onclick="view(<?php echo $data['id_karya'];?>)"  style="cursor:pointer">
+											<?php echo $data['judul'];?>
 										</a>
 									</td>
 									<td>
-										<?php echo $data['jabatan'];?>
+										<?php echo $data['tahun_pembuatan'];?>
 									</td>
-									<td>
-										<?php echo $data['periode'];?>
-									</td>
+									<!-- <td>
+										<?php echo $data['tahun_selesai'];?>
+									</td> -->
 									<td style="width: 20%">
 										<a class="btn btn-default btn-xs" href="<?php echo $data['href_edit'];?>">
 											<i class="fa fa-pencil"></i> Ubah
 										</a>
-										<a class="btn btn-danger btn-xs" onclick="mdlhapusPerusahaan(<?php echo $data['id_bekerja'];?>)" title="Hapus">
+										<a class="btn btn-danger btn-xs" onclick="mdlhapus(<?php echo $data['id_riwayat'];?>)" title="Hapus">
 											<i class="glyphicon glyphicon-trash"></i> Delete
 										</a>
 									</td>
@@ -114,35 +114,33 @@
 		var id = obj;
 
 		$.ajax({
-			url:"<?php echo site_url('api/ambilSatuPerusahaan')?>/"+id,
+			url:"<?php echo site_url('api/ambilSatuKarya')?>/"+id,
 			type:'get',
 			dataType: 'json',
 			success: function(data) {
-				$("#namaPerusahaan").val(data.NAMA_PERUSAHAAN);
-				$("#emailPerusahaan").val(data.EMAIL_PERUSAHAAN);
-				$("#telpPerusahaan").val(data.NOMOR_TELEPON_PERUSAHAAN);
-				$("#alamatPerusahaan").val(data.ALAMAT_PERUSAHAAN);
-				$("#bidangPerusahaan").val(data.BIDANG_PEKERJAAN);
+				$("#judul").val(data.JUDUL_KARYA_ILMIAH);
+				$("#tujuan").val(data.TUJUAN_PEMBUATAN_KARYA);
+				$("#thn_selesai").val(data.TAHUN_SELESAI_KARYA);
 			}
 		});
-		$('#modalPerusahaan').modal('show'); // show bootstrap modal
+		$('#modalDetail').modal('show'); // show bootstrap modal
 	}
 
-	function mdlhapusPerusahaan(id){
+	function mdlhapus(id){
 		$("#delIDPek").val(id);
 		$('#mdlHapus').modal('show'); // show bootstrap modal
 	}
 
-	function hapusPerusahaan(){
+	function hapus(){
 		var id = $("#delIDPek").val();
 		console.log(id);
-		$.post("<?php echo site_url('api/hapusPekerjaan');?>", { 
+		$.post("<?php echo site_url('api/hapusPembuatanKarya');?>", { 
 			<?php echo $this->security->get_csrf_token_name(); ?> : '<?php echo $this->security->get_csrf_hash(); ?>',
 			id: id
 		}, function(res, status) {
 			console.log(res);
 			if(res.status){
-				$("#pagawean"+id).remove();
+				$("#histori"+id).remove();
 
 				var textAlert;
 				textAlert = "<div class=\"alert alert-success alert-dismissable\">";
@@ -187,7 +185,7 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-				<button class="btn btn-sm btn-danger pull-right" onclick="hapusPerusahaan()" data-dismiss="modal">
+				<button class="btn btn-sm btn-danger pull-right" onclick="hapus()" data-dismiss="modal">
 					<i class="ace-icon fa fa-trash"></i>
 					Delete
 				</button>
@@ -196,12 +194,12 @@
 	</div><!-- /.modal-dialog -->
 </div>
 
-<div id="modalPerusahaan" class="modal fade" tabindex="-1">
+<div id="modalDetail" class="modal fade" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h3 class="smaller lighter blue no-margin">Data Perusahaan</h3>
+				<h3 class="smaller lighter blue no-margin">Data Karya Ilmiah</h3>
 			</div>
 
 			<div class="modal-body">
@@ -209,12 +207,12 @@
 					<div class="form-group">
 						<div class="col-md-12">
 							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Nama Perusahaan
+								Judul Karya Ilmiah
 							</label>
 						</div>
 
 						<div class="col-md-12">
-							<input type="text" readonly id="namaPerusahaan" class="form-control" />
+							<input type="text" readonly id="judul" class="form-control" />
 						</div>
 					</div>
 				</div>
@@ -222,12 +220,12 @@
 					<div class="form-group">
 						<div class="col-md-12">
 							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Email Perusahaan
+								Tujuan Pembuatan Karya
 							</label>
 						</div>
 
 						<div class="col-md-12">
-							<input type="text" readonly id="emailPerusahaan" class="form-control" />
+							<textarea readonly id="tujuan" class="form-control"></textarea>
 						</div>
 					</div>
 				</div>
@@ -235,38 +233,12 @@
 					<div class="form-group">
 						<div class="col-md-12">
 							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								No Telp Perusahaan
+								Tahun Selesai Karya Ilmiah
 							</label>
 						</div>
 
 						<div class="col-md-12">
-							<input type="text" readonly id="telpPerusahaan" class="form-control" />
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-md-12">
-							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Alamat Perusahaan
-							</label>
-						</div>
-
-						<div class="col-md-12">
-							<textarea readonly id="alamatPerusahaan" class="form-control"></textarea>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-md-12">
-							<label class="control-label no-padding-left" for="form-field-1-1"> 
-								Bidang Perusahaan
-							</label>
-						</div>
-
-						<div class="col-md-12">
-							<input type="text" readonly id="bidangPerusahaan" class="form-control" />
+							<input type="text" readonly id="thn_selesai" class="form-control" />
 						</div>
 					</div>
 				</div>

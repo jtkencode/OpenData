@@ -23,10 +23,8 @@ class Api extends CI_Controller {
 		$this->tb_riwayat_org = 'riwayat_organisasi';
 		$this->tb_kompetisi = 'kompetisi';
 		$this->tb_riwayat_komp = 'riwayat_kompetisi';
-		$this->tb_membuatKarya = 'membuat_karya_ilmiah';
-		$this->tb_karya 			 = 'karya_ilmiah';
-		$this->tb_beasiswa		= 'beasiswa';
-		$this->tb_dapetbeasiswa = 'mendapat_beasiswa';
+		$this->tb_karya = 'karya_ilmiah';
+		$this->tb_membuat_karya = 'membuat_karya_ilmiah';
 	}
 
 	private function outputJson($response=array(),$status=200){
@@ -159,9 +157,49 @@ class Api extends CI_Controller {
 		$this->outputJson($response);
 	}
 
-	public function tambahOrganisasi(){
+	public function tambahKarya(){
 		$this->load->library('form_validation');
 
+		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
+
+		$this->form_validation->set_rules('judul', 'Judul Karya Ilmiah', 'required|min_length[2]|max_length[20]', array(
+			'required'	=> 'You have not provided %s.'
+        ));
+		$this->form_validation->set_rules('tujuan', 'Tujuan Karya Ilmiah', 'required|min_length[3]|max_length[255]', array(
+			'required'	=> 'You have not provided %s.'
+        ));
+
+		if($this->form_validation->run()){
+			$judul = $this->input->post('judul');
+			$tujuan = $this->input->post('tujuan');
+			$thn_selesai = $this->input->post('thn_selesai');
+
+			$data = array(
+				'JUDUL_KARYA_ILMIAH'		=> $judul,
+				'TUJUAN_PEMBUATAN_KARYA'	=> $tujuan,
+				'TAHUN_SELESAI_KARYA'		=> $thn_selesai
+			);
+
+			$insert = $this->db->insert($this->tb_karya,$data);
+			$last_id = $this->db->insert_id();
+
+			if($insert){
+				$response = array('status'=>true, 'message'=>'Berhasil menambah karya.', 'id'=> $last_id);
+			}else{
+				$response = array('status'=>false, 'message'=>'Kesalahan database', 'id'=> 0);
+			}
+		}else{
+			if(validation_errors()){
+				$response = array('status'=>false, 'message'=>validation_errors(), 'id'=> 0);
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
+	public function tambahOrganisasi(){
+		$this->load->library('form_validation');
+		
 		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
 
 		$this->form_validation->set_rules('nama', 'Nama Organisasi', 'required|min_length[3]|max_length[20]|is_unique[organisasi.NAMA_ORGANISASI]', array(
@@ -195,7 +233,7 @@ class Api extends CI_Controller {
 
 	public function tambahKompetisi(){
 		$this->load->library('form_validation');
-
+		
 		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
 
 		$this->form_validation->set_rules('nama', 'Nama Kompetisi', 'required|min_length[3]|max_length[20]', array(
@@ -349,6 +387,29 @@ class Api extends CI_Controller {
 		$this->outputJson($response);
 	}
 
+	public function hapusPembuatanKarya(){
+		$response = array('status'=>false, 'message'=>null);
+
+		@$id=$this->input->post('id');
+
+		if(!empty($id)){
+			$cek = $this->db->join($this->tb_karya,$this->tb_karya.'.ID_KARYA_ILMIAH='.$this->tb_membuat_karya.'.ID_KARYA_ILMIAH');
+			$cek = $this->db->get_where($this->tb_membuat_karya,array('ID_MEMBUAT_KARYA' => $id))->result_array();
+
+			if(!empty($cek)){
+				$hapus = $this->db->delete($this->tb_membuat_karya,array('ID_MEMBUAT_KARYA' => $id));
+
+				if($hapus){
+					$response = array('status'=>true, 'message'=>'Berhasil menghapus pembuatan karya '.$cek[0]['JUDUL_KARYA_ILMIAH'].'.');
+				}else{
+					$response = array('status'=>false, 'message'=>'Kesalahan database');
+				}
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
 	public function hapusUser(){
 		$response = array('status'=>false, 'message'=>null);
 
@@ -414,9 +475,6 @@ class Api extends CI_Controller {
 			$dataTA= $this->db->join($this->tb_alumni, $this->tb_TA.'.ID_TUGAS_AKHIR='.$this->tb_alumni.'.ID_TUGAS_AKHIR');
 			$dataTA = $this->db->get_where($this->tb_TA,array('ID_ALUMNI'=>$id))->result_array();
 
-			$dataKarya = $this->db->join($this->tb_karya, $this->tb_membuatKarya.'.ID_KARYA_ILMIAH='.$this->tb_karya.'.ID_KARYA_ILMIAH');
-			$dataKarya = $this->db->get_where($this->tb_membuatKarya,array('ID_ALUMNI'=>$id))->result_array();
-
 			$dataAlumni = $this->db->join($this->tb_jurusan, $this->tb_prodi.'.ID_JURUSAN='.$this->tb_jurusan.'.ID_JURUSAN');
 			$dataAlumni = $this->db->join($this->tb_alumni, $this->tb_prodi.'.ID_PRODI='.$this->tb_alumni.'.ID_PRODI');
 			$dataAlumni = $this->db->get_where($this->tb_prodi,array('ID_ALUMNI'=>$id))->result_array();
@@ -425,10 +483,6 @@ class Api extends CI_Controller {
 				$riwayatKerja = $this->db->order_by('TAHUN_MULAI, TAHUN_BERHENTI','DESC');
 				$riwayatKerja = $this->db->join($this->tb_perusahaan,$this->tb_perusahaan.'.ID_PERUSAHAAN='.$this->tb_bekerja.'.ID_PERUSAHAAN');
 				$riwayatKerja = $this->db->get_where($this->tb_bekerja,['ID_ALUMNI'=>$id])->result_array();
-
-				$riwayatBeasiswa = $this->db->order_by('TAHUN_MULAI_BEASISWA, TAHUN_SELESAI_BEASISWA','DESC');
-				$riwayatBeasiswa = $this->db->join($this->tb_beasiswa,$this->tb_dapetbeasiswa.'.ID_BEASISWA='.$this->tb_beasiswa.'.ID_BEASISWA');
-				$riwayatBeasiswa = $this->db->get_where($this->tb_dapetbeasiswa,['ID_ALUMNI'=>$id])->result_array();
 
 				$foto = (!empty($dataAlumni[0]['FOTO'])) ? base_url('assets/'.$dataAlumni[0]['FOTO']) : base_url('assets/upload/alumni/default.png');
 				$data = array(
@@ -444,9 +498,7 @@ class Api extends CI_Controller {
 					'thn_keluar'	=> $dataAlumni[0]['TAHUN_KELUAR'],
 					'tugasAkhir'	=> $dataTA[0]['JUDUL_TUGAS_AKHIR'],
 					'pekerjaan'		=> $dataAlumni[0]['PEKERJAAN'],
-					'karya_ilmiah' => $dataKarya[0]['JUDUL_KARYA_ILMIAH'],
-					'riwayatKerja'=> $riwayatKerja,
-					'dapetBeasiswa' => $riwayatBeasiswa
+					'riwayatKerja'=> $riwayatKerja
 				);
 			}
 			$this->outputJson($data);
@@ -464,6 +516,21 @@ class Api extends CI_Controller {
 			);
 
 			$this->outputJson($data);
-		}
+		}	
+	}
+
+	public function ambilSatuKarya($id=0){
+		if(!empty($id)){
+			$data = $this->db->get_where($this->tb_karya,array('ID_KARYA_ILMIAH'=>$id))->result_array();
+
+			$data = array(
+				'ID_KARYA_ILMIAH' => $data[0]['ID_KARYA_ILMIAH'],
+				'JUDUL_KARYA_ILMIAH' => $data[0]['JUDUL_KARYA_ILMIAH'],
+				'TUJUAN_PEMBUATAN_KARYA' => $data[0]['TUJUAN_PEMBUATAN_KARYA'],
+				'TAHUN_SELESAI_KARYA' => $data[0]['TAHUN_SELESAI_KARYA']
+			);
+
+			$this->outputJson($data);
+		}	
 	}
 }

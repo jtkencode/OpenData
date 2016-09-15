@@ -149,7 +149,7 @@
 							<div class="tab-pane" id="karya">
 								<table class="table table-bordered">
 									<tr>
-										<th style="width: 20px">#</th>
+										<th style="width: 20px">No</th>
 										<th>Judul Karya Ilmiah</th>
 										<th>Tahun Pembuatan</th>
 										<th>Tahun Selesai</th>
@@ -273,7 +273,7 @@
 							<div class="tab-pane" id="r_organisasi">
 								<table class="table table-bordered">
 									<tr>
-										<th style="width: 20px">#</th>
+										<th style="width: 20px">No</th>
 										<th>Nama Organisasi</th>
 										<th>Jabatan</th>
 										<th>Periode</th>
@@ -315,7 +315,7 @@
 							<div class="tab-pane" id="r_kompetisi">
 								<table class="table table-bordered">
 									<tr>
-										<th style="width: 20px">#</th>
+										<th style="width: 20px">No</th>
 										<th>Nama Kompetisi</th>
 										<th>Prestasi</th>
 										<th>Tahun Kompetisi</th>
@@ -356,7 +356,7 @@
 							<div class="tab-pane" id="beasiswa">
 								<table class="table table-bordered">
 									<tr>
-										<th style="width: 20px">#</th>
+										<th style="width: 20px">No</th>
 										<th>Nama Beasiswa</th>
 										<th>Penyelenggara Beasiswa</th>
 										<th>Tahun Mulai</th>
@@ -480,8 +480,8 @@
 								var textAlert;
 								textAlert = "<div class=\"alert alert-success alert-dismissable\">";
 								textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-								textAlert += "	<h4><i class=\"icon fa fa-check\"></i> Success!</h4>";
-								textAlert += "	Pesan : "+res.message;
+								textAlert += "	<h4><i class=\"icon fa fa-check\"></i> Sukses!</h4>";
+								textAlert += "	"+res.message;
 								textAlert += "</div>";
 
 								$("#alert").append(textAlert);
@@ -489,8 +489,8 @@
 								var textAlert;
 								textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
 								textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-								textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Perhatian!</h4>";
-								textAlert += "	Pesan : "+res.message;
+								textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
+								textAlert += "	"+res.message;
 								textAlert += "</div>";
 
 								$("#alert").append(textAlert);
@@ -502,7 +502,7 @@
 						var textAlert;
 						textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
 						textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-						textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Perhatian!</h4>";
+						textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 						textAlert += "	Periode tahun bekerja tidak sahih.";
 						textAlert += "</div>";
 
@@ -589,8 +589,8 @@
 							var textAlert;
 							textAlert = "<div class=\"alert alert-success alert-dismissable\">";
 							textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-							textAlert += "	<h4><i class=\"icon fa fa-check\"></i> Success!</h4>";
-							textAlert += "	Pesan : "+res.message;
+							textAlert += "	<h4><i class=\"icon fa fa-check\"></i> Sukses!</h4>";
+							textAlert += "	"+res.message;
 							textAlert += "</div>";
 
 							$("#alert").append(textAlert);
@@ -600,8 +600,8 @@
 					var textAlert;
 					textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
 					textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-					textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Perhatian!</h4>";
-					textAlert += "	Pesan : "+res.message;
+					textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
+					textAlert += "	"+res.message;
 					textAlert += "</div>";
 
 					$("#alert").append(textAlert);
@@ -660,8 +660,8 @@
 				var textAlert;
 				textAlert = "<div class=\"alert alert-success alert-dismissable\">";
 				textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				textAlert += "	<h4><i class=\"icon fa fa-check\"></i> Success!</h4>";
-				textAlert += "	Pesan : "+res.message;
+				textAlert += "	<h4><i class=\"icon fa fa-check\"></i> Sukses!</h4>";
+				textAlert += "	"+res.message;
 				textAlert += "</div>";
 
 				$("#alert").append(textAlert);
@@ -669,8 +669,8 @@
 				var textAlert;
 				textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
 				textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Perhatian!</h4>";
-				textAlert += "	Pesan : "+res.message;
+				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
+				textAlert += "	"+res.message;
 				textAlert += "</div>";
 
 				$("#alert").append(textAlert);
@@ -698,10 +698,10 @@
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Batal</button>
 				<button class="btn btn-sm btn-danger pull-right" onclick="hapusPerusahaan()" data-dismiss="modal">
 					<i class="ace-icon fa fa-trash"></i>
-					Delete
+					Hapus
 				</button>
 			</div>
 		</div><!-- /.modal-content -->

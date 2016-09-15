@@ -74,7 +74,7 @@ class Riwayat_organisasi extends Main{
 
 		$no=1+$id;
 		foreach ($data as $result) {
-			$berhenti=($result['TAHUN_SELESAI_JABATAN']==0) ? 'Sekarang' : $result['TAHUN_SELESAI_JABATAN'];
+			$berhenti=($result['TAHUN_SELESAI_JABATAN']==date('Y')) ? 'Sekarang' : $result['TAHUN_SELESAI_JABATAN'];
 			$this->global_data['data'][] = array(
 				'no'				=> $no,
 				'id_riwayat'		=> $result['ID_RIWAYAT_ORGANISASI'],
@@ -135,7 +135,7 @@ class Riwayat_organisasi extends Main{
 			if(!empty($cek)){
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				$notif .= "	Jabatan di organisasi tersebut pada periode ".$thn_mulai." sudah ada.";
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
@@ -153,7 +153,7 @@ class Riwayat_organisasi extends Main{
 					if($insert){
 						$notif = "<div class=\"alert alert-success alert-dismissable\">";
 						$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-						$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Alert!</h4>";
+						$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Pesan!</h4>";
 						$notif .= "	Berhasil menambah riwayat organisasi.";
 						$notif .= "</div>";
 						$this->session->set_flashdata('message',$notif);
@@ -163,7 +163,7 @@ class Riwayat_organisasi extends Main{
 				}else{
 					$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 					$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-					$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+					$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 					$notif .= "	Periode tahun ber-organisasi tidak sahih.";
 					$notif .= "</div>";
 					$this->session->set_flashdata('message',$notif);
@@ -176,7 +176,7 @@ class Riwayat_organisasi extends Main{
 			if(validation_errors()){
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				$notif .= "	".validation_errors();
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
@@ -239,7 +239,7 @@ class Riwayat_organisasi extends Main{
 				if($edit){
 					$notif = "<div class=\"alert alert-success alert-dismissable\">";
 					$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-					$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Alert!</h4>";
+					$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Pesan!</h4>";
 					$notif .= "	Berhasil merubah riwayat organisasi.";
 					$notif .= "</div>";
 					$this->session->set_flashdata('message',$notif);
@@ -249,7 +249,7 @@ class Riwayat_organisasi extends Main{
 			}else{
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				$notif .= "	Periode tahun ber-organisasi tidak sahih.";
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
@@ -261,7 +261,7 @@ class Riwayat_organisasi extends Main{
 			if(validation_errors()){
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				$notif .= "	".validation_errors();
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);

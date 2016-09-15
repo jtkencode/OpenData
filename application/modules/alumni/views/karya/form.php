@@ -74,7 +74,7 @@
 
 									<div class="form-group">
 										<label for="thn_selesai" class="col-sm-2 control-label">Tahun Pembuatan Karya</label>
-										<div class="col-sm-10">
+										<div class="col-sm-2">
 											<select name="thn_selesai" id="thn_selesai" class="form-control">
 												<?php $thn_selesai = (!empty($datana['TAHUN_PEMBUATAN'])) ? $datana['TAHUN_PEMBUATAN'] : '';?>
 												<?php for ($a=1991;$a<=date('Y');$a++): ?>
@@ -108,7 +108,7 @@
 
 		var judul = $("#judul").val();
 		var tujuan = $("#tujuan").val();
-		var thn_selesai = $("div#thn_selesai select").val();
+		var thn_selesai = <?php echo date("Y");?>;
 
 		$.post("<?php echo site_url('api/tambahKarya');?>", { 
 			<?php echo $this->security->get_csrf_token_name(); ?> : '<?php echo $this->security->get_csrf_hash(); ?>',
@@ -132,7 +132,7 @@
 				var textAlert;
 				textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
 				textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Perhatian!</h4>";
+				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				textAlert += "	"+res.message;
 				textAlert += "</div>";
 				$("#alert").html(textAlert);
@@ -183,7 +183,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<!-- <div class="row">
 					<div class="form-group">
 						<div class="col-md-12">
 							<label class="control-label no-padding-left" for="form-field-1-1"> 
@@ -198,7 +198,7 @@
 							</select>
 						</div>
 					</div>	
-				</div>
+				</div> -->
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-sm btn-success" onclick="add()">

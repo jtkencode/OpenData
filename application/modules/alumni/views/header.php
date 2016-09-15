@@ -2,7 +2,7 @@
 	<header class="main-header">
 
 		<!-- Logo -->
-		<a href="<?php echo site_url('alumni'); ?>" class="logo">
+		<a href="<?php echo site_url(); ?>" class="logo">
 			<!-- mini logo for sidebar mini 50x50 pixels -->
 			<span class="logo-mini"><b>D</b>K</span>
 			<!-- logo for regular state and mobile devices -->
@@ -13,7 +13,7 @@
 		<nav class="navbar navbar-static-top" role="navigation">
 			<!-- Sidebar toggle button-->
 			<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-				<span class="sr-only">Toggle navigation</span>
+				<span class="sr-only">Toggle navigasi</span>
 			</a>
 			<!-- Navbar Right Menu -->
 			<div class="navbar-custom-menu">
@@ -44,10 +44,10 @@
 							<!-- Menu Footer-->
 							<li class="user-footer">
 								<div class="pull-left">
-									<a href="<?php echo site_url('alumni/profile'); ?>" class="btn btn-default btn-flat">Profile</a>
+									<a href="<?php echo site_url('alumni/profile'); ?>" class="btn btn-default btn-flat">Profil</a>
 								</div>
 								<div class="pull-right">
-									<a href="<?php echo site_url('alumni/keluar'); ?>" class="btn btn-default btn-flat">Sign out</a>
+									<a href="<?php echo site_url('alumni/keluar'); ?>" class="btn btn-default btn-flat">Keluar</a>
 								</div>
 							</li>
 						</ul>

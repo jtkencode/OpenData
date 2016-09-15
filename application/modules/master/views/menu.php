@@ -31,7 +31,7 @@
 				<li class="header">Main Navigation</li>
 				<!-- Optionally, you can add icons to the links -->
 				<li<?php echo($active_menu=='dashboard')? " class=\"active\"": "";?>>
-					<a href="<?php echo site_url('admin');?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+					<a href="<?php echo site_url('master');?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
 				</li>
 
 				<?php if($this->session->userdata('hak')=='admin'): ?>

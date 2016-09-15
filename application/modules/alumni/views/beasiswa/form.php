@@ -74,7 +74,7 @@
 
 									<div class="form-group">
 										<label for="thn_mulai" class="col-sm-2 control-label">Tahun Mulai</label>
-										<div class="col-sm-10">
+										<div class="col-sm-2">
 											<select name="thn_mulai" id="thn_mulai" class="form-control">
 												<?php $thn_mulai = (!empty($datana['TAHUN_MULAI_BEASISWA'])) ? $datana['TAHUN_MULAI_BEASISWA'] : '';?>
 												<?php for ($a=1991;$a<=date('Y');$a++): ?>
@@ -86,7 +86,7 @@
 
 									<div class="form-group">
 										<label for="thn_selesai" class="col-sm-2 control-label">Tahun Selesai</label>
-										<div class="col-sm-10">
+										<div class="col-sm-2">
 											<select name="thn_selesai" id="thn_selesai" class="form-control">
 												<?php $thn_selesai = (!empty($datana['TAHUN_SELESAI_BEASISWA'])) ? $datana['TAHUN_SELESAI_BEASISWA'] : '';?>
 												<?php for ($a=1991;$a<=date('Y');$a++): ?>
@@ -142,7 +142,7 @@
 				var textAlert;
 				textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
 				textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Perhatian!</h4>";
+				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				textAlert += "	"+res.message;
 				textAlert += "</div>";
 				$("#alert").html(textAlert);

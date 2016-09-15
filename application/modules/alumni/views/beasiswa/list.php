@@ -54,7 +54,7 @@
 						<div class="box-body">
 							<table class="table table-bordered">
 								<tr>
-									<th style="width: 20px">#</th>
+									<th style="width: 20px">No</th>
 									<th>Nama Beasiswa</th>
 									<th>Penyelenggara Beasiswa</th>
 									<th>Tahun Mulai</th>
@@ -86,7 +86,7 @@
 											<i class="fa fa-pencil"></i> Ubah
 										</a>
 										<a class="btn btn-danger btn-xs" onclick="mdlhapus(<?php echo $data['id_mendapat'];?>)" title="Hapus">
-											<i class="glyphicon glyphicon-trash"></i> Delete
+											<i class="glyphicon glyphicon-trash"></i> Hapus
 										</a>
 									</td>
 								</tr>
@@ -147,8 +147,8 @@
 				var textAlert;
 				textAlert = "<div class=\"alert alert-success alert-dismissable\">";
 				textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				textAlert += "	<h4><i class=\"icon fa fa-check\"></i> Success!</h4>";
-				textAlert += "	Pesan : "+res.message;
+				textAlert += "	<h4><i class=\"icon fa fa-check\"></i> Sukses!</h4>";
+				textAlert += "	"+res.message;
 				textAlert += "</div>";
 
 				$("#alert").append(textAlert);
@@ -156,8 +156,8 @@
 				var textAlert;
 				textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
 				textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Perhatian!</h4>";
-				textAlert += "	Pesan : "+res.message;
+				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
+				textAlert += "	"+res.message;
 				textAlert += "</div>";
 
 				$("#alert").append(textAlert);
@@ -186,10 +186,10 @@
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Batal</button>
 				<button class="btn btn-sm btn-danger pull-right" onclick="hapus()" data-dismiss="modal">
 					<i class="ace-icon fa fa-trash"></i>
-					Delete
+					Hapus
 				</button>
 			</div>
 		</div><!-- /.modal-content -->

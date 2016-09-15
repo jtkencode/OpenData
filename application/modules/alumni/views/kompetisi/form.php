@@ -81,7 +81,7 @@
 
 									<div class="form-group">
 										<label for="thn" class="col-sm-2 control-label">Tahun Kompetisi</label>
-										<div class="col-sm-10">
+										<div class="col-sm-2">
 											<select name="thn" id="thn" class="form-control">
 												<?php for ($a=1991;$a<=date('Y');$a++): ?>
 												<option value="<?php echo $a;?>"<?php echo (!empty($datana['TAHUN_KOMPETISI'])) ? ($a==$datana['TAHUN_KOMPETISI']) ? ' selected' : '' : '';?>><?php echo $a;?></option>
@@ -137,7 +137,7 @@
 				var textAlert;
 				textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
 				textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Perhatian!</h4>";
+				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				textAlert += "	"+res.message;
 				textAlert += "</div>";
 				$("#alert").html(textAlert);

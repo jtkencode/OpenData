@@ -121,7 +121,7 @@
 									</div>
 									<div class="form-group">
 										<label for="inputName" class="col-sm-2 control-label">Jurusan</label>
-										<div class="col-sm-10">
+										<div class="col-sm-4">
 											<select name="jurusan" id="jurusan" onchange="loadProdi()" class="form-control">
 												<?php foreach ($jurusan as $jurusan): ?>
 												<option<?php echo ($akunInfo['idJurusan']==$jurusan['ID_JURUSAN'])?' selected':'';?> value="<?php echo $jurusan['ID_JURUSAN'];?>">
@@ -133,7 +133,7 @@
 									</div>
 									<div class="form-group">
 										<label for="inputName" class="col-sm-2 control-label">Program Studi</label>
-										<div class="col-sm-10" id="prodi">
+										<div class="col-sm-4" id="prodi">
 											<select name="prodi" class="form-control">
 												<?php foreach ($prodi as $prodi): ?>
 												<option<?php echo ($akunInfo['idProdi']==$prodi['ID_PRODI'])?' selected':'';?> value="<?php echo $prodi['ID_PRODI'];?>">
@@ -169,7 +169,7 @@
 									</div>
 									<div class="form-group">
 										<label for="inputTahun" class="col-sm-2 control-label">Tahun Masuk</label>
-										<div class="col-sm-10">
+										<div class="col-sm-2">
 											<select name="thnMasuk" class="form-control">
 												<?php for ($a=1991;$a<date('Y');$a++): ?>
 												<option<?php echo ($akunInfo['TAHUN_MASUK']==$a)?' selected':'';?> value="<?php echo $a;?>"><?php echo $a;?></option>
@@ -179,7 +179,7 @@
 									</div>
 									<div class="form-group">
 										<label for="inputTahunK" class="col-sm-2 control-label">Tahun Keluar</label>
-										<div class="col-sm-10">
+										<div class="col-sm-2">
 											<select name="thnKeluar" class="form-control">
 												<?php for ($a=1991;$a<date('Y');$a++): ?>
 												<option<?php echo ($akunInfo['TAHUN_KELUAR']==$a)?' selected':'';?> value="<?php echo $a;?>"><?php echo $a;?></option>

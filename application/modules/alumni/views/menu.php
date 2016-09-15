@@ -30,7 +30,7 @@
 
 			<!-- Sidebar Menu -->
 			<ul class="sidebar-menu">
-				<li class="header">Main Navigation</li>
+				<li class="header">Navigasi</li>
 				<!-- Optionally, you can add icons to the links -->
 				<li<?php echo($active_menu=='dashboard')? " class=\"active\"": "";?>>
 					<a href="<?php echo site_url('alumni');?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>

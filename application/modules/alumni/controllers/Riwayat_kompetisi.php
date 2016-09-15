@@ -132,7 +132,7 @@ class Riwayat_kompetisi extends Main{
 			if(!empty($cek)){
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				$notif .= "	Riwayat kompetisi di kompetisi tersebut pada periode ".$thn." sudah ada pada riwayat anda.";
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
@@ -148,7 +148,7 @@ class Riwayat_kompetisi extends Main{
 				if($insert){
 					$notif = "<div class=\"alert alert-success alert-dismissable\">";
 					$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-					$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Alert!</h4>";
+					$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Pesan!</h4>";
 					$notif .= "	Berhasil menambah riwayat kompetisi.";
 					$notif .= "</div>";
 					$this->session->set_flashdata('message',$notif);
@@ -161,7 +161,7 @@ class Riwayat_kompetisi extends Main{
 			if(validation_errors()){
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				$notif .= "	".validation_errors();
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
@@ -221,7 +221,7 @@ class Riwayat_kompetisi extends Main{
 			if($edit){
 				$notif = "<div class=\"alert alert-success alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Pesan!</h4>";
 				$notif .= "	Berhasil merubah riwayat kompetisi.";
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
@@ -233,7 +233,7 @@ class Riwayat_kompetisi extends Main{
 			if(validation_errors()){
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				$notif .= "	".validation_errors();
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);

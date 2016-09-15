@@ -41,7 +41,7 @@
 
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#timeline" data-toggle="tab">Histori Pekerjaan</a></li>
+                            <li class="active"><a href="#timeline" data-toggle="tab">Riwayat Pekerjaan</a></li>
                         </ul>
                         
 
@@ -63,9 +63,7 @@
                                                 <div id="jabatan<?php echo $resultJob['ID_BEKERJA'];?>">
                                                     <?php echo (!empty($resultJob['JABATAN_PEKERJAAN'])) ? strip_tags($resultJob['JABATAN_PEKERJAAN']) : '-';?>
                                                     di 
-                                                    <a onclick="infoPerusahaan(<?php echo $resultJob['ID_PERUSAHAAN'];?>)">
-                                                        <?php echo (!empty($resultJob['NAMA_PERUSAHAAN'])) ? strip_tags($resultJob['NAMA_PERUSAHAAN']) : '-';?> 
-                                                    </a>
+                                                    <?php echo (!empty($resultJob['NAMA_PERUSAHAAN'])) ? strip_tags($resultJob['NAMA_PERUSAHAAN']) : '-';?> 
                                                 </div>
                                             </h3>
                                             <div class="timeline-body">

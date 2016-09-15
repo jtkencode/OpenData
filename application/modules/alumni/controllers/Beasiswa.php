@@ -125,7 +125,7 @@ class Beasiswa extends Main{
 			if(!empty($cek)){
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				$notif .= "	Beasiswa tersebut sudah ada.";
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
@@ -142,7 +142,7 @@ class Beasiswa extends Main{
 					if($insert){
 						$notif = "<div class=\"alert alert-success alert-dismissable\">";
 						$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-						$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Alert!</h4>";
+						$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 						$notif .= "	Berhasil menambahkan beasiswa ke akun anda.";
 						$notif .= "</div>";
 						$this->session->set_flashdata('message',$notif);
@@ -152,7 +152,7 @@ class Beasiswa extends Main{
 				}else{
 					$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 					$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-					$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+					$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 					$notif .= "	Periode pendapatan beasiswa tidak sahih.";
 					$notif .= "</div>";
 					$this->session->set_flashdata('message',$notif);
@@ -165,7 +165,7 @@ class Beasiswa extends Main{
 			if(validation_errors()){
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				$notif .= "	".validation_errors();
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
@@ -222,7 +222,7 @@ class Beasiswa extends Main{
 				if($edit){
 					$notif = "<div class=\"alert alert-success alert-dismissable\">";
 					$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-					$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Alert!</h4>";
+					$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 					$notif .= "	Berhasil merubah mendapat beasiswa.";
 					$notif .= "</div>";
 					$this->session->set_flashdata('message',$notif);
@@ -232,7 +232,7 @@ class Beasiswa extends Main{
 			}else{
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				$notif .= "	Periode pendapatan beasiswa tidak sahih.";
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);
@@ -244,7 +244,7 @@ class Beasiswa extends Main{
 			if(validation_errors()){
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
 				$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Alert!</h4>";
+				$notif .= "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				$notif .= "	".validation_errors();
 				$notif .= "</div>";
 				$this->session->set_flashdata('message',$notif);

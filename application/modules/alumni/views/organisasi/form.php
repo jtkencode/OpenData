@@ -81,7 +81,7 @@
 
 									<div class="form-group">
 										<label for="thn_mulai" class="col-sm-2 control-label">Tahun Mulai</label>
-										<div class="col-sm-10">
+										<div class="col-sm-2">
 											<select name="thn_mulai" id="thn_mulai" class="form-control">
 												<?php for ($a=1991;$a<=date('Y');$a++): ?>
 												<option value="<?php echo $a;?>"<?php echo (!empty($datana['TAHUN_MULAI_JABATAN'])) ? ($a==$datana['TAHUN_MULAI_JABATAN']) ? ' selected' : '' : '';?>><?php echo $a;?></option>
@@ -92,13 +92,12 @@
 
 									<div class="form-group">
 										<label for="thn_selesai" class="col-sm-2 control-label">Tahun Selesai</label>
-										<div class="col-sm-10">
+										<div class="col-sm-2">
 											<select name="thn_selesai" id="thn_selesai" class="form-control">
 												<?php $thn_selesai = (!empty($datana['TAHUN_SELESAI_JABATAN'])) ? $datana['TAHUN_SELESAI_JABATAN'] : '';?>
-												<?php for ($a=1991;$a<=date('Y')-1;$a++): ?>
+												<?php for ($a=1991;$a<=date('Y');$a++): ?>
 												<option value="<?php echo $a;?>"<?php echo ($thn_selesai==$a) ? ' selected' : '';?>><?php echo $a;?></option>
 												<?php endfor; ?>
-												<option value="0"<?php echo ($thn_selesai==0) ? ' selected' : '';?>>-Sekarang-</option>
 											</select>
 										</div>
 									</div>									
@@ -146,7 +145,7 @@
 				var textAlert;
 				textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
 				textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
-				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Perhatian!</h4>";
+				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
 				textAlert += "	"+res.message;
 				textAlert += "</div>";
 				$("#alert").html(textAlert);

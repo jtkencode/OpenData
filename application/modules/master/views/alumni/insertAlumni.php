@@ -50,6 +50,7 @@
 										<input id="namaalumni" name="namaalumni" type="text" placeholder="Nama" class="form-control input-md" required="" value="<?php echo $namaalumni ?>">
 										<input id="idalumni" name="idalumni" type="hidden" placeholder="Nama" class="form-control input-md" required="" value="<?php echo $idalumni?>">
 										<input id="idprodi" name="idprodi" type="hidden" placeholder="Nama" class="form-control input-md" required="" value="<?php echo $idprodi?>">
+										<input id="idta" name="idta" type="hidden" placeholder="Nama" class="form-control input-md" required="" value="<?php echo $idta?>">
 										</div>
 										</div>
 
@@ -94,7 +95,12 @@
 											</select>
 										</div>
 										</div>
-
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="pekerjaan">Judul Tugas Akhir</label>
+											<div class="col-md-6">
+											<input id="tugasakhir" name="tugasakhir" type="text" placeholder="tugas akhir" class="form-control input-md" required="" value="">
+											</div>
+										</div>
 										<!-- Text input-->
 										<div class="form-group">
 											<label class="col-md-4 control-label" for="emailalumni">Email</label>

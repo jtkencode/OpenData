@@ -239,7 +239,7 @@ class Api extends CI_Controller {
 
 	public function tambahOrganisasi(){
 		$this->load->library('form_validation');
-		
+
 		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
 
 		$this->form_validation->set_rules('nama', 'Nama Organisasi', 'required|min_length[3]|max_length[20]|is_unique[organisasi.NAMA_ORGANISASI]', array(
@@ -273,7 +273,7 @@ class Api extends CI_Controller {
 
 	public function tambahKompetisi(){
 		$this->load->library('form_validation');
-		
+
 		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
 
 		$this->form_validation->set_rules('nama', 'Nama Kompetisi', 'required|min_length[3]|max_length[20]', array(
@@ -547,6 +547,21 @@ class Api extends CI_Controller {
 				$riwayatKerja = $this->db->join($this->tb_perusahaan,$this->tb_perusahaan.'.ID_PERUSAHAAN='.$this->tb_bekerja.'.ID_PERUSAHAAN');
 				$riwayatKerja = $this->db->get_where($this->tb_bekerja,['ID_ALUMNI'=>$id])->result_array();
 
+				$dataKarya = $this->db->join($this->tb_karya, $this->tb_membuat_karya.'.ID_KARYA_ILMIAH='.$this->tb_karya.'.ID_KARYA_ILMIAH');
+				$dataKarya = $this->db->get_where($this->tb_membuat_karya,array('ID_ALUMNI'=>$id))->result_array();
+
+				$riwayatBeasiswa = $this->db->order_by('TAHUN_MULAI_BEASISWA, TAHUN_SELESAI_BEASISWA','DESC');
+				$riwayatBeasiswa = $this->db->join($this->tb_beasiswa,$this->tb_mendapat.'.ID_BEASISWA='.$this->tb_beasiswa.'.ID_BEASISWA');
+				$riwayatBeasiswa = $this->db->get_where($this->tb_mendapat,['ID_ALUMNI'=>$id])->result_array();
+
+				$riwayatOrganisasi = $this->db->order_by('TAHUN_MULAI_JABATAN, TAHUN_SELESAI_JABATAN','DESC');
+				$riwayatOrganisasi = $this->db->join($this->tb_organisasi,$this->tb_riwayat_org.'.ID_ORGANISASI='.$this->tb_organisasi.'.ID_ORGANISASI');
+				$riwayatOrganisasi = $this->db->get_where($this->tb_riwayat_org,['ID_ALUMNI'=>$id])->result_array();
+
+				$riwayatKompetisi = $this->db->order_by('TAHUN_KOMPETISI','DESC');
+				$riwayatKompetisi = $this->db->join($this->tb_kompetisi,$this->tb_riwayat_komp.'.ID_KOMPETISI='.$this->tb_kompetisi.'.ID_KOMPETISI');
+				$riwayatKompetisi = $this->db->get_where($this->tb_riwayat_komp,['ID_ALUMNI'=>$id])->result_array();
+
 				$foto = (!empty($dataAlumni[0]['FOTO'])) ? base_url('assets/'.$dataAlumni[0]['FOTO']) : base_url('assets/upload/alumni/default.png');
 				$data = array(
 					'id_alumni'		=> $id,
@@ -561,7 +576,11 @@ class Api extends CI_Controller {
 					'thn_keluar'	=> $dataAlumni[0]['TAHUN_KELUAR'],
 					'tugasAkhir'	=> $dataTA[0]['JUDUL_TUGAS_AKHIR'],
 					'pekerjaan'		=> $dataAlumni[0]['PEKERJAAN'],
-					'riwayatKerja'=> $riwayatKerja
+					'karya_ilmiah'=> $dataKarya,
+					'riwayatKerja'=> $riwayatKerja,
+					'dapetBeasiswa' => $riwayatBeasiswa,
+					'riwayat_org' => $riwayatOrganisasi,
+					'riwayat_kompetisi' =>$riwayatKompetisi
 				);
 			}
 			$this->outputJson($data);
@@ -579,7 +598,7 @@ class Api extends CI_Controller {
 			);
 
 			$this->outputJson($data);
-		}	
+		}
 	}
 
 	public function ambilSatuKarya($id=0){
@@ -594,6 +613,6 @@ class Api extends CI_Controller {
 			);
 
 			$this->outputJson($data);
-		}	
+		}
 	}
 }

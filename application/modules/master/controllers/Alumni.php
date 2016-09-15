@@ -12,6 +12,7 @@ class Alumni extends Main{
 		$this->load->model('m_alumni');
 		$this->tb_prodi = 'program_studi';
 		$this->tb_alumni = 'alumni';
+		$this->tb_TA = 'tugas_akhir';
 		// Load libraries
 		$this->load->library('pagination');
 	}
@@ -113,6 +114,7 @@ class Alumni extends Main{
 		$this->global_data['idalumni'] = '';
 		$this->global_data['namaalumni'] = '';
 		$this->global_data['idprodi'] = '';
+		$this->global_data['idta'] = '';
 		$this->global_data['namaprodi'] = '';
 		$this->global_data['tahunmasuk'] = '';
 		$this->global_data['tahunkeluar'] = '';
@@ -120,6 +122,7 @@ class Alumni extends Main{
 		$this->global_data['nohp'] = '';
 		$this->global_data['alamatalumni'] = '';
 		$this->global_data['pekerjaan'] ='';
+		$this->global_data['tugasakhir'] ='';
 
 		$this->global_data['csrf'] = array(
         'name' => $this->security->get_csrf_token_name(),
@@ -133,6 +136,7 @@ class Alumni extends Main{
 		$id = $this->input->post('idalumni');
 		$data = array(
 									'ID_PRODI'=>  $this->input->post('PRODI'),
+									'ID_TUGAS_AKHIR'=>  $this->input->post('tugasakhir'),
 									'NAMA_ALUMNI'=>  $this->input->post('namaalumni'),
 									'TAHUN_MASUK'=>  $this->input->post('tahunmasuk'),
 									'TAHUN_KELUAR'=>  $this->input->post('tahunkeluar'),
@@ -177,6 +181,10 @@ class Alumni extends Main{
 		$this->db->where('ID_ALUMNI',$id);
 		$query = $this->db->join($this->tb_prodi, $this->tb_alumni.'.ID_PRODI='.$this->tb_prodi.'.ID_PRODI');
 		$query = $this->db->get($this->tb_alumni);
+
+		$dataTA= $this->db->join($this->tb_alumni, $this->tb_TA.'.ID_TUGAS_AKHIR='.$this->tb_alumni.'.ID_TUGAS_AKHIR');
+		$dataTA = $this->db->get_where($this->tb_TA,array('ID_ALUMNI'=>$id))->result_array();
+
 		if($query->num_rows()>0){
 			foreach ($query->result() as $row) {
 
@@ -205,6 +213,7 @@ class Alumni extends Main{
 			$this->global_data['nohp'] = '';
 			$this->global_data['alamatalumni'] = '';
 			$this->global_data['pekerjaan'] ='';
+			$this->global_data['tugasakahir'] ='';
 
 		}
 

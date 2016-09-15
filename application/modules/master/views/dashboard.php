@@ -55,6 +55,7 @@
           </div>
         </div>
         <!-- ./col -->
+				<?php if($this->session->userdata('hak')=='admin'): ?>
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-green">
@@ -72,6 +73,7 @@
           </div>
         </div>
         <!-- ./col -->
+
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">
@@ -88,6 +90,7 @@
             <a href="<?php base_url();?>master/user/" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+				<?php endif; ?>
         <!-- ./col -->
         <!-- ./col -->
       </div>

@@ -1,5 +1,5 @@
 ###################
-What is OpenData
+Apa itu OpenData
 ###################
 
 Polban Open Data adalah salah satu  perwujudan dari Smart Campus yang didambakan oleh setiap mahasiswa dimana aplikasi ini menjadi pangkalan data yang mencatat riwayat. Open Data adalah suatu konsep tentang data yang tersedia secara bebas untuk diakses dan dimanfaatkan oleh masyarakat.  

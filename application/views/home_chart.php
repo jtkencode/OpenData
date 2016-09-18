@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript" src="<?php echo base_url('/assets/js/jquery-1.8.2.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('/assets/highcharts/highcharts.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('/assets/highcharts/modules/exporting.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url('/assets/highcharts/themes/skies.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('/assets/highcharts/themes/sand-signika.js'); ?>"></script>
 <script type="text/javascript">
 jQuery(function(){
     new Highcharts.Chart({
@@ -63,8 +63,44 @@ jQuery(function(){
             data: <?php echo json_encode($data2); ?>
         }]
     });
+	
+	new Highcharts.Chart({
+        chart: {
+            renderTo: 'chart_pekerjaan', //id di divnya --> <div id="chart">
+            type: 'column', //jenis chart: spline or column or line or pie
+        },
+        title: {
+            text: 'Bidang Pekerjaan',
+            x: -20 //posisi tulisan
+        },
+        subtitle: {
+            text: 'Bidang Pekerjaan',
+            x: -20 //posisi tulisan
+        },
+        xAxis: {
+			categories: [
+			<?php foreach($data3 as $k){ ?>
+				'<?php echo $k['pekerjaan']; ?>',
+			<?php } ?>
+			]
+        },
+        yAxis: {
+            title: {
+                text: 'Jumlah'
+            }
+        },
+        series: [{
+            name: 'Jumlah',
+            data: [
+			<?php foreach($data3 as $k){ ?>
+				<?php echo $k['jumlah3']; ?>,
+			<?php } ?>
+			]
+        }]
+    });
 });
 </script>
+<?php // var_dump($data3); ?>
 <?php /*foreach($show as $p){
 	echo $p->NAMA_PRODI;
 } */?>

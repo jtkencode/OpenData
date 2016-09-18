@@ -38,43 +38,92 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <div class="container-fluid" style="position: relative; margin-top: 40px">
 	<div class="container">
+		<div style="margin-top: 70px; margin-bottom:-20px">
+			<ol class="breadcrumb">
+			  <li><?php echo anchor('home_index', 'Home', 'title=""'); ?></li>
+			  <li class="active">About</li>
+			</ol>
+		</div>
 		<div class="col-md-12 page-header"><h2 style="margin-bottom: 7px;">Tentang POLBAN Open Data</h2></div>
 		<div class="col-md-12" style="margin-bottom: 70px">
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-		bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+		
+		<p style="text-align : justify">&emsp;&emsp;&emsp; POLBAN Open Data adalah salah satu  perwujudan dari Smart Campus yang didambakan oleh setiap mahasiswa dimana aplikasi 
+		ini menjadi pangkalan data yang mencatat riwayat. Open Data adalah suatu konsep tentang data yang tersedia secara bebas untuk diakses dan 
+		dimanfaatkan oleh masyarakat. </p>
+
+		<p style="text-align : justify">&emsp;&emsp;&emsp; POLBAN Open Data sendiri merupakan aplikasi web yang menjadi pengolahan data alumni meliputi Data Pribadi dan dimana mahasiswa tersebut 
+		bekerja. Harapannya mahasiswa nantinya mempunyai gambaran lulusan-lulusan dari Jurusannya. Untuk kedepannya tidak hanya mengolah data alumni, 
+		tetapi mengolah data skripsi, data perpustakaan dsb. Inti dari sistem Open Data yang kami buat nantinya adalah bagaimana data alumni nantinya 
+		diolah dan dimanfaatkan oleh Mahasiswa nantinya.</p>
+
+		<p style="text-align : justify">&emsp;&emsp;&emsp; Program ini diinisiasi oleh DEV dan Himpunan Mahasiswa Komputer (HIMAKOM) sejak Mei 2016. Pengembangan Program terus berlanjut hingga pihak 
+		manajemen kampus melirik proyek ini dan mendapatkan sambutan positif. Proyek ini dikembangkan sebagai respon terhadap masih minimnya sistem 
+		informasi yang memadai untuk mengakses data kealumnian. Oleh karenanya DEV dan Himakom berusaha mengembangkan kembali Sistem Informasi yang 
+		jauh lebih informatif, menarik dan mudah diakses bagi sivitas akademik Polban.</p>
+		</div>
+		<div class="col-md-6" style="margin-bottom: 100px">
+		<table>
+			<tr>
+				<th>Pelindung</th>
+				<td>:</td>
+				<td style="padding: 10px">Dr. Omar Dhani</td>
+			</tr>
+			<tr>
+				<th>Koordinator Proyek </th>
+				<td>:</td>
+				<td style="padding: 10px">Maulana Ilham</td>
+			</tr>
+			<tr>
+				<th>Pengawas Proyek </th>
+				<td>:</td>
+				<td style="padding: 10px">Dani Finata Pratama & Arifin</td>
+			</tr>
+			<tr>
+				<th>Manajer Proyek</th>
+				<td>:</td>
+				<td style="padding: 10px">Muhammad Husain Fadhlullah</td>
+			</tr>
+			<tr>
+				<th>Anggota Tim Teknis</th>
+				<td>:</td>
+				<td style="padding: 5px 10px 5px 10px">Andre Febrianto</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td style="padding: 5px 10px 5px 10px">Eki Fauzi Firdaus</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td style="padding: 5px 10px 5px 10px">Ibnu Ali Muktarom</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td style="padding: 5px 10px 5px 10px">Fadhlan Ridhwanallah</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td style="padding: 5px 10px 5px 10px">Nita Amelia Wijaya</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td style="padding: 5px 10px 5px 10px">Novia Sukmasari Putri</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td style="padding: 5px 10px 5px 10px">Ferdhika Yudira Diputra</td>
+			</tr>
+		</table>
+		</div>
+		<div class="col-md-6" style="text-align:center;">
+			<img src="<?php echo base_url('assets/img/logo_polban.png'); ?>" width="130px" style="margin-right: 30px">
+			<img src="<?php echo base_url('assets/img/dev.png'); ?>" width="150px" style="margin-right: 30px">
+			<img src="<?php echo base_url('assets/img/himakom.png'); ?>" width="150px">
 		</div>
 	</div>
 </div>

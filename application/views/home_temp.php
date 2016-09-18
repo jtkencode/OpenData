@@ -52,7 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="header-content-inner">
                 <h1 id="homeHeading">POLBAN Open Data</h1>
                 <hr>
-                <p>Text</p>
+                <p style="color:#fff"><strong><i>"Assuring Your Future when we united and connected"</i></strong><br><br>
+				Jelajahi informasi seputar kemahasiswaan & Alumni yang mungkin belum kamu ketahui Disini!</p>
+				
                 <a href="#about" class="btn btn-primary btn-xl page-scroll">Explore!</a>
             </div>
         </div>
@@ -64,7 +66,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">POLBAN Open Data</h2>
                     <hr class="light">
-                    <p class="text-faded">Open Data adalah suatu konsep tentang data yang tersedia secara bebas untuk diakses dan dimanfaatkan oleh masyarakat.
+                    <p class="text-faded">
+					Polban Open Data adalah salah satu  perwujudan dari Smart Campus yang didambakan oleh setiap mahasiswa 
+					dimana aplikasi ini menjadi pangkalan data yang mencatat riwayat. Open Data adalah suatu konsep tentang 
+					data yang tersedia secara bebas untuk diakses dan dimanfaatkan oleh masyarakat. 
 					</p><br>
                     <span class="page-scroll btn btn-default btn-xl sr-button btn-none">
 					<?php echo anchor('home_index/about', 'Baca Selengkapnya', 'title=""'); ?></span>
@@ -127,16 +132,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="container">
 			<div class="row">
 			<?php
-			for($i=0; $i<3; $i++){ ?>
+			{ ?>
 
 				<div class="col-md-4" style="padding-right: 40px">
 					<img class="img-circle" src="<?php echo base_url('assets/img/logo_polban.jpg'); ?>" width="90px" align="left" style="margin-right: 20px; margin-bottom: 5px;">
-					<span style="color: #fff; font-weight: bold; font-size: 13pt;">Nita Amelia W.</span><br>
-					<span style="color: #fff; font-style: italic;">(Angkatan, Jabatan)</span><br><br>
-					<p style="color: #fff; font-size: 10pt; text-align: justify">Isi testimonial.. bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-					 bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla..</p>
+					<span style="color: #fff; font-weight: bold; font-size: 13pt;">Dr. Iwan Mulyawan</span><br>
+					<span style="color: #fff; font-style: italic;">(Ketua Jurusan Administrasi Niaga POLBAN)</span><br><br>
+					<p style="color: #fff; font-size: 10pt; text-align: justify"></br>Open Data POLBAN, menurut saya adalah salah satu hal luar biasa yang 
+					dimiliki oleh POLBAN terlebih lagi karya ini diciptakan oleh Mahasiswa yang sangat peduli dengan perkembangan civitas akademika 
+					POLBAN. Open Data yang saya lihat disini juga akan memberikan manfaat bukan hanya bagi Mahasiswa saja, namun bagi civitas 
+					akademika secara umumnya. Semoga Open Data dapat terus  dikembangkan menjadi lebih baik lagi</p>
 				</div>
-
+				<div class="col-md-4" style="padding-right: 40px">
+					<img class="img-circle" src="<?php echo base_url('assets/img/logo_polban.jpg'); ?>" width="90px" align="left" style="margin-right: 20px; margin-bottom: 5px;">
+					<span style="color: #fff; font-weight: bold; font-size: 13pt;">Dr. Omar Dani Sopandi, S.Sos., M.Pd.</span><br>
+					<span style="color: #fff; font-style: italic;">(Pelindung  DEV Community, Ketua Kearsipan POLBAN)</span><br><br>
+					<p style="color: #fff; font-size: 10pt; text-align: justify">&emsp;&emsp;&emsp;&emsp;Jarang Sekali saya menemukan organisasi atau mahasiswa yang ingin 
+					mengabdi untuk kepentingan dan kemajuan kampusnya sendiri, saat ini mahasiswa kadang hanya sekedar ingin menikmati fasilitas saja, 
+					tidak ingin untuk menciptakan bahkan merawat fasilitas tersebut. Namun beda halnya dengan DEV Community, suatu kumpulan mahasiswa 
+					yang inigin memajukkan kampusnya, tapi saya melihat ini adalah suatu kerjasama bukan hanya dari satu organisasi saja, tetapi 
+					didukung pula oleh JTK POLBAN. Harapannya Open Data ini bisa memberikan manfaat bagi para mahasiswa yang mencari tempat PKL 
+					ataupun link untuk bekerja saat mereka telah lulus kuliah</p>
+				</div>
+				<div class="col-md-4" style="padding-right: 40px">
+					<img class="img-circle" src="<?php echo base_url('assets/img/logo_polban.jpg'); ?>" width="90px" align="left" style="margin-right: 20px; margin-bottom: 5px;">
+					<span style="color: #fff; font-weight: bold; font-size: 13pt;">Aldi Pahlevi</span><br>
+					<span style="color: #fff; font-style: italic;">(Ketua BEM KEMA POLBAN 2015-2016)</span><br><br>
+					<p style="color: #fff; font-size: 10pt; text-align: justify"></br>Mahasiswa seharusnya memang bekerjasama melakukan hal yang luar biasa,
+					contohnya seperti DEV bekerjasama dengan HIMAKOM POLBAN berbahubahu mengembangkan Open Data yang nantinya untuk konsumsi semua 
+					pihak, kegiatan ini harus selalu didukung oleh KEMA POLBAN dan Manajemen POLBAN.</p>
+				</div>
+				
 			<?php } ?>
 			</div>
 		</div>
@@ -150,17 +176,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <hr class="primary">
                     <p>Jl. Gegerkalong Hilir, Desa Ciwaruga, Parongpong, Kabupaten Bandung Barat, Jawa Barat 40012, Indonesia</p>
                 </div>
-                <div class="col-md-4 text-center">
+                <div class="col-md-6 text-center">
                     <i class="fa fa-phone fa-3x sr-contact"></i>
-                    <p>(022) 2013789</p>
+                    <p>0878 2574 3154</p>
                 </div>
-				<div class="col-md-4 text-center">
-                    <i class="fa fa-fax fa-3x sr-contact"></i>
-                    <p>(022) 2013789</p>
-                </div>
-                <div class="col-md-4 text-center">
+                <div class="col-md-6 text-center">
                     <i class="fa fa-envelope-o fa-3x sr-contact"></i>
-                    <p><a href="mailto:your-email@your-domain.com">polban@polban.ac.id</a></p>
+                    <p><a href="mailto:your-email@your-domain.com">bersamadev@gmail.com</a></p>
                 </div>
             </div>
         </div>

@@ -69,8 +69,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li>
                         <?php echo anchor('home_index#contact', 'Contact', 'title=""'); ?>
                     </li>
+					<li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Login
+                      <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="<?php echo site_url('alumni');?>">Alumni</a></li>
+                          <li><a href="<?php echo site_url('admin');?>">Mahasiswa</a></li>
+                        </ul>
+                    </li>
                     <li>
-                        <a class="page-scroll" href="<?php echo site_url('alumni');?>">Login</a>
                     </li>
                 </ul>
             </div>

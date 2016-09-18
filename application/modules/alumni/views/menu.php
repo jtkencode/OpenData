@@ -13,7 +13,7 @@
 					<p><?php echo $akunInfo['NAMA_ALUMNI'];?></p>
 					<!-- Status -->
 					<a href="<?php echo site_url('alumni/profile');?>">
-					<?php echo $akunInfo['TAHUN_MASUK'];?>
+					<?php echo $akunInfo['USERNAME'];?>
 					</a>
 				</div>
 			</div>

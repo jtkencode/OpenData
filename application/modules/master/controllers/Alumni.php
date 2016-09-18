@@ -14,7 +14,7 @@ class Alumni extends Main{
 		$this->tb_alumni = 'alumni';
 		$this->tb_TA = 'tugas_akhir';
 		// Load libraries
-		$this->load->library('pagination');
+		$this->load->library(['pagination','form_validation']);
 	}
 
 	public function index($id=0){
@@ -63,6 +63,9 @@ class Alumni extends Main{
 		//buat pagination
 		$this->global_data['halaman'] = $this->pagination->create_links();
 
+		// Pesan
+		$this->global_data['message'] = $this->session->flashdata('message');
+
 		// data
 		$alumni = $this->m_alumni->getAlumniPer($config['per_page'], $id);
 
@@ -74,14 +77,14 @@ class Alumni extends Main{
 				'no'			        => $no,
 				'id'			        => $result['ID_ALUMNI'],
 				'namaProdi'			=> $result['NAMA_PRODI'],
-			//	'prodiAlumni'			=> $result['ID_PRODI'],
-        'namaAlumni'			=> $result['NAMA_ALUMNI'],
-        'tahunMasuk'			=> $result['TAHUN_MASUK'],
-        'tahunKeluar'			=> $result['TAHUN_KELUAR'],
-        'emailAlumni'			=> $result['EMAIL_ALUMNI'],
-        'noHP'		      	=> $result['NO_HP'],
-        'alamatAlumni'		=> $result['ALAMAT_ALUMNI'],
-        'pekerjaan'		   	=> $result['PEKERJAAN'],
+					//	'prodiAlumni'			=> $result['ID_PRODI'],
+		        'namaAlumni'			=> $result['NAMA_ALUMNI'],
+		        'tahunMasuk'			=> $result['TAHUN_MASUK'],
+		        'tahunKeluar'			=> $result['TAHUN_KELUAR'],
+		        'emailAlumni'			=> $result['EMAIL_ALUMNI'],
+		        'noHP'		      	=> $result['NO_HP'],
+		        'alamatAlumni'		=> $result['ALAMAT_ALUMNI'],
+		        'pekerjaan'		   	=> $result['PEKERJAAN'],
 				'href_view'		=> site_url('master/alumni/view/'.$result['ID_ALUMNI']),
 				'href_edit'		=> site_url('master/alumni/editAlumni/'.$result['ID_ALUMNI']),
 				'href_delete'	=> site_url('master/alumni/deleteAlumni/'.$result['ID_ALUMNI'])
@@ -101,63 +104,94 @@ class Alumni extends Main{
 
 		// Breadcumb
 		$this->global_data['breadcumb'][] = array(
-			'judul'	=> '<i class="fa fa-dashboard"></i> Alumni',
+			'judul'	=> '<i class="fa fa-user"></i> Alumni',
 			'link'	=> site_url('master/alumni')
 		);
 		$this->global_data['breadcumb'][] = array(
 			'judul'	=> 'Tambah Alumni',
 			'link'	=> ''
 		);
-		$this->global_data['Prodi'] = $this->m_alumni->getProdi();
 
+		// Pesan
+		$this->global_data['message'] = $this->session->flashdata('message');
 
-		$this->global_data['idalumni'] = '';
-		$this->global_data['namaalumni'] = '';
-		$this->global_data['idprodi'] = '';
-		$this->global_data['idta'] = '';
-		$this->global_data['namaprodi'] = '';
-		$this->global_data['tahunmasuk'] = '';
-		$this->global_data['tahunkeluar'] = '';
-		$this->global_data['emailalumni'] = '';
-		$this->global_data['nohp'] = '';
-		$this->global_data['alamatalumni'] = '';
-		$this->global_data['pekerjaan'] ='';
-		$this->global_data['tugasakhir'] ='';
+		// Validasi
+		$this->form_validation->set_rules('nim', 'NIM', 'required|numeric|is_unique[alumni.USERNAME]|max_length[9]', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
+		$this->form_validation->set_rules('namaalumni', 'Nama', 'trim|required');
+		$this->form_validation->set_rules('prodi', 'Prodi', 'trim|required');
+		$this->form_validation->set_rules('email', 'Email', 'valid_email|required');
+		$this->form_validation->set_rules('nohp', 'Telp', 'required|numeric', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
+        $this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'required|trim', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim|min_length[4]|max_length[250]', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
 
-		$this->global_data['csrf'] = array(
-        'name' => $this->security->get_csrf_token_name(),
-        'hash' => $this->security->get_csrf_hash()
-			);
+        if($this->form_validation->run()){
+        	$nim = $this->input->post('nim');
+        	$nama = $this->input->post('namaalumni');
+        	$email = $this->input->post('email');
+        	$telp = $this->input->post('nohp');
+        	$prodi = $this->input->post('prodi');
+        	$thn_masuk = $this->input->post('thn_masuk');
+        	$thn_keluar = $this->input->post('thn_keluar');
+        	$ta = $this->input->post('ta');
+        	$pekerjaan = $this->input->post('pekerjaan');
+        	$alamat = $this->input->post('alamat');
 
-		$this->tampilan('alumni/insertAlumni');
-	}
+        	if($thn_masuk<=$thn_keluar){
+        		$selisih = $thn_keluar-$thn_masuk;
+        		$ambilProdi = $this->m_alumni->ambilSatuProdi(array('ID_PRODI'=>$prodi));
+        		if (preg_match("/D4/i", $ambilProdi['NAMA_PRODI'])) {
+        			$min = 4;
+        			$max = 5;
+        		}else{
+        			$min = 3;
+        			$max = 4;
+        		}
+        		if($selisih == $min || $selisih == $max){
+		        	$datana = array(
+		        		'ID_PRODI' 			=> $prodi,
+		        		'ID_TUGAS_AKHIR'	=> $ta,
+		        		'NAMA_ALUMNI'		=> $nama,
+		        		'TAHUN_MASUK'		=> $thn_masuk,
+		        		'TAHUN_KELUAR'		=> $thn_keluar,
+		        		'EMAIL_ALUMNI'		=> $email,
+		        		'NO_HP'				=> $telp,
+		        		'ALAMAT_ALUMNI'		=> $alamat,
+		        		'PEKERJAAN'			=> $pekerjaan,
+		        		'USERNAME'			=> $nim,
+		        		'PASSWORD'			=> 123456
+		        	);
 
-	public function simpan(){
-		$id = $this->input->post('idalumni');
-		$data = array(
-									'ID_PRODI'=>  $this->input->post('PRODI'),
-									'ID_TUGAS_AKHIR'=>  $this->input->post('tugasakhir'),
-									'NAMA_ALUMNI'=>  $this->input->post('namaalumni'),
-									'TAHUN_MASUK'=>  $this->input->post('tahunmasuk'),
-									'TAHUN_KELUAR'=>  $this->input->post('tahunkeluar'),
-									'EMAIL_ALUMNI'=>  $this->input->post('emailalumni'),
-									'NO_HP'				=>  $this->input->post('nohp'),
-									'ALAMAT_ALUMNI'=>  $this->input->post('alamatalumni'),
-									'PEKERJAAN'=>  $this->input->post('pekerjaan'),
-								 );
-
-		$query = $this->m_alumni->getData($id);
-
-		if($query->num_rows()>0){
-			$this->m_alumni->get_update($id,$data);
-			$this->session->set_flashdata('info','data berhasil diupdate');
+		        	$tambah = $this->m_alumni->get_insert($datana);
+		        	if($tambah){
+		        		$this->session->set_flashdata('message','Berhasil menambah alumni.');
+		        		redirect('master/alumni');
+		        	}
+		        }else{
+        			$this->session->set_flashdata('message','Tidak mungkin alumni lulus kurang dari 4 tahun atau lebih dari 5 tahun.');
+        			redirect('master/alumni/addAlumni');
+        		}
+        	}else{
+        		$this->session->set_flashdata('message','Tahun lulus alumni mustahil.');
+        		redirect('master/alumni/addAlumni');
+        	}
+        }else{
+			// Pesan validasi
+			$this->global_data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 		}
-		else{
-			$this->m_alumni->get_insert($data);
-			$this->session->set_flashdata('info','data berhasil disimpan');
-		}
 
-		redirect('master/alumni');
+		$this->form();
 	}
 
 	public function editAlumni(){
@@ -169,7 +203,7 @@ class Alumni extends Main{
 
 		// Breadcumb
 		$this->global_data['breadcumb'][] = array(
-			'judul'	=> '<i class="fa fa-dashboard"></i> Alumni',
+			'judul'	=> '<i class="fa fa-user"></i> Alumni',
 			'link'	=> site_url('master/alumni')
 		);
 		$this->global_data['breadcumb'][] = array(
@@ -179,55 +213,123 @@ class Alumni extends Main{
 		$this->global_data['Prodi'] = $this->m_alumni->getProdi();
 		$id = $this->uri->segment(4);
 		$this->db->where('ID_ALUMNI',$id);
+		$query = $this->db->select('*, '.$this->tb_prodi.'.ID_JURUSAN as idJurusan, '.$this->tb_alumni.'.ID_PRODI as idProdi');
 		$query = $this->db->join($this->tb_prodi, $this->tb_alumni.'.ID_PRODI='.$this->tb_prodi.'.ID_PRODI');
-		$query = $this->db->get($this->tb_alumni);
+		$query = $this->db->get($this->tb_alumni)->result_array();
 
-		$dataTA= $this->db->join($this->tb_alumni, $this->tb_TA.'.ID_TUGAS_AKHIR='.$this->tb_alumni.'.ID_TUGAS_AKHIR');
-		$dataTA = $this->db->get_where($this->tb_TA,array('ID_ALUMNI'=>$id))->result_array();
-
-		if($query->num_rows()>0){
-			foreach ($query->result() as $row) {
-
-					$this->global_data['idalumni'] = $row->ID_ALUMNI;
-					$this->global_data['idprodi'] = $row->ID_PRODI;
-					$this->global_data['namaalumni'] = $row->NAMA_ALUMNI;
-					$this->global_data['namaprodi'] = $row->NAMA_PRODI;
-					$this->global_data['tahunmasuk'] = $row->TAHUN_MASUK;
-					$this->global_data['tahunkeluar'] = $row->TAHUN_KELUAR;
-					$this->global_data['emailalumni'] = $row->EMAIL_ALUMNI;
-					$this->global_data['nohp'] = $row->NO_HP;
-					$this->global_data['alamatalumni'] = $row->ALAMAT_ALUMNI;
-					$this->global_data['pekerjaan'] = $row->PEKERJAAN;
-			}
-
-		}
-		else{
-
-			$this->global_data['idalumni'] = '';
-			$this->global_data['namaalumni'] = '';
-			$this->global_data['idprodi'] = '';
-			$this->global_data['namaprodi'] = '';
-			$this->global_data['tahunmasuk'] = '';
-			$this->global_data['tahunkeluar'] = '';
-			$this->global_data['emailalumni'] = '';
-			$this->global_data['nohp'] = '';
-			$this->global_data['alamatalumni'] = '';
-			$this->global_data['pekerjaan'] ='';
-			$this->global_data['tugasakahir'] ='';
-
+		if(empty($query)){
+			redirect('master/alumni');
+		}else{
+			$query = $query[0];
 		}
 
-		$this->global_data['csrf'] = array(
-        'name' => $this->security->get_csrf_token_name(),
-        'hash' => $this->security->get_csrf_hash()
-			);
+		$this->global_data['datana'] = $query;
 
-		//$this->load->view('master/jurusan/formEditData');
+		$this->global_data['prodi'] = $this->m_user->ambilSemuaProdiBy($this->global_data['datana']['idJurusan']);
 
+		// Pesan
+		$this->global_data['message'] = $this->session->flashdata('message');
+
+		// Validasi
+		$this->form_validation->set_rules('nim', 'NIM', 'required|numeric|max_length[9]', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
+		$this->form_validation->set_rules('namaalumni', 'Nama', 'trim|required');
+		$this->form_validation->set_rules('email', 'Email', 'valid_email|required');
+		$this->form_validation->set_rules('nohp', 'Telp', 'required|numeric', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
+        $this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'required|trim', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim|min_length[4]|max_length[250]', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
+
+        if($this->form_validation->run()){
+        	$nama = $this->input->post('namaalumni');
+        	$email = $this->input->post('email');
+        	$telp = $this->input->post('nohp');
+        	$prodi = $this->input->post('prodi');
+        	$thn_masuk = $this->input->post('thn_masuk');
+        	$thn_keluar = $this->input->post('thn_keluar');
+        	$ta = $this->input->post('ta');
+        	$pekerjaan = $this->input->post('pekerjaan');
+        	$alamat = $this->input->post('alamat');
+        	$nim = $this->input->post('nim');
+
+        	if($thn_masuk<=$thn_keluar){
+        		$selisih = $thn_keluar-$thn_masuk;
+        		$ambilProdi = $this->m_alumni->ambilSatuProdi(array('ID_PRODI'=>$prodi));
+        		if (preg_match("/D4/i", $ambilProdi['NAMA_PRODI'])) {
+        			$min = 4;
+        			$max = 5;
+        		}else{
+        			$min = 3;
+        			$max = 4;
+        		}
+        		if($selisih == $min || $selisih == $max){
+		        	$datana = array(
+		        		'ID_PRODI' 			=> $prodi,
+		        		'ID_TUGAS_AKHIR'	=> $ta,
+		        		'NAMA_ALUMNI'		=> $nama,
+		        		'TAHUN_MASUK'		=> $thn_masuk,
+		        		'TAHUN_KELUAR'		=> $thn_keluar,
+		        		'EMAIL_ALUMNI'		=> $email,
+		        		'NO_HP'				=> $telp,
+		        		'ALAMAT_ALUMNI'		=> $alamat,
+		        		'PEKERJAAN'			=> $pekerjaan,
+		        		'USERNAME'			=> $nim
+		        	);
+
+		        	$ubah = $this->m_alumni->get_update($id,$datana);
+		        	if($ubah){
+		        		$this->session->set_flashdata('message','Berhasil merubah alumni.');
+		        		redirect('master/alumni');
+		        	}
+		        }else{
+        			$this->session->set_flashdata('message','Tidak mungkin alumni lulus kurang dari 4 tahun atau lebih dari 5 tahun.');
+        			redirect('master/alumni/editAlumni/'.$id);
+        		}
+        	}else{
+        		$this->session->set_flashdata('message','Tahun lulus alumni mustahil.');
+        		redirect('master/alumni/editAlumni/'.$id);
+        	}
+        }else{
+			// Pesan validasi
+			$this->global_data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+		}
+
+		$this->form();
+	}
+
+	private function form(){
+		// Add style up
+		$this->global_data['style'] = array(
+			base_url('assets/plugins/select2/select2.min.css')
+		);
+
+		// Add script down
+		$this->global_data['script'] = array(
+			base_url('assets/plugins/select2/select2.full.min.js')
+		);
+
+		$this->global_data['add_script'] = array(
+			'$(function () {
+				//Initialize Select2 Elements
+				$(".select2").select2();
+			});'
+		);
+
+		$this->global_data['jurusan'] = $this->m_user->getAllJurusan();
+		$this->global_data['ta'] = $this->m_alumni->ambilTA();
 
 		$this->tampilan('alumni/insertAlumni');
 	}
-
 
 	public function deleteAlumni(){
 

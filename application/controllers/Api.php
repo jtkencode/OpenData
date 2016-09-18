@@ -315,6 +315,40 @@ class Api extends CI_Controller {
 		$this->outputJson($response);
 	}
 
+	public function tambahTA(){
+		$this->load->library('form_validation');
+
+		$response = array('status'=>false, 'message'=>null, 'id'=> 0);
+
+		$this->form_validation->set_rules('judul', 'Judul Tugas Akhir', 'required|is_unique[tugas_akhir.JUDUL_TUGAS_AKHIR]', array(
+			'required'	=> 'You have not provided %s.',
+			'is_unique'	=> 'This %s already exists.'
+        ));
+
+		if($this->form_validation->run()){
+			$judul = $this->input->post('judul');
+
+			$data = array(
+				'JUDUL_TUGAS_AKHIR'		=> $judul
+			);
+
+			$insert = $this->db->insert($this->tb_TA,$data);
+			$last_id = $this->db->insert_id();
+
+			if($insert){
+				$response = array('status'=>true, 'message'=>'Berhasil menambah tugas akhir.', 'id'=> $last_id);
+			}else{
+				$response = array('status'=>false, 'message'=>'Kesalahan database', 'id'=> 0);
+			}
+		}else{
+			if(validation_errors()){
+				$response = array('status'=>false, 'message'=>validation_errors(), 'id'=> 0);
+			}
+		}
+
+		$this->outputJson($response);
+	}
+
 	public function ubahPekerjaan(){
 		$response = array('status'=>false, 'message'=>null);
 
@@ -502,7 +536,7 @@ class Api extends CI_Controller {
 			$prodi = $this->db->get_where($this->tb_prodi,array('ID_JURUSAN'=>$id));
 			$prodi = $prodi->result_array();
 
-			echo "<select name=\"prodi\" class=\"form-control\">";
+			echo "<select name=\"prodi\" class=\"form-control select2\">";
 			foreach ($prodi as $p){
 				echo "<option value='".$p['ID_PRODI']."'>".$p['NAMA_PRODI']."</option>";
 			}

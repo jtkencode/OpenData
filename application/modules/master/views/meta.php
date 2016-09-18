@@ -14,6 +14,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="<?php echo $asset;?>css/bootstrap.min.css">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="<?php echo $asset;?>css/font-awesome.min.css">
+
+        <?php
+            if(isset($style)):
+                foreach ($style as $style):
+        ?>
+        <link rel="stylesheet" href="<?php echo $style;?>">
+        <?php
+                endforeach;
+            endif;
+        ?>
+        
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?php echo $asset;?>css/ionicons.min.css">
         <!-- Theme style -->
@@ -24,15 +35,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         -->
         <link rel="stylesheet" href="<?php echo $asset;?>/css/style.css">
         <link rel="stylesheet" href="<?php echo $asset;?>/css/styleF.css">
-        <?php
-            if(isset($style)):
-                foreach ($style as $style):
-        ?>
-        <link rel="stylesheet" href="<?php echo $style;?>">
-        <?php
-                endforeach;
-            endif;
-        ?>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

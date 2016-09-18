@@ -44,6 +44,13 @@
 							<i class="fa fa-plus"></i> Tambah
 						</a> <br></br>
 						<?php endif;?>
+					<?php if(!empty($message)): ?>
+			    	<div class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<h4><i class="icon fa fa-check"></i> Alert!</h4>
+						<?php echo $message;?>
+					</div>
+					<?php endif;?>
 					<div class="box">
 						<div class="box-header with-border">
 							<h3 class="box-title">Daftar <?php echo $title;?></h3>
@@ -77,13 +84,13 @@
 
 									<td style="width: 20%">
 										<button class="btn btn-xs btn-primary" title="Lihat" onclick="view(<?php echo $dataAlumni['id'];?>)">
-											<i class="fa fa-eye"> Detail</i>
+											<i class="fa fa-eye"></i>
 										</button>
 										<?php if($this->session->userdata('hak')=='admin'): ?>
 										<a class="btn btn-default btn-xs" title="Ubah" href="<?php echo $dataAlumni['href_edit'];?>">
 											<i class="fa fa-pencil"></i>
 										</a>
-										<a class="btn btn-danger btn-xs" title="Delete" href="<?php echo $dataAlumni['href_delete'];?>"title="Hapus">
+										<a class="btn btn-danger btn-xs" title="Hapus" href="<?php echo $dataAlumni['href_delete'];?>"title="Hapus">
 											<i class="glyphicon glyphicon-trash"></i>
 										</a>
 										<?php endif;?>

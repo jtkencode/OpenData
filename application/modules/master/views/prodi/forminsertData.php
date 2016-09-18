@@ -69,7 +69,7 @@
 
 										<div class="form-group" align="center">
 												<input type="submit" class="btn btn-success"  value="Submit">
-												<a href="OpenData" class="btn btn-primary" role="button">Batal</a>
+												<a href="<?php echo site_url('master/prodi');?>" class="btn btn-primary" role="button">Batal</a>
 										</div>
 									</fieldset>
 									<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />

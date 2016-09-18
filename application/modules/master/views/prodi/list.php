@@ -38,7 +38,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<?php if($this->session->userdata('hak')=='admin'): ?>
-					<a class="btn btn-default btn-md" href="<?php echo base_url();?>master/alumni/addAlumni">
+					<a class="btn btn-default btn-md" href="<?php echo site_url('master/prodi/addProdi');?>">
 						<i class="fa fa-plus"></i> Tambah
 					</a> <br></br>
 					<?php endif;?>

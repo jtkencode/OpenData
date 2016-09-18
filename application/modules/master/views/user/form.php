@@ -130,6 +130,7 @@
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
 											<input type="submit" class="btn btn-success btn-md" name="simpan" value="Simpan">
+											<a href="<?php echo site_url('master/user');?>" class="btn btn-primary" role="button">Batal</a>
 										</div>
 									</div>
 								</form>

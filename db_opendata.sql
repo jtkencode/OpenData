@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2016 at 07:13 AM
+-- Generation Time: Sep 19, 2016 at 06:19 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -38,16 +38,26 @@ CREATE TABLE IF NOT EXISTS `alumni` (
   `ALAMAT_ALUMNI` varchar(50) DEFAULT NULL,
   `PEKERJAAN` varchar(20) DEFAULT NULL,
   `USERNAME` varchar(10) NOT NULL,
-  `PASSWORD` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `PASSWORD` varchar(20) NOT NULL,
+  `FOTO` varchar(80) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `alumni`
 --
 
-INSERT INTO `alumni` (`ID_ALUMNI`, `ID_PRODI`, `ID_TUGAS_AKHIR`, `NAMA_ALUMNI`, `TAHUN_MASUK`, `TAHUN_KELUAR`, `EMAIL_ALUMNI`, `NO_HP`, `ALAMAT_ALUMNI`, `PEKERJAAN`, `USERNAME`, `PASSWORD`) VALUES
-(1, 2, 1, 'Joni', 2012, 2014, 'joni@gmail.com', '898348387', 'ciwaruga', 'Programmer', 'joni', 'joni99'),
-(2, 13, 6, 'Tarmin Casano', 2013, 2016, 'tarmin@yahoo.com', '089847282478', 'Jalan Cagak Subang', 'Programmer', 'tarmin', 'localhost');
+INSERT INTO `alumni` (`ID_ALUMNI`, `ID_PRODI`, `ID_TUGAS_AKHIR`, `NAMA_ALUMNI`, `TAHUN_MASUK`, `TAHUN_KELUAR`, `EMAIL_ALUMNI`, `NO_HP`, `ALAMAT_ALUMNI`, `PEKERJAAN`, `USERNAME`, `PASSWORD`, `FOTO`) VALUES
+(1, 15, 1, 'Wafi Faturahman', 2012, 2015, 'waffi@gmail.com', '898348387', 'ciwaruga', 'Programmer', '141524030', '123456', 'upload/alumni/141524030_20160919054117.png'),
+(2, 16, 6, 'Husen Malik', 2014, 2016, 'husenm@yahoo.com', '089847282478', 'Jalan Cagak Subang', 'Programmer', '151524012', '123456', ''),
+(3, 16, 9, 'Tria Yuda', 2014, 2010, 'triaY@gmail.com', '3535325', 'ciwarugaa', 'Designer', '141524029', '123456', ''),
+(4, 16, 1, 'Chandra', 2014, 2015, 'chandra@gmail.com', '089121931849', 'Jl. Gegerkalong Hilir, Desa Ciwaruga, Parongpong,', 'Web Developer', '14152400', '123456', 'upload/alumni/14152400_20160918034123.jpg'),
+(5, 16, 2, 'Ibnu Ali Mukhtarom', 2014, 2018, 'ibnuali6@gmail.com', '082382791748', 'Juntinyuat Indramayu', 'Web Developer', '141524010', '123456', NULL),
+(6, 4, 20, 'Nurul Fadillah', 2014, 2018, 'nurulF@gmail.com', '0899884889', 'Garut', 'Marketing', '142913010', '123456', NULL),
+(7, 3, 19, 'Putri Nur Lailla', 2013, 2015, 'putriN@gmail.com', '08982748198', 'bandung', 'Staff Administrasi', '141623012', '123456', NULL),
+(8, 30, 19, 'Nur Fitri', 2013, 2016, 'nurfitri@gmail.com', '0897847487', 'Garut', 'Acconting', '141115021', '123456', NULL),
+(9, 30, 6, 'Citra Umami', 2013, 2016, 'cintraumami@gmail.com', '08971848247', 'Cianjur', 'Arsip Buku', '141115012', '123456', NULL),
+(10, 4, 1, 'Danu Surwendo', 2012, 2015, 'danus@yahoo.com', '08123139404', 'parongpong', 'Salles Professional', '141219001', '123456', NULL),
+(11, 5, 24, 'Tatang Suhendra', 2013, 2016, 'tatang@polban.ac.id', '089221443221', 'desa mojopahit', 'Perbankan', '141225002', '141225002', NULL);
 
 -- --------------------------------------------------------
 
@@ -59,14 +69,15 @@ CREATE TABLE IF NOT EXISTS `beasiswa` (
   `ID_BEASISWA` int(11) NOT NULL,
   `NAMA_BEASISWA` varchar(20) NOT NULL,
   `PENYELENGGARA_BEASISWA` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `beasiswa`
 --
 
 INSERT INTO `beasiswa` (`ID_BEASISWA`, `NAMA_BEASISWA`, `PENYELENGGARA_BEASISWA`) VALUES
-(1, 'Djarum', 'Djarum');
+(1, 'Djarum', 'Djarum'),
+(2, 'PPA', 'Dikti');
 
 -- --------------------------------------------------------
 
@@ -81,14 +92,15 @@ CREATE TABLE IF NOT EXISTS `bekerja` (
   `JABATAN_PEKERJAAN` varchar(12) NOT NULL,
   `TAHUN_BERHENTI` int(11) NOT NULL,
   `TAHUN_MULAI` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bekerja`
 --
 
 INSERT INTO `bekerja` (`ID_BEKERJA`, `ID_ALUMNI`, `ID_PERUSAHAAN`, `JABATAN_PEKERJAAN`, `TAHUN_BERHENTI`, `TAHUN_MULAI`) VALUES
-(1, 1, 1, 'Ketua ', 1995, 1991);
+(1, 1, 1, 'Ketua ', 1995, 1991),
+(2, 1, 3, 'Manager Proj', 2016, 2014);
 
 -- --------------------------------------------------------
 
@@ -127,7 +139,7 @@ INSERT INTO `jurusan` (`ID_JURUSAN`, `NAMA_JURUSAN`) VALUES
 
 CREATE TABLE IF NOT EXISTS `karya_ilmiah` (
   `ID_KARYA_ILMIAH` int(11) NOT NULL,
-  `JUDUL_KARYA_ILMIAH` varchar(50) NOT NULL,
+  `JUDUL_KARYA_ILMIAH` varchar(200) NOT NULL,
   `TUJUAN_PEMBUATAN_KARYA` varchar(50) DEFAULT NULL,
   `TAHUN_SELESAI_KARYA` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
@@ -149,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `kompetisi` (
   `ID_KOMPETISI` int(11) NOT NULL,
   `NAMA_KOMPETISI` varchar(40) NOT NULL,
   `PENYELENGGARA_KOMPETISI` varchar(40) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `kompetisi`
@@ -157,7 +169,11 @@ CREATE TABLE IF NOT EXISTS `kompetisi` (
 
 INSERT INTO `kompetisi` (`ID_KOMPETISI`, `NAMA_KOMPETISI`, `PENYELENGGARA_KOMPETISI`) VALUES
 (1, 'Game Development', 'Comfest'),
-(2, 'Competitive Programming', 'Comfest');
+(2, 'Competitive Programming', 'Comfest'),
+(3, 'Competitive', 'Gemastik'),
+(4, 'Competitive Programm', 'Gemastik'),
+(5, 'Capture The Flag', 'Gemastik'),
+(6, 'Internet of Things', 'Gemastik');
 
 -- --------------------------------------------------------
 
@@ -191,14 +207,15 @@ CREATE TABLE IF NOT EXISTS `mendapat_beasiswa` (
   `ID_ALUMNI` int(11) NOT NULL,
   `TAHUN_MULAI_BEASISWA` int(11) NOT NULL,
   `TAHUN_SELESAI_BEASISWA` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mendapat_beasiswa`
 --
 
 INSERT INTO `mendapat_beasiswa` (`ID_MENDAPAT_BEASISWA`, `ID_BEASISWA`, `ID_ALUMNI`, `TAHUN_MULAI_BEASISWA`, `TAHUN_SELESAI_BEASISWA`) VALUES
-(1, 1, 1, 2012, 2013);
+(1, 1, 1, 2012, 2013),
+(2, 2, 1, 2015, 2016);
 
 -- --------------------------------------------------------
 
@@ -232,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `perusahaan` (
   `NOMOR_TELEPON_PERUSAHAAN` int(11) DEFAULT NULL,
   `ALAMAT_PERUSAHAAN` varchar(20) NOT NULL,
   `BIDANG_PEKERJAAN` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `perusahaan`
@@ -240,7 +257,8 @@ CREATE TABLE IF NOT EXISTS `perusahaan` (
 
 INSERT INTO `perusahaan` (`ID_PERUSAHAAN`, `NAMA_PERUSAHAAN`, `EMAIL_PERUSAHAAN`, `NOMOR_TELEPON_PERUSAHAAN`, `ALAMAT_PERUSAHAAN`, `BIDANG_PEKERJAAN`) VALUES
 (1, 'Bara Enterprise', 'support@bara.co.id', 83242342, 'Sariwangi', 'IT Consultant'),
-(2, '0891174917712', 'mail@bsp.com', 10401855, 'sarijadi', 'PROGRAMMER');
+(2, '0891174917712', 'mail@bsp.com', 10401855, 'sarijadi', 'PROGRAMMER'),
+(3, 'Bee Solution Partner', 'info@bsp.co.id', 2147483647, 'Jl.raya sarijadi sar', 'Software House');
 
 -- --------------------------------------------------------
 
@@ -308,14 +326,15 @@ CREATE TABLE IF NOT EXISTS `riwayat_kompetisi` (
   `ID_ALUMNI` int(11) DEFAULT NULL,
   `PRESTASI` varchar(30) NOT NULL,
   `TAHUN_KOMPETISI` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `riwayat_kompetisi`
 --
 
 INSERT INTO `riwayat_kompetisi` (`ID_RIWAYAT_KOMPETISI`, `ID_KOMPETISI`, `ID_ALUMNI`, `PRESTASI`, `TAHUN_KOMPETISI`) VALUES
-(1, 2, 1, 'Juara 2', 2015);
+(1, 2, 1, 'Juara 2', 2015),
+(2, 5, 1, 'Juara 3', 2016);
 
 -- --------------------------------------------------------
 
@@ -338,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `riwayat_organisasi` (
 
 INSERT INTO `riwayat_organisasi` (`ID_RIWAYAT_ORGANISASI`, `ID_ORGANISASI`, `ID_ALUMNI`, `JABATAN_DI_ORGANISASI`, `TAHUN_MULAI_JABATAN`, `TAHUN_SELESAI_JABATAN`) VALUES
 (1, 2, 1, 'KAHIM', 2014, 2015),
-(2, 1, 1, 'Ketua', 1991, 1991);
+(2, 1, 1, 'Ketua', 2015, 2016);
 
 -- --------------------------------------------------------
 
@@ -348,8 +367,8 @@ INSERT INTO `riwayat_organisasi` (`ID_RIWAYAT_ORGANISASI`, `ID_ORGANISASI`, `ID_
 
 CREATE TABLE IF NOT EXISTS `tugas_akhir` (
   `ID_TUGAS_AKHIR` int(11) NOT NULL,
-  `JUDUL_TUGAS_AKHIR` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  `JUDUL_TUGAS_AKHIR` varchar(200) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tugas_akhir`
@@ -363,7 +382,14 @@ INSERT INTO `tugas_akhir` (`ID_TUGAS_AKHIR`, `JUDUL_TUGAS_AKHIR`) VALUES
 (5, 'Membangun Jaringan PC Cloning Menggunakan Software Winconnect'),
 (6, 'Aplikasi Logika Matematika pada Penyusunan Jaringan Listrik'),
 (7, 'Kurangnya perbendaharaan kosa kata siswa dalam pembelajaran bahasa Inggris'),
-(8, 'Pembuatan Alat Penghitung Meteran Listrik Digital');
+(8, 'Pembuatan Alat Penghitung Meteran Listrik Digital'),
+(11, 'Sistem Pemerintahan berbasis android'),
+(18, 'Pengaruh Pelatihan Karyawan Terhadap Produktivitas Kerja Karyawan di PT Dirgantara Indonesia (Persero)\n'),
+(19, 'Pengaruh Bauran Pemasaran Jasa Terhadap Keberhasilan Usaha Bisnis Lapangan Futsal di Kota Bandung\r\n'),
+(20, 'Pengaruh Karakteristik Pekerjaan terhadap Kepuasan Kerja Karyawan (Studi Kasus CV. Fruity Indonesia)\r\n'),
+(24, 'Pengaruh Keselamatan dan Kesehatan Kerja Terhadap Motivasi Kerja Karyawan di Divisi Tempa dan Cor PT Pindad (Persero) Bandung'),
+(25, 'Pengaruh Citra Merek Terhadap Keputusan Pembelian Pada Rumah Batik Tasik Agnesa Tasikmalaya'),
+(26, 'tes');
 
 -- --------------------------------------------------------
 
@@ -377,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `ID_PRODI` int(11) NOT NULL,
   `PASSWORD_USER` varchar(20) NOT NULL,
   `STATUS` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -387,7 +413,9 @@ INSERT INTO `user` (`ID_USER`, `USERNAME`, `ID_PRODI`, `PASSWORD_USER`, `STATUS`
 (1, '141524010', 16, '151524010', 1),
 (2, '141524010', 16, '141524010', 1),
 (3, '151524011', 16, '151524011', 2),
-(4, '151524012', 16, '151524012', 2);
+(4, '151524012', 16, '151524012', 2),
+(5, '141524032', 15, '141524032', 2),
+(6, '141524001', 16, '141524001', 2);
 
 --
 -- Indexes for dumped tables
@@ -505,17 +533,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `alumni`
 --
 ALTER TABLE `alumni`
-  MODIFY `ID_ALUMNI` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `ID_ALUMNI` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `beasiswa`
 --
 ALTER TABLE `beasiswa`
-  MODIFY `ID_BEASISWA` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `ID_BEASISWA` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `bekerja`
 --
 ALTER TABLE `bekerja`
-  MODIFY `ID_BEKERJA` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `ID_BEKERJA` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `jurusan`
 --
@@ -530,7 +558,7 @@ ALTER TABLE `karya_ilmiah`
 -- AUTO_INCREMENT for table `kompetisi`
 --
 ALTER TABLE `kompetisi`
-  MODIFY `ID_KOMPETISI` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `ID_KOMPETISI` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `membuat_karya_ilmiah`
 --
@@ -540,7 +568,7 @@ ALTER TABLE `membuat_karya_ilmiah`
 -- AUTO_INCREMENT for table `mendapat_beasiswa`
 --
 ALTER TABLE `mendapat_beasiswa`
-  MODIFY `ID_MENDAPAT_BEASISWA` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `ID_MENDAPAT_BEASISWA` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `organisasi`
 --
@@ -550,7 +578,7 @@ ALTER TABLE `organisasi`
 -- AUTO_INCREMENT for table `perusahaan`
 --
 ALTER TABLE `perusahaan`
-  MODIFY `ID_PERUSAHAAN` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `ID_PERUSAHAAN` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `program_studi`
 --
@@ -560,7 +588,7 @@ ALTER TABLE `program_studi`
 -- AUTO_INCREMENT for table `riwayat_kompetisi`
 --
 ALTER TABLE `riwayat_kompetisi`
-  MODIFY `ID_RIWAYAT_KOMPETISI` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `ID_RIWAYAT_KOMPETISI` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `riwayat_organisasi`
 --
@@ -570,12 +598,12 @@ ALTER TABLE `riwayat_organisasi`
 -- AUTO_INCREMENT for table `tugas_akhir`
 --
 ALTER TABLE `tugas_akhir`
-  MODIFY `ID_TUGAS_AKHIR` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `ID_TUGAS_AKHIR` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID_USER` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `ID_USER` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --

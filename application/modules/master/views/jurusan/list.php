@@ -41,7 +41,7 @@
 				<div class="col-xs-12">
             <div id="tambah">
               <form class="form-inline" role="form" id="frmadd" action="<?php echo site_url('master/jurusan/simpan') ?>" method="POST">
-  						<a class="btn btn-default btn-md" >
+  						<a class="btn btn-primary btn-md" >
   							<i class="fa fa-plus"></i> Tambah
   						</a>
 					 		<input id="namajurusan" type="hidden" name="namajurusan" class="form-control input-md" required placeholder="Nama Jurusan">
@@ -79,7 +79,7 @@
 											<i class="fa fa-pencil"></i> Ubah
 										</a>
 										<a class="btn btn-danger btn-xs" href="<?php echo $dataJurusan['href_delete'];?>"title="Hapus">
-											<i class="glyphicon glyphicon-trash"></i> Delete
+											<i class="glyphicon glyphicon-trash"></i> Hapus
 										</a>
 									</td>
 								</tr>

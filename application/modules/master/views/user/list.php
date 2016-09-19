@@ -44,7 +44,7 @@
 						</a> <br></br>
 						<div id="alert"></div>
 					<div class="box">
-						
+
 						<div class="box-header with-border">
 							<h3 class="box-title">Daftar <?php echo $title;?></h3>
 						</div><!-- /.box-header -->
@@ -81,14 +81,14 @@
 										</span>
 									</td>
 									<td style="width: 20%">
-										<button class="btn btn-xs btn-primary" title="Lihat" onclick="view(<?php echo $dataUser['id'];?>)">
+										<button class="btn btn-xs btn-primary" title="Lihat" onclick="view(<?php echo $dataUser['id'];?>)"> Lihat
 											<i class="fa fa-eye"></i>
 										</button>
-										<a class="btn btn-default btn-xs" title="Ubah" href="<?php echo $dataUser['href_edit'];?>">
+										<a class="btn btn-default btn-xs" title="Ubah" href="<?php echo $dataUser['href_edit'];?>"> Ubah
 											<i class="fa fa-pencil"></i>
 										</a>
-										<button class="btn btn-danger btn-xs" title="Hapus" onclick="deleteUser(<?php echo $dataUser['id'];?>)">
-											<i class="glyphicon glyphicon-trash"></i> 
+										<button class="btn btn-danger btn-xs" title="Hapus" onclick="deleteUser(<?php echo $dataUser['id'];?>)"> Hapus
+											<i class="glyphicon glyphicon-trash"></i>
 										</button>
 									</td>
 								</tr>
@@ -141,7 +141,7 @@
 	function hapusUser(){
 		var id = $("#delID").val();
 
-		$.post("<?php echo site_url('api/hapusUser');?>", { 
+		$.post("<?php echo site_url('api/hapusUser');?>", {
 			<?php echo $this->security->get_csrf_token_name(); ?> : '<?php echo $this->security->get_csrf_hash(); ?>',
 			id: id
 		}, function(res) {
@@ -211,21 +211,21 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-6">
-						Username : 
+						Username :
 						<input type="text" id="username" disabled readonly="true" class="form-control" value="" />
 					</div>
 					<div class="col-md-6">
-						Status : 
+						Status :
 						<input type="text" id="status" disabled readonly="true" class="form-control" value="" />
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6" id="pilihThnmulai">
-						Jurusan : 
+						Jurusan :
 						<input type="text" id="jurusan" disabled readonly="true" class="form-control" value="" />
 					</div>
 					<div class="col-md-6" id="pilihThnkeluar">
-						Program Studi : 
+						Program Studi :
 						<input type="text" id="prodi" disabled readonly="true" class="form-control" value="" />
 					</div>
 				</div>

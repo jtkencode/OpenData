@@ -40,7 +40,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 						<?php if($this->session->userdata('hak')=='admin'): ?>
-						<a class="btn btn-default btn-md" href="<?php echo base_url();?>master/alumni/addAlumni">
+						<a class="btn btn-primary btn-md" href="<?php echo base_url();?>master/alumni/addAlumni">
 							<i class="fa fa-plus"></i> Tambah
 						</a> <br></br>
 						<?php endif;?>
@@ -83,14 +83,14 @@
 									</td>
 
 									<td style="width: 20%">
-										<button class="btn btn-xs btn-primary" title="Lihat" onclick="view(<?php echo $dataAlumni['id'];?>)">
+										<button class="btn btn-xs btn-primary" title="Lihat" onclick="view(<?php echo $dataAlumni['id'];?>)"> Lihat
 											<i class="fa fa-eye"></i>
 										</button>
 										<?php if($this->session->userdata('hak')=='admin'): ?>
-										<a class="btn btn-default btn-xs" title="Ubah" href="<?php echo $dataAlumni['href_edit'];?>">
+										<a class="btn btn-default btn-xs" title="Ubah" href="<?php echo $dataAlumni['href_edit'];?>"> Ubah
 											<i class="fa fa-pencil"></i>
 										</a>
-										<a class="btn btn-danger btn-xs" title="Hapus" href="<?php echo $dataAlumni['href_delete'];?>"title="Hapus">
+										<a class="btn btn-danger btn-xs" title="Hapus" href="<?php echo $dataAlumni['href_delete'];?>"title="Hapus"> Hapus
 											<i class="glyphicon glyphicon-trash"></i>
 										</a>
 										<?php endif;?>

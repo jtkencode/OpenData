@@ -46,11 +46,11 @@
 						</ul>
 
 						<div class="tab-content">
-                  
+
 							<div class="active tab-pane" id="profil">
 								<form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
 									<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-									
+
 									<div class="form-group">
 										<label for="perusahaan" class="col-sm-2 control-label">Perusahaan</label>
 										<div class="col-sm-9">
@@ -106,7 +106,7 @@
 												<!-- <option value="0"<?php echo ($thn_berhenti==0) ? ' selected' : '';?>>-Sekarang-</option> -->
 											</select>
 										</div>
-									</div>									
+									</div>
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
 											<input type="submit" class="btn btn-success btn-md" name="simpan" value="Simpan">
@@ -117,7 +117,7 @@
 
 						</div><!-- /.tab-content -->
 					</div><!-- /.nav-tabs-custom -->
-					
+
 				</div><!-- /.col -->
 			</div>
 		</section><!-- /.content -->
@@ -136,7 +136,7 @@
 		var notelp = $("#telpPerusahaan").val();
 		var bidang = $("#bidangPerusahaan").val();
 
-		$.post("<?php echo site_url('api/tambahPerusahaan');?>", { 
+		$.post("<?php echo site_url('api/tambahPerusahaan');?>", {
 			<?php echo $this->security->get_csrf_token_name(); ?> : '<?php echo $this->security->get_csrf_hash(); ?>',
 			nama: nama,
 			email: email,
@@ -171,10 +171,10 @@
 
 			console.log(res);
 			console.log(status);
-			
+
 		}, 'json');
 
-		
+
 	}
 </script>
 
@@ -191,7 +191,7 @@
 				<div class="row">
 					<div class="form-group">
 						<div class="col-md-12">
-							<label class="control-label no-padding-left" for="form-field-1-1"> 
+							<label class="control-label no-padding-left" for="form-field-1-1">
 								Nama Perusahaan
 							</label>
 						</div>
@@ -204,7 +204,7 @@
 				<div class="row">
 					<div class="form-group">
 						<div class="col-md-12">
-							<label class="control-label no-padding-left" for="form-field-1-1"> 
+							<label class="control-label no-padding-left" for="form-field-1-1">
 								Email Perusahaan
 							</label>
 						</div>
@@ -217,7 +217,7 @@
 				<div class="row">
 					<div class="form-group">
 						<div class="col-md-12">
-							<label class="control-label no-padding-left" for="form-field-1-1"> 
+							<label class="control-label no-padding-left" for="form-field-1-1">
 								No Telp Perusahaan
 							</label>
 						</div>
@@ -230,7 +230,7 @@
 				<div class="row">
 					<div class="form-group">
 						<div class="col-md-12">
-							<label class="control-label no-padding-left" for="form-field-1-1"> 
+							<label class="control-label no-padding-left" for="form-field-1-1">
 								Alamat Perusahaan
 							</label>
 						</div>
@@ -243,7 +243,7 @@
 				<div class="row">
 					<div class="form-group">
 						<div class="col-md-12">
-							<label class="control-label no-padding-left" for="form-field-1-1"> 
+							<label class="control-label no-padding-left" for="form-field-1-1">
 								Bidang Perusahaan
 							</label>
 						</div>

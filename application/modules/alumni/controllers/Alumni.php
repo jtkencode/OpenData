@@ -2,8 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 include_once (dirname(__FILE__) . "/Main.php");
 
-class Alumni extends Main{ 
-	
+class Alumni extends Main{
+
 	/**
 		* @Author				: Localhost {Ferdhika Yudira}
 		* @Email				: fer@dika.web.id
@@ -13,7 +13,7 @@ class Alumni extends Main{
 
 	function __construct(){
 		parent::__construct();
-		
+
 		$this->load->model('m_perusahaan');
 	}
 
@@ -27,7 +27,7 @@ class Alumni extends Main{
 		$this->global_data['breadcumb'][] = array(
 			'judul'	=> '<i class="fa fa-dashboard"></i> Dashboard',
 			'link'	=> ''
-		);		
+		);
 
 		$this->global_data['perusahaan'] = $this->m_perusahaan->ambilSemua();
 		$this->global_data['historiPekerjaan'] = $this->m_alumni->ambilHistoriPekerjaan(array('ID_ALUMNI'=> $this->session->userdata('id')));
@@ -37,7 +37,7 @@ class Alumni extends Main{
 
 	public function keluar(){
 		$this->session->sess_destroy();
-		redirect('alumni/auth','refresh');
+		redirect('../index.php','refresh');
 	}
 
 }

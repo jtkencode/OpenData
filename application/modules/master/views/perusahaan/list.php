@@ -39,7 +39,7 @@
 		<section class="content">
 			<div class="row">
 				<div class="col-xs-12">
-						<a class="btn btn-default btn-md" href="<?php echo base_url();?>master/perusahaan/addPerusahaan">
+						<a class="btn btn-primary btn-md" href="<?php echo base_url();?>master/perusahaan/addPerusahaan">
 							<i class="fa fa-plus"></i> Tambah
 						</a> <br></br>
 					<div class="box">
@@ -85,7 +85,7 @@
 											<i class="fa fa-pencil"></i> Ubah
 										</a>
 										<a class="btn btn-danger btn-xs" href="<?php echo $dataPerusahaan['href_delete'];?>"title="Hapus">
-											<i class="glyphicon glyphicon-trash"></i> Delete
+											<i class="glyphicon glyphicon-trash"></i> Hapus
 										</a>
 									</td>
 								</tr>

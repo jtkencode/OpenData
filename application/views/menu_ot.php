@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		text-decoration:none;
 	}
 	</style>
-	
+
 </head>
 
 <body id="page-top">
@@ -69,12 +69,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li>
                         <?php echo anchor('home_index#contact', 'Contact', 'title=""'); ?>
                     </li>
-					<li class="dropdown">
+                    <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">Login
                       <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                           <li><a href="<?php echo site_url('alumni');?>">Alumni</a></li>
-                          <li><a href="<?php echo site_url('admin');?>">Mahasiswa</a></li>
+                          <li><a href="<?php echo site_url('master');?>">Mahasiswa</a></li>
                         </ul>
                     </li>
                     <li>

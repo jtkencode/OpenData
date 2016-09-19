@@ -5,11 +5,11 @@
 
 		$("#uploadBtn").change(function(event){
 			var tmppath = URL.createObjectURL(event.target.files[0]);
-			$("#uploadFile").attr("src", tmppath); 
+			$("#uploadFile").attr("src", tmppath);
 		});
 
 		$("#clear").click(function(){
-			$("#uploadFile").attr("src", "<?php echo base_url('assets/upload/alumni/default.png');?>"); 
+			$("#uploadFile").attr("src", "<?php echo base_url('assets/upload/alumni/default.png');?>");
 		});
 	});
 
@@ -19,10 +19,10 @@
             type:'GET',
             url:"<?php echo site_url('api/getProdi'); ?>",
             data:"id=" + jurusan,
-            success: function(html){ 
+            success: function(html){
                $("#prodi").html(html);
             }
-        }); 
+        });
     }
 
 </script>
@@ -85,7 +85,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<?php if(!empty($message)): ?>
-			    	<div class="alert alert-warning alert-dismissable">
+			    	<div class="alert alert-success alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 						<h4><i class="icon fa fa-warning"></i> Alert!</h4>
 						<?php echo $message;?>
@@ -98,7 +98,7 @@
 						</ul>
 
 						<div class="tab-content">
-                  
+
 							<div class="active tab-pane" id="profil">
 								<form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
 									<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
@@ -171,7 +171,7 @@
 										<label for="inputTahun" class="col-sm-2 control-label">Tahun Masuk</label>
 										<div class="col-sm-2">
 											<select name="thnMasuk" class="form-control">
-												<?php for ($a=1991;$a<date('Y');$a++): ?>
+												<?php for ($a=1991;$a<=date('Y');$a++): ?>
 												<option<?php echo ($akunInfo['TAHUN_MASUK']==$a)?' selected':'';?> value="<?php echo $a;?>"><?php echo $a;?></option>
 												<?php endfor; ?>
 											</select>
@@ -199,7 +199,7 @@
 											<input type="text" name="pekerjaan" value="<?php echo (!empty($akunInfo['PEKERJAAN'])) ? $akunInfo['PEKERJAAN'] : '';?>" class="form-control" id="iPek" placeholder="Pekerjaan">
 										</div>
 									</div>
-								
+
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
 											<input type="submit" class="btn btn-success btn-md" name="simpan" value="Simpan">
@@ -234,7 +234,7 @@
 
 						</div><!-- /.tab-content -->
 					</div><!-- /.nav-tabs-custom -->
-					
+
 				</div><!-- /.col -->
 			</div>
 		</section><!-- /.content -->

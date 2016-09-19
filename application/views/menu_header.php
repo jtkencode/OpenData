@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<li>
 				<div class="dropdown" style="margin:8px 10px">
 				  <button class="btn btn-primary dropdown-toggle " type="button" id="logindown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				    Login
+				    LoginA
 				    <span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu" aria-labelledby="logindown">

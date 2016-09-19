@@ -29,13 +29,14 @@ class Master extends Main{
 			'judul'	=> '<i class="fa fa-dashboard"></i> Dashboard',
 			'link'	=> ''
 		);
-	
+
 		$this->tampilan('dashboard');
 	}
 
 	public function keluar(){
 		$this->session->sess_destroy();
-		redirect('master/auth','refresh');
+
+		redirect('../index.php','refresh');
 	}
 
 }

@@ -38,7 +38,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<?php if($this->session->userdata('hak')=='admin'): ?>
-					<a class="btn btn-default btn-md" href="<?php echo site_url('master/prodi/addProdi');?>">
+					<a class="btn btn-primary btn-md" href="<?php echo site_url('master/prodi/addProdi');?>">
 						<i class="fa fa-plus"></i> Tambah
 					</a> <br></br>
 					<?php endif;?>
@@ -79,7 +79,7 @@
 											<i class="fa fa-pencil"></i> Ubah
 										</a>
 										<a class="btn btn-danger btn-xs" href="<?php echo $dataProdi['href_delete'];?>"title="Hapus">
-											<i class="glyphicon glyphicon-trash"></i> Delete
+											<i class="glyphicon glyphicon-trash"></i> Hapus
 										</a>
 									</td>
 								</tr>

@@ -31,4 +31,26 @@ class M_read extends CI_Model{
 		$sql = $this->db->query($query);
 		return $sql->result();
 	}
+	
+	public function getChartPekerjaan($id_jurusan, $angkatan){
+		$query = "SELECT a.pekerjaan, COUNT(*) as jumlah3
+					FROM alumni a, jurusan j, program_studi p
+					WHERE a.tahun_masuk = ? AND j.id_jurusan = ? AND a.id_prodi = p.id_prodi AND p.id_jurusan = j.id_jurusan
+					GROUP BY pekerjaan";
+			
+		$sql = $this->db->query($query, array($angkatan, $id_jurusan));
+		return $sql;
+	}
+	
+	public function getJurusan(){
+		$query = "SELECT * FROM jurusan ORDER BY ID_JURUSAN";
+		$sql = $this->db->query($query);
+		return $sql->result();
+	}
+	
+	public function getAngkatan(){
+		$query = "SELECT * FROM alumni GROUP BY tahun_masuk ORDER BY tahun_masuk";
+		$sql = $this->db->query($query);
+		return $sql->result();
+	}
 }

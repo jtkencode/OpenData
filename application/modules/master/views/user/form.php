@@ -5,11 +5,11 @@
             type:'GET',
             url:"<?php echo site_url('api/getProdi'); ?>",
             data:"id=" + jurusan,
-            success: function(html){ 
+            success: function(html){
 		    	$(".prodina").css( "display", "inherit" );
 				$("#prodi").html(html);
             }
-        }); 
+        });
     }
 
 </script>
@@ -66,11 +66,11 @@
 						</ul>
 
 						<div class="tab-content">
-                  
+
 							<div class="active tab-pane" id="profil">
 								<form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
 									<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-									
+
 									<div class="form-group">
 										<label for="inputUsername" class="col-sm-2 control-label">Username</label>
 										<div class="col-sm-10">
@@ -86,7 +86,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="inputPassConf" class="col-sm-2 control-label">Password</label>
+										<label for="inputPassConf" class="col-sm-2 control-label">Retype Password</label>
 										<div class="col-sm-10">
 											<input type="password" name="passconf" class="form-control" value="<?php echo (!empty($datana['PASSWORD_USER'])) ? $datana['PASSWORD_USER'] : '';?>" id="inputPassConf" placeholder="151524010">
 										</div>
@@ -126,7 +126,7 @@
 											</select>
 										</div>
 									</div>
-									
+
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
 											<input type="submit" class="btn btn-success btn-md" name="simpan" value="Simpan">
@@ -138,7 +138,7 @@
 
 						</div><!-- /.tab-content -->
 					</div><!-- /.nav-tabs-custom -->
-					
+
 				</div><!-- /.col -->
 			</div>
 		</section><!-- /.content -->

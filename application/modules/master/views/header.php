@@ -4,7 +4,7 @@
 		<!-- Logo -->
 		<a href="<?php echo site_url(); ?>" class="logo">
 			<!-- mini logo for sidebar mini 50x50 pixels -->
-			<span class="logo-mini"><b>D</b>K</span>
+			<span class="logo-mini"><b>O</b>D</span>
 			<!-- logo for regular state and mobile devices -->
 			<span class="logo-lg"><?php echo $this->config->item('title');?></span>
 		</a>

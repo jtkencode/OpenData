@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<aside class="bg-dark" style="margin-bottom: 0px!important">
         <div class="container text-center">
-  					&copy; 2016 POLBAN Open Data. Made by <a href="http://himakom.jtk.polban.ac.id">HIMAKOM</a> | Made with <span class="glyphicon glyphicon-headphones text-danger" aria-hidden="true"></span> & <span class="glyphicon glyphicon-heart text-danger" aria-hidden="true"></span> from Bandung, Indonesia.
+  					&copy; 2016 POLBAN Open Data. Made by <a href="http://himakom.jtk.polban.ac.id">HIMAKOM</a> Collaborate With <a href="http://catatandev.wordpress.com">DEV</a> | Made with <span class="glyphicon glyphicon-headphones text-danger" aria-hidden="true"></span> & <span class="glyphicon glyphicon-heart text-danger" aria-hidden="true"></span> from Bandung, Indonesia.
         </div>
     </aside>
 

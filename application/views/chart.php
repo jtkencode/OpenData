@@ -63,14 +63,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		Silakan pilih tahun angkatan dan jurusan untuk menampilkan grafik.</p>
 		</div>
 		
-		<div class="col-md-12" style="margin-bottom: 30px; background-color:#eeeeee; padding: 30px 20px 30px 20px">
-		<?php echo form_open(''); ?>
+		<div class="col-md-12" id="chartt" style="margin-bottom: 30px; background-color:#eeeeee; padding: 30px 20px 30px 20px">
+		<?php echo form_open(); ?>
 		<form action="" method="POST">
 		<div class="col-md-4">
 		Pilih Angkatan: 
 			<select name="angkatan" class="form-control input-sm">
 				<?php foreach($angk as $angkatan){ ?>
-				<option value="<?php echo $angkatan->TAHUN_MASUK; ?>"><?php echo $angkatan->TAHUN_MASUK; ?></option>
+				<?php $thn=$angkatan->TAHUN_MASUK;?>
+				<option value="<?php echo $thn; ?>"<?php echo (!empty($select)) ? ($select['angkatan']==$thn) ? ' selected' : '' : '';?>>
+				<?php echo $angkatan->TAHUN_MASUK; ?> </option>
 				<?php } ?>
 			</select>
 		</div>
@@ -78,7 +80,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		Pilih Jurusan:
 			<select name="jurusan" class="form-control input-sm">
 				<?php foreach($gjur as $jurusan){ ?>
-				<option value="<?php echo $jurusan->ID_JURUSAN; ?>"><?php echo $jurusan->NAMA_JURUSAN; ?></option>
+				<?php $jurus=$jurusan->ID_JURUSAN;?>
+				<option value="<?php echo $jurusan->ID_JURUSAN; ?>"<?php echo (!empty($select)) ? ($select['jurusan']==$jurus) ? ' selected' : '' : '';?>>
+					<?php echo $jurusan->NAMA_JURUSAN; ?>
+				</option>
 				<?php } ?>
 			</select>
 		</div>

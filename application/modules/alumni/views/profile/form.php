@@ -5,11 +5,11 @@
 
 		$("#uploadBtn").change(function(event){
 			var tmppath = URL.createObjectURL(event.target.files[0]);
-			$("#uploadFile").attr("src", tmppath);
+			$("#uploadFile").attr("src", tmppath); 
 		});
 
 		$("#clear").click(function(){
-			$("#uploadFile").attr("src", "<?php echo base_url('assets/upload/alumni/default.png');?>");
+			$("#uploadFile").attr("src", "<?php echo base_url('assets/upload/alumni/default.png');?>"); 
 		});
 	});
 
@@ -19,10 +19,10 @@
             type:'GET',
             url:"<?php echo site_url('api/getProdi'); ?>",
             data:"id=" + jurusan,
-            success: function(html){
+            success: function(html){ 
                $("#prodi").html(html);
             }
-        });
+        }); 
     }
 
 </script>
@@ -85,7 +85,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<?php if(!empty($message)): ?>
-			    	<div class="alert alert-success alert-dismissable">
+			    	<div class="alert alert-warning alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 						<h4><i class="icon fa fa-warning"></i> Alert!</h4>
 						<?php echo $message;?>
@@ -98,7 +98,7 @@
 						</ul>
 
 						<div class="tab-content">
-
+                  
 							<div class="active tab-pane" id="profil">
 								<form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
 									<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
@@ -145,14 +145,19 @@
 									</div>
 									<div class="form-group">
 										<label for="inputName" class="col-sm-2 control-label">Tugas Akhir</label>
-										<div class="col-sm-10" id="ta">
-											<select name="ta" class="form-control select2">
+										<div class="col-sm-4" id="ta">
+											<select name="ta" id="tana" class="form-control select2">
 												<?php foreach ($ta as $ta): ?>
 												<option<?php echo ($akunInfo['idTA']==$ta['ID_TUGAS_AKHIR'])?' selected':'';?> value="<?php echo $ta['ID_TUGAS_AKHIR'];?>">
 													<?php echo $ta['JUDUL_TUGAS_AKHIR'];?>
 												</option>
 												<?php endforeach; ?>
 											</select>
+										</div>
+										<div class="col-sm-1">
+											<a class="btn btn-default btn-md" onclick="addTA()">
+												<i class="fa fa-plus"></i> 
+											</a>
 										</div>
 									</div>
 									<div class="form-group">
@@ -181,7 +186,7 @@
 										<label for="inputTahunK" class="col-sm-2 control-label">Tahun Keluar</label>
 										<div class="col-sm-2">
 											<select name="thnKeluar" class="form-control">
-												<?php for ($a=1991;$a<date('Y');$a++): ?>
+												<?php for ($a=1991;$a<=date('Y');$a++): ?>
 												<option<?php echo ($akunInfo['TAHUN_KELUAR']==$a)?' selected':'';?> value="<?php echo $a;?>"><?php echo $a;?></option>
 												<?php endfor; ?>
 											</select>
@@ -199,7 +204,7 @@
 											<input type="text" name="pekerjaan" value="<?php echo (!empty($akunInfo['PEKERJAAN'])) ? $akunInfo['PEKERJAAN'] : '';?>" class="form-control" id="iPek" placeholder="Pekerjaan">
 										</div>
 									</div>
-
+								
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
 											<input type="submit" class="btn btn-success btn-md" name="simpan" value="Simpan">
@@ -234,8 +239,88 @@
 
 						</div><!-- /.tab-content -->
 					</div><!-- /.nav-tabs-custom -->
-
+					
 				</div><!-- /.col -->
 			</div>
 		</section><!-- /.content -->
 	</div><!-- /.content-wrapper -->
+
+<script type="text/javascript">
+	function addTA() {
+		$('#moadlTA').modal('show'); // show bootstrap modal
+	}
+
+	function add(){
+
+		var judul = $("#judul").val();
+
+		$.post("<?php echo site_url('api/tambahTA');?>", { 
+			<?php echo $this->security->get_csrf_token_name(); ?> : '<?php echo $this->security->get_csrf_hash(); ?>',
+			judul: judul
+		}, function(res, status) {
+			if(res.status){
+				$('#tana').append($('<option>', {
+				    value: res.id,
+				    text: judul,
+				}));
+				$('#tana').val(res.id).change();
+				$("#tana").select2("val", res.id);
+
+				$("#alert").html("");
+
+				$('#moadlTA').modal('hide');
+			}else{
+				var textAlert;
+				textAlert = "<div class=\"alert alert-warning alert-dismissable\">";
+				textAlert += "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
+				textAlert += "	<h4><i class=\"icon fa fa-warning\"></i> Pesan!</h4>";
+				textAlert += "	"+res.message;
+				textAlert += "</div>";
+				$("#alert").html(textAlert);
+			}
+
+			console.log(res);
+			console.log(status);
+			
+		}, 'json');
+
+		
+	}
+</script>
+
+<div id="moadlTA" class="modal fade" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3 class="smaller lighter blue no-margin">Data Tugas Akhir</h3>
+			</div>
+
+			<div class="modal-body">
+				<div id="alert"></div>
+				<div class="row">
+					<div class="form-group">
+						<div class="col-md-12">
+							<label class="control-label no-padding-left" for="form-field-1-1"> 
+								Judul Tugas Akhir
+							</label>
+						</div>
+						<div class="col-md-12">
+							<input type="text" id="judul" class="form-control" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-sm btn-success" onclick="add()">
+					<i class="ace-icon fa fa-check"></i>
+					Save & Set
+				</button>
+				<button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
+					<i class="ace-icon fa fa-times"></i>
+					Close
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>

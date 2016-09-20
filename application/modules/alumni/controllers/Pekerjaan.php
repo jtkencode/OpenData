@@ -109,7 +109,7 @@ class Pekerjaan extends Main{
 		$this->form_validation->set_rules('jabatan', 'Jabatan', 'required|min_length[2]|max_length[20]', array(
 			'required'	=> 'You have not provided %s.'
         ));
-        $this->form_validation->set_rules('perusahaan', 'Perusahaan', 'required|is_unique[bekerja.ID_PERUSAHAAN]', array(
+        $this->form_validation->set_rules('perusahaan', 'Perusahaan', 'required', array(
 			'required'	=> 'You have not provided %s.',
 			'is_unique'	=> 'Anda sudah bekeja di %s tersebut.'
         ));
@@ -121,22 +121,38 @@ class Pekerjaan extends Main{
 			$thn_berhenti = $this->input->post('thn_berhenti');
 
 			if($thn_mulai <= $thn_berhenti || $thn_berhenti==0){
-				$insert = $this->m_pekerjaan->insert(array(
-					'ID_ALUMNI'			=> $this->session->userdata('id'),
-					'ID_PERUSAHAAN'		=> $perusahaan,
-					'JABATAN_PEKERJAAN'	=> $jabatan,
-					'TAHUN_BERHENTI'	=> $thn_berhenti,
-					'TAHUN_MULAI'		=> $thn_mulai
+				$cek = $this->m_pekerjaan->getOne(array(
+					'ID_ALUMNI'	=> $this->session->userdata('id'),
+					'bekerja.ID_PERUSAHAAN' => $perusahaan
 				));
-				if($insert){
+
+				if(empty($cek)){
+					$insert = $this->m_pekerjaan->insert(array(
+						'ID_ALUMNI'			=> $this->session->userdata('id'),
+						'ID_PERUSAHAAN'		=> $perusahaan,
+						'JABATAN_PEKERJAAN'	=> $jabatan,
+						'TAHUN_BERHENTI'	=> $thn_berhenti,
+						'TAHUN_MULAI'		=> $thn_mulai
+					));
+					if($insert){
+						$notif = "<div class=\"alert alert-success alert-dismissable\">";
+						$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
+						$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Pesan!</h4>";
+						$notif .= "	Berhasil menambah riwayat pekerjaan.";
+						$notif .= "</div>";
+						$this->session->set_flashdata('message',$notif);
+
+						redirect('alumni/pekerjaan');
+					}
+				}else{
 					$notif = "<div class=\"alert alert-success alert-dismissable\">";
 					$notif .= "	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button>";
 					$notif .= "	<h4><i class=\"icon fa fa-check\"></i> Pesan!</h4>";
-					$notif .= "	Berhasil menambah riwayat pekerjaan.";
+					$notif .= "	Anda sudah bekeja di perusahaan tersebut.";
 					$notif .= "</div>";
 					$this->session->set_flashdata('message',$notif);
 
-					redirect('alumni/pekerjaan');
+					redirect('alumni/pekerjaan/add');
 				}
 			}else{
 				$notif = "<div class=\"alert alert-warning alert-dismissable\">";
